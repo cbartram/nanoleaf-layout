@@ -26,7 +26,7 @@ You will see a simple 6 panel layout and how Nanoleaf Layout correctly renders i
 
 The easiest way to use nanoleaf-layout is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), [Webpack](http://webpack.github.io/), etc).
 
-You can also use the standalone build by including `dist/nanoleaf-layout.js` in your page (e.g. `import NanoleafLayout from 'nanoleaf-layout/dist/nanleaf-layout'`). 
+You can also use the standalone build by including `lib/nanoleaf-layout.js` in your page (e.g. `import NanoleafLayout from 'nanoleaf-layout/lib/nanleaf-layout'`). 
 If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is a React component and React is a dependency.
 
 ```
@@ -40,7 +40,9 @@ Nanoleaf is super easy to use in any React project!
 
 After installing `nanoleaf-layout` from NPM be sure to include it in your React Component by doing 
 
-`import NanoleafLayout from 'nanoleaf-layout/dist/nanoleaf-layout'`
+**Ensure you import NanoleafLayout from the /lib/nanoleaf-layout directory** as this includes the transpiled source code.
+
+`import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'`
 
 Now your all set to include the component in your `render()` method!
 
