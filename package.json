@@ -1,7 +1,14 @@
 {
   "name": "nanoleaf-layout",
-  "version": "1.0.6",
-  "description": "nanoleaf-layout",
+  "version": "1.0.7",
+  "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
+  "keyword": [
+    "nanoleaf",
+    "layout",
+    "canvas",
+    "react",
+    "component"
+  ],
   "main": "lib/NanoleafLayout.js",
   "author": "Christian Bartram",
   "homepage": "https://github.com/cbartram/nanoleaf-layout",
@@ -34,6 +41,7 @@
     "build": "gulp clean && NODE_ENV=production gulp build",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
+    "prepublish": "npm run build",
     "publish:site": "NODE_ENV=production gulp publish:examples",
     "release": "NODE_ENV=production gulp release",
     "start": "gulp dev",

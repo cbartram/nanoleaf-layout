@@ -16,6 +16,7 @@ var taskConfig = {
 		name: 'NanoleafLayout',
 		dependencies: [
 			'classnames',
+			'prop-types',
 			'react',
 			'react-dom'
 		],

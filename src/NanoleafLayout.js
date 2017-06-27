@@ -2,12 +2,13 @@
  * Created by Christian Bartram on 6/20/17.
  * Github @cbartram
  */
-var React = require('react');
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const PANEL_GAP_DIVISOR = 1.37;
 const CENTROID_HEIGHT = (Math.sqrt(3) / 6) * 150;
 
-var NanoleafLayout = React.createClass({
+class NanoleafLayout extends Component {
 	
 	componentDidMount() {
 		let canvas = document.querySelector('#canvas');
@@ -19,7 +20,7 @@ var NanoleafLayout = React.createClass({
 		this.props.data.positionData.map((value) => {
 			this.draw(ctx, (value.x / PANEL_GAP_DIVISOR) + this.props.xOffset, (value.y / PANEL_GAP_DIVISOR) + this.props.yOffset, value.o, value.color);
 		});
-	},
+	};
 
 	/**
 	 * Draws an Equilateral Triangle on the Canvas
@@ -66,7 +67,7 @@ var NanoleafLayout = React.createClass({
 		ctx.closePath();
 		ctx.save();
 
-	},
+	};
 
 	/**
 	 * Maps a cartesian point to a 2D HTML Canvas point
@@ -80,7 +81,7 @@ var NanoleafLayout = React.createClass({
 		let screenY = ctx.canvas.height / 2 - cy;
 
 		return [screenX, screenY];
-	},
+	};
 
 	/**
 	 * Determines if the given triangle should be rotated
@@ -89,7 +90,7 @@ var NanoleafLayout = React.createClass({
 	 */
 	doRotate(rotation) {
 		return (rotation / 60) % 2 !== 0 ;
-	},
+	};
 
 	/**
 	 * Calculates the top most point of the equilateral triangle given the centroid
@@ -102,7 +103,7 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0], screen[1] - CENTROID_HEIGHT];
-	},
+	};
 
 	/**
 	 * Calculates the left most point of the equilateral triangle given the centroid
@@ -115,7 +116,7 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0] - CENTROID_HEIGHT, screen[1] + CENTROID_HEIGHT];
-	},
+	};
 
 	/**
 	 * Calculates the right most point of the equilateral triangle given the centroid
@@ -128,7 +129,7 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0] + CENTROID_HEIGHT, screen[1] + CENTROID_HEIGHT];
-	},
+	};
 
 	/**
 	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -141,7 +142,7 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0] - CENTROID_HEIGHT, screen[1] - CENTROID_HEIGHT + 30]; //30 is for spacing
-	},
+	};
 
 	/**
 	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -154,7 +155,7 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0] + CENTROID_HEIGHT, screen[1] - CENTROID_HEIGHT + 30];
-	},
+	};
 
 	/**
 	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -167,13 +168,21 @@ var NanoleafLayout = React.createClass({
 		let screen = this.cartesianToScreen(ctx, cx, cy);
 
 		return [screen[0], screen[1] + CENTROID_HEIGHT + 30];
-	},
+	};
 
 
 	render() {
 		return (<div><canvas id="canvas" width={this.props.canvasWidth} height={this.props.canvasHeight}/></div>);
 	}
-});
+}
+
+NanoleafLayout.propTypes = {
+	canvasHeight: PropTypes.number.isRequired,
+	canvasWidth: PropTypes.number.isRequired,
+	data: PropTypes.number.isRequired, //should be array
+	xOffset: PropTypes.number,
+	yOffset: PropTypes.number,
+};
 
 export default NanoleafLayout;
 
