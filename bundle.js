@@ -881,10 +881,10 @@ var CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
 var NanoleafLayout = (function (_Component) {
 	_inherits(NanoleafLayout, _Component);
 
-	function NanoleafLayout(props) {
+	function NanoleafLayout() {
 		_classCallCheck(this, NanoleafLayout);
 
-		_get(Object.getPrototypeOf(NanoleafLayout.prototype), 'constructor', this).call(this, props);
+		_get(Object.getPrototypeOf(NanoleafLayout.prototype), 'constructor', this).apply(this, arguments);
 	}
 
 	_createClass(NanoleafLayout, [{
@@ -1080,8 +1080,6 @@ var NanoleafLayout = (function (_Component) {
 	return NanoleafLayout;
 })(_react.Component);
 
-exports['default'] = NanoleafLayout;
-
 NanoleafLayout.propTypes = {
 	canvasHeight: _propTypes2['default'].number.isRequired,
 	canvasWidth: _propTypes2['default'].number.isRequired,
@@ -1089,6 +1087,8 @@ NanoleafLayout.propTypes = {
 	xOffset: _propTypes2['default'].number,
 	yOffset: _propTypes2['default'].number
 };
+
+exports['default'] = NanoleafLayout;
 module.exports = exports['default'];
 
 },{"prop-types":7,"react":undefined}]},{},[]);
