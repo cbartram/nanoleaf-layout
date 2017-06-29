@@ -28,7 +28,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var PANEL_GAP_DIVISOR = 1.37;
 var CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
 
 var NanoleafLayout = (function (_Component) {
@@ -51,8 +50,12 @@ var NanoleafLayout = (function (_Component) {
 			ctx.translate(ctx.width / 2, ctx.height / 2);
 			ctx.scale(1, 1);
 
+			if (!this.props.data.hasOwnProperty('positionData')) {
+				throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
+			}
+
 			this.props.data.positionData.map(function (value) {
-				_this.draw(ctx, value.x / PANEL_GAP_DIVISOR + _this.props.xOffset, value.y / PANEL_GAP_DIVISOR + _this.props.yOffset, value.o, value.color);
+				_this.props.onDraw(_this.draw(ctx, value.x / _this.props.panelSpacing + _this.props.xOffset, value.y / _this.props.panelSpacing + _this.props.yOffset, value.o, value.color));
 			});
 		}
 	}, {
@@ -68,11 +71,17 @@ var NanoleafLayout = (function (_Component) {
    */
 		value: function draw(ctx, x, y, o, color) {
 
+			var orient = false;
+
 			var topPoint = this.getTopFromCentroid(ctx, x, y);
 			var leftPoint = this.getLeftFromCentroid(ctx, x, y);
 			var rightPoint = this.getRightFromCentroid(ctx, x, y);
 
-			ctx.strokeStyle = '#ffffff';
+			var topRotatedPoint = this.rotateTopFromCentroid(ctx, x, y);
+			var leftRotatedPoint = this.rotateLeftFromCentroid(ctx, x, y);
+			var rightRotatedPoint = this.rotateRightFromCentroid(ctx, x, y);
+
+			ctx.strokeStyle = this.props.strokeColor;
 			ctx.fillStyle = color;
 			ctx.save();
 
@@ -80,14 +89,12 @@ var NanoleafLayout = (function (_Component) {
 
 			if (this.doRotate(o)) {
 
-				var topRotatedPoint = this.rotateTopFromCentroid(ctx, x, y);
-				var leftRotatedPoint = this.rotateLeftFromCentroid(ctx, x, y);
-				var rightRotatedPoint = this.rotateRightFromCentroid(ctx, x, y);
-
 				ctx.moveTo(topRotatedPoint[0], topRotatedPoint[1]);
 				ctx.lineTo(leftRotatedPoint[0], leftRotatedPoint[1]);
 				ctx.lineTo(rightRotatedPoint[0], rightRotatedPoint[1]);
 				ctx.lineTo(topRotatedPoint[0], topRotatedPoint[1]);
+
+				orient = true;
 			} else {
 
 				ctx.moveTo(topPoint[0], topPoint[1]);
@@ -101,6 +108,12 @@ var NanoleafLayout = (function (_Component) {
 
 			ctx.closePath();
 			ctx.save();
+
+			if (orient) {
+				return [topRotatedPoint, leftRotatedPoint, rightRotatedPoint];
+			} else {
+				return [topPoint, leftPoint, rightPoint];
+			}
 		}
 	}, {
 		key: 'cartesianToScreen',
@@ -228,17 +241,36 @@ var NanoleafLayout = (function (_Component) {
 				_react2['default'].createElement('canvas', { id: 'canvas', width: this.props.canvasWidth, height: this.props.canvasHeight })
 			);
 		}
+	}], [{
+		key: 'defaultProps',
+		get: function get() {
+			return {
+				xOffset: 0,
+				yOffset: 0,
+				panelSpacing: 1.37,
+				canvasWidth: 1000,
+				canvasHeight: 1000,
+				strokeColor: '#FFFFFF',
+				onDraw: function onDraw(data) {
+					return data;
+				}
+			};
+		}
 	}]);
 
 	return NanoleafLayout;
 })(_react.Component);
 
 NanoleafLayout.propTypes = {
-	canvasHeight: _propTypes2['default'].number.isRequired,
-	canvasWidth: _propTypes2['default'].number.isRequired,
-	data: _propTypes2['default'].number.isRequired, //should be array
+	canvasHeight: _propTypes2['default'].number,
+	canvasWidth: _propTypes2['default'].number,
+	data: _propTypes2['default'].object.isRequired, //should be array
+	onDraw: _propTypes2['default'].func,
+	panelSpacing: _propTypes2['default'].number,
+	strokeColor: _propTypes2['default'].string,
 	xOffset: _propTypes2['default'].number,
 	yOffset: _propTypes2['default'].number
+
 };
 
 exports['default'] = NanoleafLayout;

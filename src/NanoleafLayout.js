@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const PANEL_GAP_DIVISOR = 1.37;
 const CENTROID_HEIGHT = (Math.sqrt(3) / 6) * 150;
 
 class NanoleafLayout extends Component {
@@ -14,13 +13,30 @@ class NanoleafLayout extends Component {
 		let canvas = document.querySelector('#canvas');
 		let ctx = canvas.getContext('2d');
 
-		ctx.translate(ctx.width/2,ctx.height/2);
+		ctx.translate(ctx.width / 2, ctx.height / 2);
 		ctx.scale(1, 1);
 
+		
+		if(!this.props.data.hasOwnProperty('positionData')) {
+			throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
+		}
+		
 		this.props.data.positionData.map((value) => {
-			this.draw(ctx, (value.x / PANEL_GAP_DIVISOR) + this.props.xOffset, (value.y / PANEL_GAP_DIVISOR) + this.props.yOffset, value.o, value.color);
+			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color));
 		});
 	};
+
+	static get defaultProps() {
+		return {
+			xOffset: 0,
+			yOffset: 0,
+			panelSpacing: 1.37,
+			canvasWidth: 1000,
+			canvasHeight: 1000,
+			strokeColor: '#FFFFFF',
+			onDraw: function(data) { return data; }
+		};
+	}
 
 	/**
 	 * Draws an Equilateral Triangle on the Canvas
@@ -31,12 +47,18 @@ class NanoleafLayout extends Component {
 	 * @param color hexadecimal color code Triangle Color i.e. #FF00FF
 	 */
 	draw(ctx, x, y, o, color) {
-
+		
+		let orient = false; 
+		
 		let topPoint = this.getTopFromCentroid(ctx, x, y);
 		let leftPoint = this.getLeftFromCentroid(ctx, x,y);
 		let rightPoint = this.getRightFromCentroid(ctx, x, y);
 
-		ctx.strokeStyle = '#ffffff';
+		let topRotatedPoint = this.rotateTopFromCentroid(ctx, x, y);
+		let leftRotatedPoint = this.rotateLeftFromCentroid(ctx, x, y);
+		let rightRotatedPoint = this.rotateRightFromCentroid(ctx, x, y);
+
+		ctx.strokeStyle = this.props.strokeColor;
 		ctx.fillStyle = color;
 		ctx.save();
 
@@ -44,14 +66,13 @@ class NanoleafLayout extends Component {
 
 		if(this.doRotate(o)) {
 
-			let topRotatedPoint = this.rotateTopFromCentroid(ctx, x, y);
-			let leftRotatedPoint = this.rotateLeftFromCentroid(ctx, x, y);
-			let rightRotatedPoint = this.rotateRightFromCentroid(ctx, x, y);
-
 			ctx.moveTo(topRotatedPoint[0], topRotatedPoint[1]);
 			ctx.lineTo(leftRotatedPoint[0], leftRotatedPoint[1]);
 			ctx.lineTo(rightRotatedPoint[0], rightRotatedPoint[1]);
 			ctx.lineTo(topRotatedPoint[0], topRotatedPoint[1]);
+			
+			orient = true;
+			
 
 		} else {
 
@@ -66,6 +87,12 @@ class NanoleafLayout extends Component {
 
 		ctx.closePath();
 		ctx.save();
+		
+		if(orient) {
+			return [topRotatedPoint, leftRotatedPoint, rightRotatedPoint];
+		} else {
+			return [topPoint, leftPoint, rightPoint];
+		}
 
 	};
 
@@ -177,11 +204,15 @@ class NanoleafLayout extends Component {
 }
 
 NanoleafLayout.propTypes = {
-	canvasHeight: PropTypes.number.isRequired,
-	canvasWidth: PropTypes.number.isRequired,
-	data: PropTypes.number.isRequired, //should be array
+	canvasHeight: PropTypes.number,
+	canvasWidth: PropTypes.number,
+	data: PropTypes.object.isRequired, //should be array
+	onDraw: PropTypes.func,
+	panelSpacing: PropTypes.number,
+	strokeColor: PropTypes.string,
 	xOffset: PropTypes.number,
 	yOffset: PropTypes.number,
+	
 };
 
 export default NanoleafLayout;
