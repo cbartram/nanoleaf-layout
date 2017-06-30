@@ -6,6 +6,8 @@ var getMuiTheme = require('material-ui/styles/getMuiTheme').default;
 var darkBaseTheme = require('material-ui/styles/baseThemes/darkBaseTheme').default;
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
+import { ChromePicker } from 'react-color';
+
 
 let data = {
 	'numPanels': 10,
@@ -43,33 +45,44 @@ let data = {
 	}]
 };
 
-
 var App = React.createClass({
 	
 		getInitialState() {
-			
 			return {
 				xOffset: 0,
 				yOffset: 0,
-				onDraw: false,
+				onDraw: 0,
 				panelSpacing: 1.37,
 				strokeColor: '#FFFFFF',
 				canvasWidth: 500,
 				canvasHeight: 500,
 			};
 		},
-
-	
-	getNanoleafLayout() {
-		//Gets the string representation of the Nanoleaf layout	
-		return (<NanoleafLayout
-			data={data}
-			xOffset={this.state.xOffset}
-		/>);
-	},
 	
 	handleXOffset(value) {
-		this.setState({xOffset: parseInt(value)});		
+		this.setState({xOffset: parseInt(value)});	
+	},
+	
+	handleYOffset(value) {
+		this.setState({yOffset: parseInt(value)});
+	},
+	
+	handleCanvasHeight(value) {
+		this.setState({canvasHeight: parseInt(value)});
+	},
+	
+	handleCanvasWidth(value) {
+		this.setState({canvasWidth: parseInt(value)});
+	},
+
+	handlePanelSpacing(value) {
+		this.setState({panelSpacing: parseFloat(value)});
+	},
+	
+	handleColorChange(color) {
+		this.setState({strokeColor: color.hex}, () => {
+			
+		});	
 	},
 	
 	render () {
@@ -87,11 +100,41 @@ var App = React.createClass({
 									hintText="X Offset"
 									onChange={(e, value) => this.handleXOffset(value)}
 								/>
+								<TextField
+									hintText="Y Offset"
+									onChange={(e, value) => this.handleYOffset(value)}
+								/>
+								<TextField
+									hintText="Canvas Height"
+									onChange={(e, value) => this.handleCanvasHeight(value)}
+								/>
+								<TextField
+									hintText="Canvas Width"
+									onChange={(e, value) => this.handleCanvasWidth(value)}
+								/>
+								<TextField
+									hintText="Panel Spacing"
+									onChange={(e, value) => this.handlePanelSpacing(value)}
+								/>
+								<ChromePicker
+									color={this.state.color}
+									disableAlpha
+									onChangeComplete={(color) => { this.handleColorChange(color); }}
+								/>
 							</CardActions>
 						</Card>
-						{this.getNanoleafLayout()}
 					</div>
 				</MuiThemeProvider>
+				<NanoleafLayout
+					data={data}
+					xOffset={this.state.xOffset}
+					yOffset={this.state.yOffset}
+					canvasHeight={this.state.canvasHeight}
+					canvasWidth={this.state.canvasWidth}
+					panelSpacing={this.state.panelSpacing}
+					onDraw={(v) => { }}
+					strokeColor={this.state.strokeColor}
+				/>
 			</div>
 		);
 	}

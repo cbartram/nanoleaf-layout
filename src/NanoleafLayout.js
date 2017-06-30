@@ -25,6 +25,25 @@ class NanoleafLayout extends Component {
 			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color));
 		});
 	};
+	
+	componentDidUpdate() {
+		let canvas = document.querySelector('#canvas');
+		let ctx = canvas.getContext('2d');
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		ctx.translate(ctx.width / 2, ctx.height / 2);
+		ctx.scale(1, 1);
+
+
+		if(!this.props.data.hasOwnProperty('positionData')) {
+			throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
+		}
+		
+		this.props.data.positionData.map((value) => {
+			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color));
+		});
+	}
 
 	static get defaultProps() {
 		return {

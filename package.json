@@ -1,6 +1,6 @@
 {
   "name": "nanoleaf-layout",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
   "keyword": [
     "nanoleaf",
@@ -22,6 +22,7 @@
   "dependencies": {
     "classnames": "^2.1.2",
     "material-ui": "^0.18.5",
+    "react-color": "^2.13.0",
     "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
