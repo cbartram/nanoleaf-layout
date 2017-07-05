@@ -67,7 +67,7 @@ let data = {
 ```
 
 The only property which is required for Nanoleaf to function is the `data` property. The data set **must** include a property 
-called `layoutData` and its values must be an array of layout objects. 
+called `positionData` and its values must be an array of layout objects (even if its an empty array that works as well). 
 
 Please see the next section titled Properties for information about all the nanoleaf-layout properties, their default values, and their descriptions.
 
@@ -88,7 +88,7 @@ Please see the next section titled Properties for information about all the nano
 
 Please ensure that your data property is formatted correctly, 
 
-Nanoleaf Layout will automatically search for the `layoutData` key in the given data set which must be an array of tiles (even if only one tile exists).
+Nanoleaf Layout will automatically search for the `positionData` key in the given data set which must be an array of tiles (even if only one or no tiles exists).
 The best way to ensure that the data is correct is to make a GET request to your nanoleaf for its layout information. 
 
 You can do this simply in the [Postman App](https://www.getpostman.com/). Find the IP address of your nanoleaf and make a GET
