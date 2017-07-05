@@ -41,7 +41,6 @@ class NanoleafLayout extends Component {
 		}
 		
 		this.props.data.positionData.map((value) => {
-			console.log(value.panelId);
 			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId));
 		});
 	}
