@@ -3,10 +3,11 @@ var ReactDOM = require('react-dom');
 var NanoleafLayout = require('nanoleaf-layout');
 var MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default;
 var getMuiTheme = require('material-ui/styles/getMuiTheme').default;
-var darkBaseTheme = require('material-ui/styles/baseThemes/darkBaseTheme').default;
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { ChromePicker } from 'react-color';
+import Toggle from 'material-ui/Toggle';
 
 
 let data = {
@@ -61,6 +62,8 @@ var App = React.createClass({
 				strokeColor: '#FFFFFF',
 				canvasWidth: 500,
 				canvasHeight: 500,
+				showIds: true,
+				strokeWidth: 2,
 			};
 		},
 
@@ -73,16 +76,22 @@ var App = React.createClass({
 						canvasHeight={${this.state.canvasHeight}}
 						canvasWidth={${this.state.canvasWidth}}
 						panelSpacing={${this.state.panelSpacing}}
-					/>
+						showId={${this.state.showIds}}
+						strokeWidth={${this.state.strokeWidth}}
+					    />
 				`);
 	},
 	
 	handleXOffset(value) {
-		this.setState({xOffset: parseInt(value)});	
+			if(value !== null && value !== '') {
+                this.setState({xOffset: parseInt(value)});
+            }
 	},
 	
 	handleYOffset(value) {
-		this.setState({yOffset: parseInt(value)});
+        if(value !== null && value !== '') {
+            this.setState({yOffset: parseInt(value)});
+        }
 	},
 	
 	handleCanvasHeight(value) {
@@ -94,13 +103,25 @@ var App = React.createClass({
 	},
 
 	handlePanelSpacing(value) {
-		this.setState({panelSpacing: parseFloat(value)});
+        if(value !== null && value !== '') {
+            this.setState({panelSpacing: parseFloat(value)});
+        }
 	},
 	
 	handleColorChange(color) {
 		this.setState({strokeColor: color.hex}, () => {
 			
 		});	
+	},
+
+	handleStrokeWidth(value) {
+        if(value !== null && value !== '') {
+            this.setState({strokeWidth: parseInt(value)});
+        }
+	},
+
+	handleToggle(value) {
+		this.setState({showIds: value});
 	},
 	
 	render () {
@@ -137,8 +158,13 @@ var App = React.createClass({
 												hintText="Panel Spacing"
 												onChange={(e, value) => this.handlePanelSpacing(value)}
 											/>
+											<TextField
+												hintText="Stroke Width"
+												onChange={(e, value) => this.handleStrokeWidth(value)}
+											/>
+											<Toggle label="Show Ids" style={{marginTop:10}} onToggle={(e, value) => this.handleToggle(value)} />
 											<ChromePicker
-												color={this.state.color}
+												color={this.state.strokeColor}
 												disableAlpha
 												onChangeComplete={(color) => { this.handleColorChange(color); }}
 											/>
@@ -173,7 +199,8 @@ var App = React.createClass({
 					panelSpacing={this.state.panelSpacing}
 					onDraw={(v) => { }}
 					strokeColor={this.state.strokeColor}
-					showId={true}
+					showId={this.state.showIds}
+					strokeWidth={this.state.strokeWidth}
 				/>
 			</div>
 		);

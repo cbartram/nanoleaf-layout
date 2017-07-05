@@ -55,6 +55,7 @@ class NanoleafLayout extends Component {
 			strokeColor: '#FFFFFF',
 			onDraw: function(data) { return data; },
 			showId: false,
+			strokeWidth: 2,
 		};
 	}
 
@@ -80,7 +81,8 @@ class NanoleafLayout extends Component {
 		let leftRotatedPoint = this.rotateLeftFromCentroid(ctx, x, y);
 		let rightRotatedPoint = this.rotateRightFromCentroid(ctx, x, y);
 
-		ctx.strokeStyle = this.props.strokeColor;
+        ctx.lineWidth = this.props.strokeWidth;
+        ctx.strokeStyle = this.props.strokeColor;
 		ctx.fillStyle = color;
 		ctx.save();
 
@@ -242,6 +244,7 @@ NanoleafLayout.propTypes = {
 	xOffset: PropTypes.number,
 	yOffset: PropTypes.number,
 	showId: PropTypes.bool,
+	strokeWidth: PropTypes.number,
 };
 
 export default NanoleafLayout;
