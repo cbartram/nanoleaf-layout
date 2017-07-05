@@ -17,36 +17,41 @@ let data = {
 		'x': 100,
 		'y': 100,
 		'o': 0,
+		'color': "#000000"
 	}, {
 		'panelId': 2,
 		'x': 25,
 		'y': -29,
 		'o': 240,
+        'color': "#000000"
 	}, {
 		'panelId': 3,
 		'x': 174,
 		'y': -29,
 		'o': 120,
+        'color': "#000000"
 	}, {
 		'panelId': 4,
 		'x': 99,
 		'y': 13,
 		'o': 180,
+        'color': "#000000"
 	}, {
 		'panelId': 5,
 		'x': 99,
 		'y': -159,
 		'o': 0,
+        'color': "#000000"
 	}, {
 		'panelId': 6,
 		'x': 25,
 		'y': -116,
 		'o': 60,
+        'color': "#000000"
 	}]
 };
 
 var App = React.createClass({
-	
 		getInitialState() {
 			return {
 				xOffset: 0,
@@ -168,6 +173,7 @@ var App = React.createClass({
 					panelSpacing={this.state.panelSpacing}
 					onDraw={(v) => { }}
 					strokeColor={this.state.strokeColor}
+					showId={true}
 				/>
 			</div>
 		);

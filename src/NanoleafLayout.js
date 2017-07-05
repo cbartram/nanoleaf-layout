@@ -22,7 +22,7 @@ class NanoleafLayout extends Component {
 		}
 		
 		this.props.data.positionData.map((value) => {
-			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color));
+			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId));
 		});
 	};
 	
@@ -41,7 +41,7 @@ class NanoleafLayout extends Component {
 		}
 		
 		this.props.data.positionData.map((value) => {
-			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color));
+			this.props.onDraw(this.draw(ctx, (value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId));
 		});
 	}
 
@@ -53,7 +53,8 @@ class NanoleafLayout extends Component {
 			canvasWidth: 1000,
 			canvasHeight: 1000,
 			strokeColor: '#FFFFFF',
-			onDraw: function(data) { return data; }
+			onDraw: function(data) { return data; },
+			showId: false,
 		};
 	}
 
@@ -64,11 +65,13 @@ class NanoleafLayout extends Component {
 	 * @param y integer Cartesian Y coordinate
 	 * @param o integer Orientation in degrees
 	 * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+	 * @param id integer the panel identifier
 	 */
-	draw(ctx, x, y, o, color) {
-		
-		let orient = false; 
-		
+	draw(ctx, x, y, o, color, id) {
+        let orient = false;
+
+		let centroid = this.cartesianToScreen(ctx, x, y);
+
 		let topPoint = this.getTopFromCentroid(ctx, x, y);
 		let leftPoint = this.getLeftFromCentroid(ctx, x,y);
 		let rightPoint = this.getRightFromCentroid(ctx, x, y);
@@ -106,8 +109,15 @@ class NanoleafLayout extends Component {
 
 		ctx.closePath();
 		ctx.save();
-		
-		if(orient) {
+
+		if(this.props.showId) {
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText(id, centroid[0] - 3, centroid[1] + 15);
+            ctx.save();
+        }
+
+        if(orient) {
 			return [topRotatedPoint, leftRotatedPoint, rightRotatedPoint];
 		} else {
 			return [topPoint, leftPoint, rightPoint];
@@ -231,7 +241,7 @@ NanoleafLayout.propTypes = {
 	strokeColor: PropTypes.string,
 	xOffset: PropTypes.number,
 	yOffset: PropTypes.number,
-	
+	showId: PropTypes.bool,
 };
 
 export default NanoleafLayout;
