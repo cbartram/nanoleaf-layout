@@ -8,6 +8,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { ChromePicker } from 'react-color';
 import Toggle from 'material-ui/Toggle';
+import Slider from 'material-ui/Slider';
 
 
 let data = {
@@ -64,6 +65,7 @@ var App = React.createClass({
 				canvasHeight: 500,
 				showIds: true,
 				strokeWidth: 2,
+				rotation: 0,
 			};
 		},
 
@@ -78,6 +80,7 @@ var App = React.createClass({
 						panelSpacing={${this.state.panelSpacing}}
 						showId={${this.state.showIds}}
 						strokeWidth={${this.state.strokeWidth}}
+						rotation={${this.state.rotation}}
 					    />
 				`);
 	},
@@ -123,6 +126,10 @@ var App = React.createClass({
 	handleToggle(value) {
 		this.setState({showIds: value});
 	},
+
+	handleSlider(value) {
+		this.setState({rotation: value});
+	},
 	
 	render () {
 		return (
@@ -163,6 +170,13 @@ var App = React.createClass({
 												onChange={(e, value) => this.handleStrokeWidth(value)}
 											/>
 											<Toggle label="Show Ids" style={{marginTop:10}} onToggle={(e, value) => this.handleToggle(value)} />
+											<Slider
+												min={0}
+												max={360}
+												step={1}
+												value={this.state.rotation}
+												onChange={(e, value) => this.handleSlider(value)}
+											/>
 											<ChromePicker
 												color={this.state.strokeColor}
 												disableAlpha
@@ -201,6 +215,7 @@ var App = React.createClass({
 					strokeColor={this.state.strokeColor}
 					showId={this.state.showIds}
 					strokeWidth={this.state.strokeWidth}
+					rotation={this.state.rotation}
 				/>
 			</div>
 		);

@@ -56,6 +56,7 @@ class NanoleafLayout extends Component {
 			onDraw: function(data) { return data; },
 			showId: false,
 			strokeWidth: 2,
+			rotation: 0,
 		};
 	}
 
@@ -230,7 +231,7 @@ class NanoleafLayout extends Component {
 
 
 	render() {
-		return (<div><canvas id="canvas" width={this.props.canvasWidth} height={this.props.canvasHeight}/></div>);
+		return (<div><canvas id="canvas" style={{transform: `rotate(${this.props.rotation}deg)`, width: '100%', borderRadius:'50%'}} width={this.props.canvasWidth} height={this.props.canvasHeight}/></div>);
 	}
 }
 
@@ -245,6 +246,7 @@ NanoleafLayout.propTypes = {
 	yOffset: PropTypes.number,
 	showId: PropTypes.bool,
 	strokeWidth: PropTypes.number,
+	rotation: PropTypes.number,
 };
 
 export default NanoleafLayout;
