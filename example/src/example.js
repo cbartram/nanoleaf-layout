@@ -19,31 +19,31 @@ let data = {
 		'x': 100,
 		'y': 100,
 		'o': 0,
-		'color': "#000000"
+		'color': "#00ff00"
 	}, {
 		'panelId': 2,
 		'x': 25,
 		'y': -29,
 		'o': 240,
-        'color': "#000000"
+        'color': "#2a91fa"
 	}, {
 		'panelId': 3,
 		'x': 174,
 		'y': -29,
 		'o': 120,
-        'color': "#000000"
+        'color': "#ff199f"
 	}, {
 		'panelId': 4,
 		'x': 99,
 		'y': 13,
 		'o': 180,
-        'color': "#000000"
+        'color': "#ff8522"
 	}, {
 		'panelId': 5,
 		'x': 99,
 		'y': -159,
 		'o': 0,
-        'color': "#000000"
+        'color': "#4bffd5"
 	}, {
 		'panelId': 6,
 		'x': 25,
@@ -61,11 +61,12 @@ var App = React.createClass({
 				onDraw: 0,
 				panelSpacing: 1.37,
 				strokeColor: '#FFFFFF',
-				canvasWidth: 500,
-				canvasHeight: 500,
+				width: 1000,
+				height: 1000,
 				showIds: true,
 				strokeWidth: 2,
 				rotation: 0,
+				hovering: false,
 			};
 		},
 
@@ -75,8 +76,8 @@ var App = React.createClass({
 						data={data}
 						xOffset={${this.state.xOffset}}
 						yOffset={${this.state.yOffset}}
-						canvasHeight={${this.state.canvasHeight}}
-						canvasWidth={${this.state.canvasWidth}}
+						height={${this.state.height}}
+						width={${this.state.width}}
 						panelSpacing={${this.state.panelSpacing}}
 						showId={${this.state.showIds}}
 						strokeWidth={${this.state.strokeWidth}}
@@ -86,23 +87,23 @@ var App = React.createClass({
 	},
 	
 	handleXOffset(value) {
-			if(value !== null && value !== '') {
+			if(value !== null && value !== '' && value !== '-') {
                 this.setState({xOffset: parseInt(value)});
             }
 	},
 	
 	handleYOffset(value) {
-        if(value !== null && value !== '') {
+        if(value !== null && value !== '' && value !== '-') {
             this.setState({yOffset: parseInt(value)});
         }
 	},
 	
 	handleCanvasHeight(value) {
-		this.setState({canvasHeight: parseInt(value)});
+		this.setState({height: parseInt(value)});
 	},
 	
 	handleCanvasWidth(value) {
-		this.setState({canvasWidth: parseInt(value)});
+		this.setState({width: parseInt(value)});
 	},
 
 	handlePanelSpacing(value) {
@@ -169,7 +170,7 @@ var App = React.createClass({
 												hintText="Stroke Width"
 												onChange={(e, value) => this.handleStrokeWidth(value)}
 											/>
-											<Toggle label="Show Ids" style={{marginTop:10}} onToggle={(e, value) => this.handleToggle(value)} />
+											<Toggle defaultToggled={this.state.showIds} label="Show Ids" style={{marginTop:10}} onToggle={(e, value) => this.handleToggle(value)} />
 											<Slider
 												min={0}
 												max={360}
@@ -208,14 +209,16 @@ var App = React.createClass({
 					data={data}
 					xOffset={this.state.xOffset}
 					yOffset={this.state.yOffset}
-					canvasHeight={this.state.canvasHeight}
-					canvasWidth={this.state.canvasWidth}
+					height={this.state.height}
+					width={this.state.width}
 					panelSpacing={this.state.panelSpacing}
-					onDraw={(v) => { }}
 					strokeColor={this.state.strokeColor}
 					showId={this.state.showIds}
 					strokeWidth={this.state.strokeWidth}
 					rotation={this.state.rotation}
+					onHover={(data) => {console.log('Hovering....')}}
+					onClick={(data) => {console.log('Clicked!')}}
+					onDraw={(svg) => {console.log('Drawing....')}}
 				/>
 			</div>
 		);

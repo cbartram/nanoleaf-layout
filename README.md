@@ -40,17 +40,17 @@ npm install nanoleaf-layout --save
 
 Nanoleaf is super easy to use in any React project!
 
-After installing `nanoleaf-layout` from NPM be sure to include it in your React Component by doing 
+After installing `nanoleaf-layout` from NPM be sure to include it in your React Component by doing `import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'`
 
 **Ensure you import NanoleafLayout from the /lib/nanoleaf-layout directory** as this includes the transpiled source code.
-
-`import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'`
 
 Now your all set to include the component in your `render()` method!
 
 ```
+import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'
+
 let data = {
-	layoutData: [
+	positionData: [
 		{
 			panelId: 1,
 			x: 100,
@@ -61,13 +61,76 @@ let data = {
 	]
 };
 
-<NanoleafLayout
-	data={data}
-/>
+export default class App extends Component {
+
+render() {
+        <NanoleafLayout
+            data={data}
+            //Other props can go here to customize the layout!
+        />
+    }
+}
+
+
 ```
 
 The only property which is required for Nanoleaf to function is the `data` property. The data set **must** include a property 
-called `positionData` and its values must be an array of layout objects (even if its an empty array that works as well). 
+called `positionData` and its values must be an array of layout objects (even if its an empty array that works as well).
+
+### Changing Panel Colors
+
+Its simple to control the stroke width and color of the Nanoleaf with the `strokeWidth` and `strokeColor` but sometimes you
+may want to control the actual color of the panels themselves.
+
+Nanoleaf layout achieves this through a color property in each of the elements in the `positionData` array.
+
+By default the Nanoleaf openAPI returns the nanoleaf layout data **without** a color property so it looks like this
+
+```
+ {
+    sideLength: 150,
+    numPanels: 9,
+	positionData: [
+		{
+			panelId: 1,
+			x: 100,
+			y: 100,
+			o: 180
+		}
+		...
+	]
+};
+```
+
+By adding a Hexadecimal color code property into the position data it will tell nanoleaf-layout to change the color of that particular panel
+
+The new positionData will look something like this
+
+```
+ {
+    sideLength: 150,
+    numPanels: 9,
+	positionData: [
+		{
+			panelId: 1,
+			x: 100,
+			y: 100,
+			o: 180,
+			color: '#00ff00'
+		}
+		{
+        	panelId: 2,
+        	x: 120,
+        	y: -50,
+        	o: 180,
+        	color: '#ffd033'
+        }
+
+	]
+};
+```
+
+This allows one to explicitly set the color of each panel quickly and easily!
 
 Please see the next section titled Properties for information about all the nanoleaf-layout properties, their default values, and their descriptions.
 
@@ -86,8 +149,24 @@ Please see the next section titled Properties for information about all the nano
 | `showId`          | Boolean           | false                                                              | Boolean value that when true tells the Nanoleaf-layout to display their respective panelIds which identifies each panel uniquely.                                                                                                                                                   | `<NanoleafLayout showId={true}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
 | `strokeWidth`     | Integer           | 2                                                                  | Integer value that defines how wide the stroke is on the outside of each triange. The larger the number the wider the stroke.                                                                                                                                                | `<NanoleafLayout strokeWidth={5}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
 | `rotation`        | Integer           | 0                                                                  | Integer value that defines how the canvas should rotate to display the layout. This **must** be an integer value **between 0 and 360**. The entire layout will rotate clockwise as the value increases                                                                                                                                                | `<NanoleafLayout rotation={180}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
+| `onHover`         | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when any of the panels are hovered over. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onHover={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |                                         
+| `onClick`         | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when any of the panels are clicked. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onClick={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
+| `onExit`          | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when a mouse exits a panels area. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onExit={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
 
 
+### SVG Object
+
+The SVG object is returned from all the functional props. 
+The SVG object contains all of the information needed to interact with the nanoleaf layout.
+The properties include: 
+
+- `topPoint` The x and y coordinate of the top point of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
+- `leftPoint` The x and y coordinate of the left point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
+- `rightPoint` The x and y coordinate of the right point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
+- `rotated` Boolean true if the panel was rotate (if its upside down) and false if it is upright
+- `color` Hexadecimal color code of the panel
+- `path` The SVG path of the panel
+- `id` ID object containing the id of the panel, as well as the x and y coordinates of the panelID which is drawn onto the actual panel				
 
 ### Notes
 
