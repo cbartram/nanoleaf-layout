@@ -4,11 +4,13 @@ Introducing Nanoleaf Layout! The **only** package on NPM which takes your physic
 it in **any** 2D application. Nanoleaf Layout will take in the confusing `X,Y` coordinates and Orientation that comes from Nanoleaf's 
 OpenAPI and convert it into a useful 2D graphic visual which you can place in your application! 
 
-This visual helps show the user what their current Nanoleaf layout looks like even if they are half way across the world! 
+With this API you can visualize colors, position, orientation and even hook into hover and click events for the Nanoleaf layout!
+
+Lets dive in and see how it works!
 
 ## Demo & Examples
 
-You can edit the values in the panel during the demo to see how it changes the nanoleaf layout! 
+You can edit the values in the panel during the demo to see how the nanoleaf layout changes and updates! 
 
 Live demo: [cbartram.github.io/nanoleaf-layout](http://cbartram.github.io/nanoleaf-layout/)
 
@@ -22,6 +24,7 @@ npm start
 Then open [`localhost:8000`](http://localhost:8000) in a browser.
 
 You will see a simple 6 panel layout and how Nanoleaf Layout correctly renders it on screen!
+To edit the web application look in the `/example` directory and modify the `example.js` file. 
 
 
 ## Installation
@@ -29,7 +32,7 @@ You will see a simple 6 panel layout and how Nanoleaf Layout correctly renders i
 The easiest way to use nanoleaf-layout is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), [Webpack](http://webpack.github.io/), etc).
 
 You can also use the standalone build by including `lib/nanoleaf-layout.js` in your page (e.g. `import NanoleafLayout from 'nanoleaf-layout/lib/nanleaf-layout'`). 
-If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is a React component and React is a dependency.
+If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is therefore a React component and React is a dependency.
 
 ```
 npm install nanoleaf-layout --save
@@ -42,7 +45,7 @@ Nanoleaf is super easy to use in any React project!
 
 After installing `nanoleaf-layout` from NPM be sure to include it in your React Component by doing `import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'`
 
-**Ensure you import NanoleafLayout from the /lib/nanoleaf-layout directory** as this includes the transpiled source code.
+**Ensure you import NanoleafLayout from the /lib/nanoleaf-layout directory** as this includes the trans-piled production ready source code.
 
 Now your all set to include the component in your `render()` method!
 
@@ -75,7 +78,13 @@ render() {
 ```
 
 The only property which is required for Nanoleaf to function is the `data` property. The data set **must** include a property 
-called `positionData` and its values must be an array of layout objects (even if its an empty array that works as well).
+called `positionData` and its values must be an array of layout objects (even if its an empty array). The data object
+tells the nanoleaf-layout how the physical nanoleaf is positioned with a set of X,Y Coordinates and Orientation.
+
+The best way to ensure that your `data` prop is formatted correctly is to make a REST API call to your nanoleaf requesting information
+from it. From here you can easily pass the data right into the React Component
+
+To make a REST call to your nanoleaf send a GET request to `http://YOUR_NANOLEAF_IP/api/v1/YOUR_AUTH_TOKEN/`
 
 ### Changing Panel Colors
 
@@ -84,7 +93,7 @@ may want to control the actual color of the panels themselves.
 
 Nanoleaf layout achieves this through a color property in each of the elements in the `positionData` array.
 
-By default the Nanoleaf openAPI returns the nanoleaf layout data **without** a color property so it looks like this
+By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a color property so it looks something like this
 
 ```
  {
@@ -130,9 +139,9 @@ The new positionData will look something like this
 };
 ```
 
-This allows one to explicitly set the color of each panel quickly and easily!
+This allows one to explicitly set and update the color of each panel quickly and easily!
 
-Please see the next section titled Properties for information about all the nanoleaf-layout properties, their default values, and their descriptions.
+Please see the next section titled Properties below for information about all the nanoleaf-layout properties, their default values, and their descriptions.
 
 ### Properties
 
@@ -156,17 +165,105 @@ Please see the next section titled Properties for information about all the nano
 
 ### SVG Object
 
-The SVG object is returned from all the functional props. 
-The SVG object contains all of the information needed to interact with the nanoleaf layout.
+The SVG object makes it extremely easy to understand what data the nanoleaf layout is referring too.
+It acts as a container for all the information a developer needs when he/she is interacting with the data surrounding
+any of the panels.
+
 The properties include: 
 
-- `topPoint` The x and y coordinate of the top point of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
+- `topPoint` The x and y coordinate of the top point of the panel as an array of values. The x coordinate is the 0th position and the y coordinate is the 1st position
 - `leftPoint` The x and y coordinate of the left point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
 - `rightPoint` The x and y coordinate of the right point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
-- `rotated` Boolean true if the panel was rotate (if its upside down) and false if it is upright
+- `rotated` Boolean true if the panel was rotate (if its upside down) and false if it is upright.
 - `color` Hexadecimal color code of the panel
-- `path` The SVG path of the panel
-- `id` ID object containing the id of the panel, as well as the x and y coordinates of the panelID which is drawn onto the actual panel				
+- `path` The SVG path of the panel used to draw on the DOM
+- `id` **ID object** (not just the panel id) containing the id of the panel, as well as the x and y coordinates of the `panelID` which is drawn onto the actual panel. This contains the data which is used in the `showId` prop and determines
+ where to draw the panels ID on top of the panel itself.
+ 
+ For example lets say you wanted to execute a piece of code only when the panel with the panel ID of `4` is clicked.
+ You can easily accomplish this with just a few lines of code!
+ 
+ ```
+ handlePanelFourClick = (id) => {
+    //Is the panel id 4?
+    if(id === 4) {
+        //Execute your code!
+        console.log('Panel 4 has been clicked!');
+    } else {
+        console.log('Wrong Panel Clicked!');
+    }
+ }
+ 
+<NanoleafLayout
+    data={data}
+    onClick={(data) => { this.handlePanelFourClick(data.id.id) }} //Hook into the onClick event, data is the SVG Object being returned
+/>    
+```
+
+### More Examples
+
+#### Update panel **3's** color from lime green to white if its hovered over!
+
+ ```
+  let data = {
+     sideLength: 150,
+     numPanels: 9,
+ 	positionData: [
+ 		{
+ 			panelId: 3,
+ 			x: 100,
+ 			y: 100,
+ 			o: 180,
+ 			color: '#00ff00'
+ 		}
+ 		{
+         	panelId: 4,
+         	x: 120,
+         	y: -50,
+         	o: 180,
+         	color: '#ffd033'
+         }
+ 
+ 	]
+ };
+ 
+ 
+ handlePanelThreeClick = (id, data) => {
+    if(id === 3) {
+        //Get the Key in the position data array for the color we want to update
+       let key = data.positionData.findIndex(x => x.panelId == id);
+       
+       //Update the color!
+       data[key].color = '#FFFFFF'; 
+       
+    } else {
+        console.log('Wrong Panel...');
+    }
+ }
+ 
+<NanoleafLayout
+    data={data}
+    onHover={(svg) => { this.handlePanelThreeClick(svg.id.id, data) }} //Hook into the onHover event, svg is the SVG Object being returned and data is the position data
+/>    
+```
+
+#### Display a loading icon while the layout is loading up!
+
+ ```
+ componentDidMount = () => {
+    //Enable Loading Icon
+ }
+ 
+ disableLoader = () => {
+   //Disable Loading Icon
+ }
+ 
+<NanoleafLayout
+    data={data}
+    onDraw={(data) => { this.disableLoader() }}
+/>    
+```
+
 
 ### Notes
 
@@ -188,6 +285,20 @@ For more information about how to get this data check out the Nanoleaf Developer
 **NOTE:** The source code for the component is in `src`. A transpiled CommonJS version (generated with Babel) is available in `lib` for use with node.js, browserify and webpack. A UMD bundle is also built to `dist`, which can be included without the need for any build system.
 
 To build, watch and serve the examples (which will also watch the component source), run `npm start`. If you just want to watch changes to `src` and rebuild `lib`, run `npm run watch` (this is useful if you are working with `npm link`).
+
+
+## Whats New
+
+As of version `2.0.0` Nanoleaf layout has been completely rewritten in an SVG format instead of using HTML 5's Canvas.
+This means its much more flexible from a development perspective and it brings new features like event hooks!
+
+You can now hook into `onClick` `onExit` and `onHover' Mouse events for each and every panel. Panels in the nanoleaf layout have
+been synchronized and each provides a unique SVG object in a callback function which includes all the information about the panel
+that's being interacted with! See the SVG Object above! 
+
+Let me know what you think about nanoleaf layout by submitting issues to the Github repo or contributing!
+
+[Nanoleaf Layout Github](https://github.com/cbartram/nanoleaf-layout)
 
 ## License
 
