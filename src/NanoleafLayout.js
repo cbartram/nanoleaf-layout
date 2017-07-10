@@ -4,19 +4,23 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {observable, extendObservable} from 'mobx'
 
 const CENTROID_HEIGHT = (Math.sqrt(3) / 6) * 150;
 
 class NanoleafLayout extends Component {
+
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			svgData: [] //Holds the SVG Draw data
-		}
+        extendObservable(this, {
+            dataSVG: null,
+        })
 	}
 	
-	componentDidMount() {
+	componentWillMount() {
+		let data = []; //Data to mutate state
+
         if(!this.props.data.hasOwnProperty('positionData')) {
             throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
         }
@@ -25,24 +29,25 @@ class NanoleafLayout extends Component {
 			let draw = this.draw((value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId);
 
 			this.props.onDraw(draw);
-            this.state.svgData.push(draw);
+			data.push(draw);
+
         });
 
-		this.setState({svgData: this.state.svgData});
+        this.dataSVG = data;
 	};
 
-	
-	componentDidUpdate() {
-		this.state.svgData = []; //Clear the old SVG Data we are redrawing
+	componentWillUpdate() {
+		let data = [];
 
-        this.props.data.positionData.map((value) => {
+		//Recalculate new positions on the panels
+        this.props.data.positionData.map((value, key) => {
             let draw = this.draw((value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId);
 
-            this.props.onDraw(draw);
-            this.state.svgData.push(draw);
-		});
+            this.props.onDraw(draw); //onDraw Callback occurs here
+            data.push(draw);
+        });
 
-
+		this.dataSVG = data;
     }
 
 	static get defaultProps() {
@@ -65,7 +70,6 @@ class NanoleafLayout extends Component {
 
 	/**
 	 * Draws an Equilateral Triangle on the Canvas
-	 * @param ctx client context
 	 * @param x integer Cartesian X coordinate
 	 * @param y integer Cartesian Y coordinate
 	 * @param o integer Orientation in degrees
@@ -76,7 +80,9 @@ class NanoleafLayout extends Component {
         let orient = false;
         let path = [];
 
-		let topPoint = this.getTopFromCentroid(x, y);
+        let centroid = this.cartesianToScreen(x, y);
+
+        let topPoint = this.getTopFromCentroid(x, y);
 		let leftPoint = this.getLeftFromCentroid(x,y);
 		let rightPoint = this.getRightFromCentroid(x, y);
 
@@ -105,13 +111,18 @@ class NanoleafLayout extends Component {
         path.push("Z");
 		path = path.join(" ");
 
-		id = this.drawId(x, y, id);
+		id = {
+            x: centroid[0] - 3,
+            y: centroid[1] + 15,
+            id: id
+        };
 
         if(orient) {
 			return {
 				topPoint: topRotatedPoint,
 				leftPoint: leftRotatedPoint,
 				rightPoint: rightRotatedPoint,
+				centroid: centroid,
 				rotated: true,
 				color: color,
 				path: path,
@@ -122,6 +133,7 @@ class NanoleafLayout extends Component {
 				topPoint: topPoint,
 				leftPoint: leftPoint,
 				rightPoint: rightPoint,
+				centroid: centroid,
 				rotated: false,
 				color: color,
 				path: path,
@@ -130,23 +142,6 @@ class NanoleafLayout extends Component {
 		}
 
 	};
-
-    /**
-	 * Handles creating an object for the ID
-     * @param x
-     * @param y
-     * @param id
-     * @returns {{x: number, y: *, id: *}}
-     */
-	drawId(x, y, id) {
-        let centroid = this.cartesianToScreen(x, y);
-
-        return {
-			x: centroid[0] - 3,
-			y: centroid[1] + 15,
-			id: id
-		};
-    }
 
 	/**
 	 * Maps a cartesian point to a 2D HTML Canvas point
@@ -246,14 +241,9 @@ class NanoleafLayout extends Component {
 	render() {
 		return (
 			<div>
-				<svg
-					height={this.props.width}
-					width={this.props.height}
-					style={{width: '100%', borderRadius:'50%'}}
-					transform={`rotate(${this.props.rotation})`}
-				>
+				<svg height={this.props.width} width={this.props.height} style={{width: '100%', borderRadius:'50%'}} transform={`rotate(${this.props.rotation})`} >
 					{
-                        this.state.svgData.map((value, key) => {
+                        this.dataSVG.map((value, key) => {
                         	if(this.props.showId) {
                                 return (
 									<g key={key}>

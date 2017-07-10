@@ -218,7 +218,7 @@ var App = React.createClass({
 					rotation={this.state.rotation}
 					onHover={(data) => {console.log('Hovering....')}}
 					onClick={(data) => {console.log('Clicked!')}}
-					onDraw={(svg) => {console.log('Drawing....')}}
+					onDraw={(svg) => {}}
 				/>
 			</div>
 		);

@@ -18,7 +18,9 @@ var taskConfig = {
 			'classnames',
 			'prop-types',
 			'react',
-			'react-dom'
+			'react-dom',
+			'mobx',
+			'mobx-react'
 		],
 		lib: 'lib'
 	},
