@@ -2,7 +2,7 @@
 
 Introducing Nanoleaf Layout! The **only** package on NPM which takes your physical Nanoleaf layout and displays
 it in **any** 2D application. Nanoleaf Layout will take in the confusing `X,Y` coordinates and Orientation that comes from Nanoleaf's 
-OpenAPI and convert it into a useful 2D graphic visual which you can place in your application! 
+OpenAPI and converts it into a useful 2D graphic visual which you can place in your application! 
 
 With this API you can visualize colors, position, orientation and even hook into hover and click events for the Nanoleaf layout!
 
@@ -32,6 +32,7 @@ To edit the web application look in the `/example` directory and modify the `exa
 The easiest way to use nanoleaf-layout is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), [Webpack](http://webpack.github.io/), etc).
 
 You can also use the standalone build by including `lib/nanoleaf-layout.js` in your page (e.g. `import NanoleafLayout from 'nanoleaf-layout/lib/nanleaf-layout'`). 
+
 If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is therefore a React component and React is a dependency.
 
 ```
@@ -91,7 +92,7 @@ Nanoleaf layout achieves this through a color property in each of the elements i
 
 By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a color property so it looks something like this
 
-```
+```json
 {
   sideLength: 150,
   numPanels: 9,
@@ -111,7 +112,7 @@ By adding a Hexadecimal color code property into the position data it will tell 
 
 The new positionData will look something like this
 
-```
+```json
  {
   sideLength: 150,
   numPanels: 9,
