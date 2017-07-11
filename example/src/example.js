@@ -216,7 +216,7 @@ var App = React.createClass({
 					showId={this.state.showIds}
 					strokeWidth={this.state.strokeWidth}
 					rotation={this.state.rotation}
-					onHover={(data) => {console.log('Hovering....')}}
+					onHover={(data) => {console.log(data)}}
 					onClick={(data) => {console.log('Clicked!')}}
 					onDraw={(svg) => {}}
 				/>

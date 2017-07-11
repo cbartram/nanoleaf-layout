@@ -4,304 +4,243 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {observable, extendObservable} from 'mobx'
-
-const CENTROID_HEIGHT = (Math.sqrt(3) / 6) * 150;
+import * as Utils from './Utils';
 
 class NanoleafLayout extends Component {
+    constructor(props) {
+        super(props);
 
-	constructor(props) {
-		super(props);
+        this.state = {
+            dataSVG: []
+        };
+    }
 
-        extendObservable(this, {
-            dataSVG: null,
-        })
-	}
-	
-	componentWillMount() {
-		let data = []; //Data to mutate state
+    componentDidMount() {
+        this.draw();
+    }
 
-        if(!this.props.data.hasOwnProperty('positionData')) {
-            throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
+    draw() {
+        let data = []; //Data to mutate state
+
+        if (!this.props.data.hasOwnProperty('positionData')) {
+            throw new Error(
+                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
+            );
         }
 
-        this.props.data.positionData.map((value) => {
-			let draw = this.draw((value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId);
+        this.props.data.positionData.map(value => {
+            let draw = this.calculate(
+                value.x / this.props.panelSpacing + this.props.xOffset,
+                value.y / this.props.panelSpacing + this.props.yOffset,
+                value.o,
+                value.color,
+                value.panelId,
+                this.props.height,
+                this.props.width,
+            );
 
-			this.props.onDraw(draw);
-			data.push(draw);
-
-        });
-
-        this.dataSVG = data;
-	};
-
-	componentWillUpdate() {
-		let data = [];
-
-		//Recalculate new positions on the panels
-        this.props.data.positionData.map((value, key) => {
-            let draw = this.draw((value.x / this.props.panelSpacing) + this.props.xOffset, (value.y / this.props.panelSpacing) + this.props.yOffset, value.o, value.color, value.panelId);
-
-            this.props.onDraw(draw); //onDraw Callback occurs here
+            this.props.onDraw(draw);
             data.push(draw);
         });
 
-		this.dataSVG = data;
-    }
-
-	static get defaultProps() {
-		return {
-			xOffset: 0,
-			yOffset: 0,
-			panelSpacing: 1.37,
-			width: 1000,
-			height: 1000,
-			strokeColor: '#FFFFFF',
-			onDraw: function(data) { return data; },
-			showId: false,
-			strokeWidth: 2,
-			rotation: 0,
-			onHover: function(data) { return data; },
-			onClick: function(data) { return data; },
-			onExit: function(data) { return data; },
-		};
+        this.setState({ dataSVG: data });
 	}
 
-	/**
-	 * Draws an Equilateral Triangle on the Canvas
-	 * @param x integer Cartesian X coordinate
-	 * @param y integer Cartesian Y coordinate
-	 * @param o integer Orientation in degrees
-	 * @param color hexadecimal color code Triangle Color i.e. #FF00FF
-	 * @param id integer the panel identifier
-	 */
-	draw(x, y, o, color, id) {
-        let orient = false;
-        let path = [];
 
-        let centroid = this.cartesianToScreen(x, y);
 
-        let topPoint = this.getTopFromCentroid(x, y);
-		let leftPoint = this.getLeftFromCentroid(x,y);
-		let rightPoint = this.getRightFromCentroid(x, y);
+    static get defaultProps() {
+        return {
+            xOffset: 0,
+            yOffset: 0,
+            panelSpacing: 1.37,
+            width: 1000,
+            height: 1000,
+            strokeColor: '#FFFFFF',
+            onDraw: function(data) {
+                return data;
+            },
+            showId: false,
+            strokeWidth: 2,
+            rotation: 0,
+            onHover: function(data) {
+                return data;
+            },
+            onClick: function(data) {
+                return data;
+            },
+            onExit: function(data) {
+                return data;
+            }
+        };
+    }
 
-		let topRotatedPoint = this.rotateTopFromCentroid(x, y);
-		let leftRotatedPoint = this.rotateLeftFromCentroid(x, y);
-		let rightRotatedPoint = this.rotateRightFromCentroid(x, y);
+    /**
+     * Draws an Equilateral Triangle on the Canvas
+     * @param x integer Cartesian X coordinate
+     * @param y integer Cartesian Y coordinate
+     * @param o integer Orientation in degrees
+     * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+	 * @param height integer height of the SVG
+	 * @param width integer width of the SVG
+     * @param id integer the panel identifier
+     */
+    calculate(x, y, o, color, id, height, width) {
+        let centroid = Utils.cartesianToScreen(x, y, height, width);
 
-		if(this.doRotate(o)) {
-
-			path.push(`M${topRotatedPoint[0]} ${topRotatedPoint[1]}`);
-			path.push(`L${leftRotatedPoint[0]} ${leftRotatedPoint[1]}`);
-			path.push(`L${rightRotatedPoint[0]} ${rightRotatedPoint[1]}`);
-			path.push(`L${topRotatedPoint[0]} ${topRotatedPoint[1]}`);
-
-			orient = true;
-			
-
-		} else {
-
-            path.push(`M${topPoint[0]} ${topPoint[1]}`);
-            path.push(`L${leftPoint[0]} ${leftPoint[1]}`);
-            path.push(`L${rightPoint[0]} ${rightPoint[1]}`);
-            path.push(`L${topPoint[0]} ${topPoint[1]}`);
-		}
-
-        path.push("Z");
-		path = path.join(" ");
-
-		id = {
+        //The Id that is drawn on top of the SVG when the showIds prop is true
+        let panelID = {
             x: centroid[0] - 3,
             y: centroid[1] + 15,
             id: id
         };
 
-        if(orient) {
-			return {
-				topPoint: topRotatedPoint,
-				leftPoint: leftRotatedPoint,
-				rightPoint: rightRotatedPoint,
-				centroid: centroid,
-				rotated: true,
-				color: color,
-				path: path,
-				id: id
-			};
-		} else {
-			return {
-				topPoint: topPoint,
-				leftPoint: leftPoint,
-				rightPoint: rightPoint,
-				centroid: centroid,
-				rotated: false,
-				color: color,
-				path: path,
-                id: id
-			};
+        if (Utils.doRotate(o)) {
+            let topRotatedPoint = Utils.rotateTopFromCentroid(x, y, height, width);
+            let leftRotatedPoint = Utils.rotateLeftFromCentroid(x, y, height, width);
+            let rightRotatedPoint = Utils.rotateRightFromCentroid(x, y, height, width);
+
+            let path = `M${topRotatedPoint[0]} ${topRotatedPoint[1]} L${leftRotatedPoint[0]} ${leftRotatedPoint[1]} L${rightRotatedPoint[0]} ${rightRotatedPoint[1]} L${topRotatedPoint[0]} ${topRotatedPoint[1]} Z`;
+
+            return {
+                topPoint: topRotatedPoint,
+                leftPoint: leftRotatedPoint,
+                rightPoint: rightRotatedPoint,
+                centroid: centroid,
+                rotated: true,
+                color,
+                path,
+                id,
+                panelID
+            };
+        } else {
+            let topPoint = Utils.getTopFromCentroid(x, y, height, width);
+            let leftPoint = Utils.getLeftFromCentroid(x, y, height, width);
+            let rightPoint = Utils.getRightFromCentroid(x, y, height, width);
+
+            let path = `M${topPoint[0]} ${topPoint[1]} L${leftPoint[0]} ${leftPoint[1]} L${rightPoint[0]} ${rightPoint[1]} L${topPoint[0]} ${topPoint[1]} Z`;
+
+            return {
+                topPoint: topPoint,
+                leftPoint: leftPoint,
+                rightPoint: rightPoint,
+                centroid: centroid,
+                rotated: false,
+                color,
+                path,
+                id,
+                panelID
+            };
+        }
+    }
+
+    /**
+	 * Handles recalculating values and updating when the layout changes
+     * @returns {Array}
+     */
+    update() {
+
+        let data = []; //Data to mutate state
+
+        if (!this.props.data.hasOwnProperty('positionData')) {
+            throw new Error(
+                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
+            );
+        }
+
+        this.props.data.positionData.map(value => {
+            let draw = this.calculate(
+                value.x / this.props.panelSpacing + this.props.xOffset,
+                value.y / this.props.panelSpacing + this.props.yOffset,
+                value.o,
+                value.color,
+                value.panelId,
+                this.props.height,
+                this.props.width,
+            );
+
+            this.props.onDraw(draw);
+            data.push(draw);
+        });
+
+      return data.map((value, key) => {
+      	if(this.props.showId) {
+            return (
+				<g key={key}>
+					<path
+						key={key + '_path'}
+						d={value.path}
+						strokeWidth={this.props.strokeWidth}
+						onMouseOver={e => {
+                            this.props.onHover(value);
+                        }}
+						onMouseOut={e => {
+                            this.props.onExit(value);
+                        }}
+						onMouseDown={e => {
+                            this.props.onClick(value);
+                        }}
+						fill={value.color}
+						stroke={this.props.strokeColor}
+					/>
+					<text
+						key={key + '_text'}
+						x={value.panelID.x}
+						y={value.panelID.y}
+						fill="#FFFFFF"
+					>
+                        {value.id}
+					</text>
+				</g>
+            );
+        } else {
+      		return (
+				<path
+					key={key + '_path'}
+					d={value.path}
+					strokeWidth={this.props.strokeWidth}
+					onMouseOver={e => {
+                        this.props.onHover(value);
+                    }}
+					onMouseOut={e => {
+                        this.props.onExit(value);
+                    }}
+					onMouseDown={e => {
+                        this.props.onClick(value);
+                    }}
+					fill={value.color}
+					stroke={this.props.strokeColor}
+				/>
+			)
 		}
+	  })
+	}
 
-	};
-
-	/**
-	 * Maps a cartesian point to a 2D HTML Canvas point
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
-	 */
-	cartesianToScreen(cx, cy) {
-		let screenX = cx + this.props.width / 2;
-		let screenY = this.props.height / 2 - cy;
-
-		return [screenX, screenY];
-	};
-
-	/**
-	 * Determines if the given triangle should be rotated
-	 * @param rotation integer rotation in degrees
-	 * @returns {boolean} true if the rotation should occur false otherwise
-	 */
-	 doRotate(rotation) {
-		return (rotation / 60) % 2 !== 0 ;
-	};
-
-	/**
-	 * Calculates the top most point of the equilateral triangle given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	getTopFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [screen[0].toFixed(), (screen[1] - CENTROID_HEIGHT).toFixed()];
-	};
-
-	/**
-	 * Calculates the left most point of the equilateral triangle given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	getLeftFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [(screen[0] - CENTROID_HEIGHT).toFixed(), (screen[1] + CENTROID_HEIGHT).toFixed()];
-	};
-
-	/**
-	 * Calculates the right most point of the equilateral triangle given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	getRightFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [(screen[0] + CENTROID_HEIGHT).toFixed(), (screen[1] + CENTROID_HEIGHT).toFixed()];
-	};
-
-	/**
-	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	rotateLeftFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [(screen[0] - CENTROID_HEIGHT).toFixed(), (screen[1] - CENTROID_HEIGHT + 30).toFixed()]; //30 is for spacing
-	};
-
-	/**
-	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	rotateRightFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [(screen[0] + CENTROID_HEIGHT).toFixed(), (screen[1] - CENTROID_HEIGHT + 30).toFixed()];
-	};
-
-	/**
-	 * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
-	 * @param cx integer Cartesian X coordinate
-	 * @param cy integer Cartesian Y coordinate
-	 * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
-	 */
-	rotateTopFromCentroid(cx, cy) {
-		let screen = this.cartesianToScreen(cx, cy);
-
-		return [screen[0].toFixed(), (screen[1] + CENTROID_HEIGHT + 30).toFixed()];
-	};
-
-
-	render() {
-		return (
+    render() {
+        return (
 			<div>
-				<svg height={this.props.width} width={this.props.height} style={{width: '100%', borderRadius:'50%'}} transform={`rotate(${this.props.rotation})`} >
-					{
-                        this.dataSVG.map((value, key) => {
-                        	if(this.props.showId) {
-                                return (
-									<g key={key}>
-										<path
-											key={key + "_path"}
-											d={value.path}
-											strokeWidth={this.props.strokeWidth}
-											onMouseOver={(e) => { this.props.onHover(value) }}
-											onMouseOut={(e) => { this.props.onExit(value) }}
-											onMouseDown={(e) => { this.props.onClick(value) }}
-											fill={value.color}
-											stroke={this.props.strokeColor}
-										/>
-										<text
-											key={key + "_text"}
-											x={value.id.x}
-											y={value.id.y}
-											fill="#FFFFFF"
-										>{value.id.id}</text>
-									</g>
-                                )
-                            } else {
-                                return (
-										<path
-											key={key + "_path"}
-											d={value.path}
-											strokeWidth={this.props.strokeWidth}
-											onMouseOver={(e) => { this.props.onHover(value) }}
-											onMouseOut={(e) => { this.props.onExit(value) }}
-											onMouseDown={(e) => { this.props.onClick(value) }}
-											fill={value.color}
-											stroke={this.props.strokeColor}
-										/>
-                                )
-							}
-                        })
-					}
+				<svg height={this.props.width} width={this.props.height} style={{ width: '100%', borderRadius: '50%' }} transform={`rotate(${this.props.rotation})`}>
+                    {this.update()}
 				</svg>
 			</div>
-		);
-	}
+        );
+    }
 }
 
 NanoleafLayout.propTypes = {
-	height: PropTypes.number,
-	width: PropTypes.number,
-	data: PropTypes.object.isRequired, //should be array
-	onDraw: PropTypes.func,
-	panelSpacing: PropTypes.number,
-	strokeColor: PropTypes.string,
-	xOffset: PropTypes.number,
-	yOffset: PropTypes.number,
-	showId: PropTypes.bool,
-	strokeWidth: PropTypes.number,
-	rotation: PropTypes.number,
-	onHover: PropTypes.func,
-	onClick: PropTypes.func,
-	onExit: PropTypes.func,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    data: PropTypes.object.isRequired, //should be array
+    onDraw: PropTypes.func,
+    panelSpacing: PropTypes.number,
+    strokeColor: PropTypes.string,
+    xOffset: PropTypes.number,
+    yOffset: PropTypes.number,
+    showId: PropTypes.bool,
+    strokeWidth: PropTypes.number,
+    rotation: PropTypes.number,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onExit: PropTypes.func
 };
 
 export default NanoleafLayout;
