@@ -49,32 +49,28 @@ After installing `nanoleaf-layout` from NPM be sure to include it in your React 
 
 Now your all set to include the component in your `render()` method!
 
-```
-import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'
+```jsx
+import NanoleafLayout from "nanoleaf-layout/lib/nanoleaf-layout";
 
 let data = {
-	positionData: [
-		{
-			panelId: 1,
-			x: 100,
-			y: 100,
-			o: 180
-		}
-		...
-	]
+  positionData: [
+    {
+      panelId: 1,
+      x: 100,
+      y: 100,
+      o: 180
+    }
+  ]
 };
 
 export default class App extends Component {
-
-render() {
-        <NanoleafLayout
-            data={data}
-            //Other props can go here to customize the layout!
-        />
-    }
+  render() {
+    <NanoleafLayout
+      data={data}
+      //Other props can go here to customize the layout!
+    />;
+  }
 }
-
-
 ```
 
 The only property which is required for Nanoleaf to function is the `data` property. The data set **must** include a property 
@@ -96,18 +92,18 @@ Nanoleaf layout achieves this through a color property in each of the elements i
 By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a color property so it looks something like this
 
 ```
- {
-    sideLength: 150,
-    numPanels: 9,
-	positionData: [
-		{
-			panelId: 1,
-			x: 100,
-			y: 100,
-			o: 180
-		}
-		...
-	]
+{
+  sideLength: 150,
+  numPanels: 9,
+  positionData: [
+    {
+      panelId: 1,
+      x: 100,
+      y: 100,
+      o: 180
+    }
+    ...
+  ]
 };
 ```
 
@@ -117,25 +113,24 @@ The new positionData will look something like this
 
 ```
  {
-    sideLength: 150,
-    numPanels: 9,
-	positionData: [
-		{
-			panelId: 1,
-			x: 100,
-			y: 100,
-			o: 180,
-			color: '#00ff00'
-		}
-		{
-        	panelId: 2,
-        	x: 120,
-        	y: -50,
-        	o: 180,
-        	color: '#ffd033'
-        }
-
-	]
+  sideLength: 150,
+  numPanels: 9,
+  positionData: [
+    {
+      panelId: 1,
+      x: 100,
+      y: 100,
+      o: 180,
+      color: '#00ff00'
+    },
+    {
+      panelId: 2,
+      x: 120,
+      y: -50,
+      o: 180,
+      color: '#ffd033'
+    }
+  ]
 };
 ```
 
@@ -183,85 +178,89 @@ The properties include:
  For example lets say you wanted to execute a piece of code only when the panel with the panel ID of `4` is clicked.
  You can easily accomplish this with just a few lines of code!
  
- ```
- handlePanelFourClick = (id) => {
-    //Is the panel id 4?
-    if(id === 4) {
-        //Execute your code!
-        console.log('Panel 4 has been clicked!');
-    } else {
-        console.log('Wrong Panel Clicked!');
-    }
- }
+```jsx
+handlePanelFourClick = id => {
+  //Is the panel id 4?
+  if (id === 4) {
+    //Execute your code!
+    console.log("Panel 4 has been clicked!");
+  } else {
+    console.log("Wrong Panel Clicked!");
+  }
+};
  
 <NanoleafLayout
-    data={data}
-    onClick={(data) => { this.handlePanelFourClick(data.id.id) }} //Hook into the onClick event, data is the SVG Object being returned
-/>    
+  data={data}
+  onClick={data => {
+    this.handlePanelFourClick(data.id.id);
+  }} //Hook into the onClick event, data is the SVG Object being returned
+/>;  
 ```
 
 ### More Examples
 
 #### Update panel **3's** color from lime green to white if its hovered over!
 
- ```
-  let data = {
-     sideLength: 150,
-     numPanels: 9,
- 	positionData: [
- 		{
- 			panelId: 3,
- 			x: 100,
- 			y: 100,
- 			o: 180,
- 			color: '#00ff00'
- 		}
- 		{
-         	panelId: 4,
-         	x: 120,
-         	y: -50,
-         	o: 180,
-         	color: '#ffd033'
-         }
- 
- 	]
- };
- 
- 
- handlePanelThreeClick = (id, data) => {
-    if(id === 3) {
-        //Get the Key in the position data array for the color we want to update
-       let key = data.positionData.findIndex(x => x.panelId == id);
-       
-       //Update the color!
-       data[key].color = '#FFFFFF'; 
-       
-    } else {
-        console.log('Wrong Panel...');
+ ```jsx
+ let data = {
+  sideLength: 150,
+  numPanels: 9,
+  positionData: [
+    {
+      panelId: 3,
+      x: 100,
+      y: 100,
+      o: 180,
+      color: "#00ff00"
+    },
+    {
+      panelId: 4,
+      x: 120,
+      y: -50,
+      o: 180,
+      color: "#ffd033"
     }
- }
+  ]
+};
+ 
+ 
+handlePanelThreeClick = (id, data) => {
+  if (id === 3) {
+    //Get the Key in the position data array for the color we want to update
+    let key = data.positionData.findIndex(x => x.panelId == id);
+
+    //Update the color!
+    data[key].color = "#FFFFFF";
+  } else {
+    console.log("Wrong Panel...");
+  }
+};
  
 <NanoleafLayout
-    data={data}
-    onHover={(svg) => { this.handlePanelThreeClick(svg.id.id, data) }} //Hook into the onHover event, svg is the SVG Object being returned and data is the position data
-/>    
+  data={data}
+  onHover={svg => {
+    this.handlePanelThreeClick(svg.id.id, data);
+  }} //Hook into the onHover event, svg is the SVG Object being returned and data is the position data
+/>;
 ```
 
 #### Display a loading icon while the layout is loading up!
 
- ```
- componentDidMount = () => {
-    //Enable Loading Icon
- }
- 
- disableLoader = () => {
-   //Disable Loading Icon
- }
+ ```jsx
+componentDidMount = () => {
+  //Enable Loading Icon
+};
+
+disableLoader = () => {
+  //Disable Loading Icon
+};
  
 <NanoleafLayout
-    data={data}
-    onDraw={(data) => { this.disableLoader() }}
-/>    
+  data={data}
+  onDraw={data => {
+    this.disableLoader();
+  }}
+/>; 
 ```
 
 
