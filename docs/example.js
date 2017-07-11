@@ -268,14 +268,12 @@ var App = React.createClass({
 				strokeWidth: this.state.strokeWidth,
 				rotation: this.state.rotation,
 				onHover: function (data) {
-					console.log('Hovering....');
+					console.log(data);
 				},
 				onClick: function (data) {
 					console.log('Clicked!');
 				},
-				onDraw: function (svg) {
-					console.log('Drawing....');
-				}
+				onDraw: function (svg) {}
 			})
 		);
 	}
