@@ -51,6 +51,7 @@ After installing `nanoleaf-layout` from NPM be sure to include it in your React 
 Now your all set to include the component in your `render()` method!
 
 ```jsx
+import React, {Component} from 'react'
 import NanoleafLayout from "nanoleaf-layout/lib/nanoleaf-layout";
 
 let data = {
@@ -59,17 +60,19 @@ let data = {
       panelId: 1,
       x: 100,
       y: 100,
-      o: 180
-    }
-  ]
+      o: 180,
+    },
+  ],
 };
 
 export default class App extends Component {
   render() {
-    <NanoleafLayout
-      data={data}
-      //Other props can go here to customize the layout!
-    />;
+    return (
+      <NanoleafLayout
+        data={data}
+        //Other props can go here to customize the layout!
+      />;
+    );
   }
 }
 ```
@@ -101,10 +104,10 @@ By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a c
       panelId: 1,
       x: 100,
       y: 100,
-      o: 180
-    }
+      o: 180,
+    },
     ...
-  ]
+  ],
 };
 ```
 
@@ -122,16 +125,16 @@ The new positionData will look something like this
       x: 100,
       y: 100,
       o: 180,
-      color: '#00ff00'
+      color: '#00ff00',
     },
     {
       panelId: 2,
       x: 120,
       y: -50,
       o: 180,
-      color: '#ffd033'
-    }
-  ]
+      color: '#ffd033',
+    },
+  ],
 };
 ```
 
@@ -180,22 +183,38 @@ The properties include:
  You can easily accomplish this with just a few lines of code!
  
 ```jsx
-handlePanelFourClick = id => {
-  //Is the panel id 4?
-  if (id === 4) {
-    //Execute your code!
-    console.log("Panel 4 has been clicked!");
-  } else {
-    console.log("Wrong Panel Clicked!");
-  }
+import NanoleafLayout from "nanoleaf-layout/lib/nanoleaf-layout";
+import React, {Component} from 'react';
+
+let data = {
+  positionData: [
+    {
+      panelId: 1,
+      x: 100,
+      y: 100,
+      o: 180,
+    },
+  ],
 };
- 
-<NanoleafLayout
-  data={data}
-  onClick={data => {
-    this.handlePanelFourClick(data.id.id);
-  }} //Hook into the onClick event, data is the SVG Object being returned
-/>;  
+
+export default class App extends Component {
+
+  handlePanelFourClick = id => {
+    //Is the panel id 4?
+    id === 4 ? console.log('Panel 4 has been clicked!') : console.log('Wrong Panel Clicked!');
+  };
+
+  render() {
+    return (
+      <NanoleafLayout
+        data={data}
+        onClick={data => {
+          this.handlePanelFourClick(data.id.id); //Hook into the onClick event, data is the SVG Object being returned
+        }}
+      />
+    );
+  }
+}
 ```
 
 ### More Examples
@@ -203,7 +222,10 @@ handlePanelFourClick = id => {
 #### Update panel **3's** color from lime green to white if its hovered over!
 
  ```jsx
- let data = {
+ import NanoleafLayout from "nanoleaf-layout/lib/nanoleaf-layout";
+import React, {Component} from 'react';
+
+let data = {
   sideLength: 150,
   numPanels: 9,
   positionData: [
@@ -223,26 +245,32 @@ handlePanelFourClick = id => {
     }
   ]
 };
- 
- 
-handlePanelThreeClick = (id, data) => {
-  if (id === 3) {
-    //Get the Key in the position data array for the color we want to update
-    let key = data.positionData.findIndex(x => x.panelId == id);
 
-    //Update the color!
-    data[key].color = "#FFFFFF";
-  } else {
-    console.log("Wrong Panel...");
+export default class App extends Component {
+
+  handlePanelThreeClick = (id, data) => {
+    if (id === 3) {
+      //Get the Key in the position data array for the color we want to update
+      let key = data.positionData.findIndex(x => x.panelId == id);
+
+      //Update the color!
+      data[key].color = "#FFFFFF";
+    } else {
+      console.log("Wrong Panel...");
+    }
+  };
+  render() {
+    return (
+      <NanoleafLayout
+        data={data}
+        onHover={svg => {
+          this.handlePanelThreeClick(svg.id.id, data);
+        }} //Hook into the onHover event, svg is the SVG Object being returned and data is the position data
+      />
+    );
   }
-};
- 
-<NanoleafLayout
-  data={data}
-  onHover={svg => {
-    this.handlePanelThreeClick(svg.id.id, data);
-  }} //Hook into the onHover event, svg is the SVG Object being returned and data is the position data
-/>;
+}
+
 ```
 
 #### Display a loading icon while the layout is loading up!
