@@ -92,7 +92,7 @@ Nanoleaf layout achieves this through a color property in each of the elements i
 
 By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a color property so it looks something like this
 
-```json
+```
 {
   sideLength: 150,
   numPanels: 9,
@@ -112,7 +112,7 @@ By adding a Hexadecimal color code property into the position data it will tell 
 
 The new positionData will look something like this
 
-```json
+```
  {
   sideLength: 150,
   numPanels: 9,
