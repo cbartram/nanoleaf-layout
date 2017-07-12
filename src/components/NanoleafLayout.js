@@ -190,7 +190,7 @@ class NanoleafLayout extends Component {
     render() {
         return (
             <div>
-                <svg height={this.props.width} width={this.props.height} style={{ width: '100%', borderRadius: '50%' }} transform={`rotate(${this.props.rotation})`}>
+                <svg height={this.props.width} width={this.props.height} style={{ width: '100%', borderRadius: '50%', opacity: this.props.opacity }} transform={`rotate(${this.props.rotation})`}>
                     {this.update()}
                 </svg>
             </div>
@@ -209,6 +209,7 @@ NanoleafLayout.propTypes = {
     yOffset: PropTypes.number,
     showId: PropTypes.bool,
     strokeWidth: PropTypes.number,
+    opacity: PropTypes.number,
     rotation: PropTypes.number,
     onHover: PropTypes.func,
     onClick: PropTypes.func,
@@ -224,6 +225,7 @@ NanoleafLayout.defaultProps = {
     strokeColor: '#FFFFFF',
     onDraw: data => data,
     showId: false,
+    opacity: 1,
     strokeWidth: 2,
     rotation: 0,
     onHover: data => data,
