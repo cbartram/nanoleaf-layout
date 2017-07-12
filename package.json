@@ -1,8 +1,14 @@
 {
   "name": "nanoleaf-layout",
-  "version": "1.0.0",
-  "description": "Describe nanoleaf-layout here",
-  "private": true,
+  "version": "2.0.4",
+  "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
+  "keyword": [
+    "nanoleaf",
+    "layout",
+    "canvas",
+    "react",
+    "component"
+  ],
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
@@ -21,7 +27,24 @@
   "devDependencies": {
     "nwb": "0.18.x"
   },
-  "author": "",
+  "keywords": [
+    "react",
+    "react-component",
+    "nanoleaf",
+    "layout",
+    "cartesian",
+    "javascript",
+    "babel",
+    "webpack"
+  ],
+  "homepage": "https://github.com/cbartram/nanoleaf-layout",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbartram/nanoleaf-layout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cbartram/nanoleaf-layout/issues"
+  },
+  "author": "Christian Bartram",
   "license": "MIT",
-  "repository": ""
 }
