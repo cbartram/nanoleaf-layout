@@ -1,10 +1,9 @@
 # Nanoleaf Layout
 
-[![Build Status](https://travis-ci.org/cbartram/nanoleaf-layout.svg?branch=development)](https://travis-ci.org/cbartram/nanoleaf-layout)
+[![Build Status](https://travis-ci.org/cbartram/nanoleaf-layout.svg?branch=master)](https://travis-ci.org/cbartram/nanoleaf-layout)
 [![NPM version](https://img.shields.io/npm/v/nanoleaf-layout.svg)](https://www.npmjs.com/package/nanoleaf-layout)
-[![codecov.io](https://codecov.io/gh/cbartram/nanoleaf-layout/coverage.svg?branch=development)](https://codecov.io/gh/cbartram/nanoleaf-layout?branch=development)
+[![codecov](https://codecov.io/gh/cbartram/nanoleaf-layout/branch/development/graph/badge.svg)](https://codecov.io/gh/cbartram/nanoleaf-layout)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
-
 
 
 Introducing Nanoleaf Layout! The **only** package on NPM which takes your physical Nanoleaf layout and displays
