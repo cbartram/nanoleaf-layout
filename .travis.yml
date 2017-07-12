@@ -11,7 +11,7 @@ before_install:
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - npm run test:coverage
+  - npm run test
 
 branches:
   only:
