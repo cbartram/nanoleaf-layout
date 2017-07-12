@@ -5,6 +5,7 @@ node_js:
   - 6
 
 before_install:
+  - npm install jest
   - npm install codecov.io coveralls
   - npm run test:coverage
 
