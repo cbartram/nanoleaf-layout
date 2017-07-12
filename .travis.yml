@@ -5,11 +5,13 @@ node_js:
   - 6
 
 before_install:
+  - npm install jest babel-cli babel-preset-es2015 babel-preset-react
   - npm install codecov.io coveralls
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - npm run test:coverage
 
 branches:
   only:
