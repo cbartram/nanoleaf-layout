@@ -31,7 +31,9 @@ To edit the web application look in the `/example` directory and modify the `exa
 
 The easiest way to use nanoleaf-layout is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), [Webpack](http://webpack.github.io/), etc).
 
-You can also use the standalone build by including `lib/nanoleaf-layout.js` in your page (e.g. `import NanoleafLayout from 'nanoleaf-layout/lib/nanleaf-layout'`). 
+You can also use the standalone **commonJS build** by including `lib/index.js` in your page (e.g. `import NanoleafLayout from 'lib/index'`). 
+
+However, if you would rather use the ES6 Build you can include it by importing from the `es/` directory. (e.g. `import NanoleafLayout from 'es/index`)
 
 If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is therefore a React component and React is a dependency.
 
@@ -48,7 +50,7 @@ After installing `nanoleaf-layout` from NPM be sure to include it in your React 
 
 **Ensure you import NanoleafLayout from the /lib/nanoleaf-layout directory** as this includes the trans-piled production ready source code.
 
-Now your all set to include the component in your `render()` method!
+Now your all set to include the component in your `render()` method. Below is a **bare minimum** example of Nanoleaf in action!
 
 ```jsx
 import React, {Component} from 'react'
@@ -289,6 +291,9 @@ request to its IP for example. `http://172.17.193.17:16021/api/v1/YOUR_API_TOKEN
 Simply take the `PanelLayout {...}` portion of the response and pass it into the `<NanoleafLayout />` component.
 
 For more information about how to get this data check out the Nanoleaf Developer Documentation.
+
+**AS OF VERSION 2.1.0** Nanoleaf has been renamed to index.js so this could potentially break your code. 
+When you are importing Nanoleaf ensure you change your code to import  `index.js` instead of `nanoleaf-layout.js` (e.g. `import NanoleafLayout from 'lib/index'`)
 
 
 ## Whats New
