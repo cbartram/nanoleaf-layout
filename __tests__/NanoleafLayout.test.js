@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import NanoleafLayout from '../src/components/NanoleafLayout';
+import NanoleafLayout from '../demo/src/components/NanoleafLayout';
 
 test('component matches snapshot', () => {
     const component = renderer.create(
