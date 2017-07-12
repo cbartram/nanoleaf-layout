@@ -70,6 +70,7 @@ export default class App extends Component {
             strokeWidth: 2,
             rotation: 0,
             hovering: false,
+            opacity: 1,
         }
     }
 
@@ -85,6 +86,7 @@ export default class App extends Component {
 						showId={${this.state.showIds}}
 						strokeWidth={${this.state.strokeWidth}}
 						rotation={${this.state.rotation}}
+						opacity={${this.state.opacity}}
 					    />
 				`);
     };
@@ -135,6 +137,10 @@ export default class App extends Component {
         this.setState({rotation: value});
     };
 
+    handleSliderOpacity = (value) => {
+        this.setState({opacity: value});
+    };
+
     render () {
         return (
             <div>
@@ -181,6 +187,13 @@ export default class App extends Component {
                                 value={this.state.rotation}
                                 onChange={(e, value) => this.handleSlider(value)}
                             />
+                              <Slider
+                                  min={.1}
+                                  max={1.0}
+                                  step={.1}
+                                  value={this.state.opacity}
+                                  onChange={(e, value) => this.handleSliderOpacity(value)}
+                              />
                             <ChromePicker
                                 color={this.state.strokeColor}
                                 disableAlpha
@@ -219,6 +232,7 @@ export default class App extends Component {
                   showId={this.state.showIds}
                   strokeWidth={this.state.strokeWidth}
                   rotation={this.state.rotation}
+                  opacity={this.state.opacity}
                   onHover={data => console.log('Hovering!')}
                   onClick={data => console.log('Clicked!')}
                   onDraw={svg => console.log('Drawing!')}

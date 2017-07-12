@@ -160,6 +160,8 @@ Please see the next section titled Properties below for information about all th
 | `onHover`         | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when any of the panels are hovered over. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onHover={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |                                         
 | `onClick`         | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when any of the panels are clicked. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onClick={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
 | `onExit`          | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs when a mouse exits a panels area. The callback returns a SVG Object see the SVG object section for more details                                                                                                                                               | `<NanoleafLayout onExit={(data) => {}}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
+| `opacity`         | Integer           | 1                                                                  | Integer value between .1 and 1.0 which defines how opaque the entire layout becomes. .1 will make the layout barely visible whereas 1.0 will make it completely opaque.                                                                                                                                           | `<NanoleafLayout opacity={.5}`                                                                                                                        |                                                                                                                                                  | `<NanoleafLayout canvasHeight={500}`                                                                                                                        |
+
 
 
 ### SVG Object
@@ -176,7 +178,8 @@ The properties include:
 - `rotated` Boolean true if the panel was rotate (if its upside down) and false if it is upright.
 - `color` Hexadecimal color code of the panel
 - `path` The SVG path of the panel used to draw on the DOM
-- `id` **ID object** (not just the panel id) containing the id of the panel, as well as the x and y coordinates of the `panelID` which is drawn onto the actual panel. This contains the data which is used in the `showId` prop and determines
+- `id` The panel's unique identifier plain and simple
+- `panelID` **Object** (not just the panel id) containing the id of the panel, as well as the x and y coordinates of the `panelID` which is drawn onto the actual panel. This contains the data which is used in the `showId` prop and determines
  where to draw the panels ID on top of the panel itself.
  
  For example lets say you wanted to execute a piece of code only when the panel with the panel ID of `4` is clicked.
@@ -273,26 +276,6 @@ export default class App extends Component {
 
 ```
 
-#### Display a loading icon while the layout is loading up!
-
- ```jsx
-componentDidMount = () => {
-  //Enable Loading Icon
-};
-
-disableLoader = () => {
-  //Disable Loading Icon
-};
- 
-<NanoleafLayout
-  data={data}
-  onDraw={data => {
-    this.disableLoader();
-  }}
-/>; 
-```
-
-
 ### Notes
 
 Please ensure that your data property is formatted correctly, 
@@ -306,13 +289,6 @@ request to its IP for example. `http://172.17.193.17:16021/api/v1/YOUR_API_TOKEN
 Simply take the `PanelLayout {...}` portion of the response and pass it into the `<NanoleafLayout />` component.
 
 For more information about how to get this data check out the Nanoleaf Developer Documentation.
-
-
-## Development (`src`, `lib` and the build process)
-
-**NOTE:** The source code for the component is in `src`. A transpiled CommonJS version (generated with Babel) is available in `lib` for use with node.js, browserify and webpack. A UMD bundle is also built to `dist`, which can be included without the need for any build system.
-
-To build, watch and serve the examples (which will also watch the component source), run `npm start`. If you just want to watch changes to `src` and rebuild `lib`, run `npm run watch` (this is useful if you are working with `npm link`).
 
 
 ## Whats New
