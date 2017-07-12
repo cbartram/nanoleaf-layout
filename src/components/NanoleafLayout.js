@@ -44,35 +44,7 @@ class NanoleafLayout extends Component {
         });
 
         this.setState({ dataSVG: data });
-    }
-
-
-
-    static get defaultProps() {
-        return {
-            xOffset: 0,
-            yOffset: 0,
-            panelSpacing: 1.37,
-            width: 1000,
-            height: 1000,
-            strokeColor: '#FFFFFF',
-            onDraw: function(data) {
-                return data;
-            },
-            showId: false,
-            strokeWidth: 2,
-            rotation: 0,
-            onHover: function(data) {
-                return data;
-            },
-            onClick: function(data) {
-                return data;
-            },
-            onExit: function(data) {
-                return data;
-            }
-        };
-    }
+    };
 
     /**
      * Draws an Equilateral Triangle on the Canvas
@@ -131,7 +103,7 @@ class NanoleafLayout extends Component {
                 panelID
             };
         }
-    }
+    };
 
     /**
      * Handles recalculating values and updating when the layout changes
@@ -213,7 +185,7 @@ class NanoleafLayout extends Component {
                 )
             }
         })
-    }
+    };
 
     render() {
         return (
@@ -241,6 +213,22 @@ NanoleafLayout.propTypes = {
     onHover: PropTypes.func,
     onClick: PropTypes.func,
     onExit: PropTypes.func
+};
+
+NanoleafLayout.defaultProps = {
+    xOffset: 0,
+    yOffset: 0,
+    panelSpacing: 2.00,
+    width: 1000,
+    height: 1000,
+    strokeColor: '#FFFFFF',
+    onDraw: data => data,
+    showId: false,
+    strokeWidth: 2,
+    rotation: 0,
+    onHover: data => data,
+    onClick: data => data,
+    onExit: data => data,
 };
 
 export default NanoleafLayout;
