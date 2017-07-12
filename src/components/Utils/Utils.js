@@ -6,6 +6,14 @@ const CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
 
 
 /**
+ * Returns the Constant centroid height for Unit tests
+ * @returns {number}
+ */
+export function getCentroidHeight() {
+    return CENTROID_HEIGHT;
+}
+
+/**
  * Maps a cartesian point to a 2D HTML Canvas point
  * @param cx integer Cartesian X coordinate
  * @param cy integer Cartesian Y coordinate
@@ -40,7 +48,7 @@ export function doRotate(rotation) {
 export function getTopFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
-    return [screen[0].toFixed(), (screen[1] - CENTROID_HEIGHT).toFixed()];
+    return [parseInt(screen[0].toFixed()), parseInt((screen[1] - CENTROID_HEIGHT).toFixed())];
 }
 
 /**
@@ -55,8 +63,8 @@ export function getLeftFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
     return [
-        (screen[0] - CENTROID_HEIGHT).toFixed(),
-        (screen[1] + CENTROID_HEIGHT).toFixed()
+        parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
+        parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
     ];
 }
 
@@ -72,8 +80,8 @@ export function getRightFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
     return [
-        (screen[0] + CENTROID_HEIGHT).toFixed(),
-        (screen[1] + CENTROID_HEIGHT).toFixed()
+        parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
+        parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
     ];
 }
 
@@ -89,8 +97,8 @@ export function rotateLeftFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
     return [
-        (screen[0] - CENTROID_HEIGHT).toFixed(),
-        (screen[1] - CENTROID_HEIGHT + 30).toFixed()
+        parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
+        parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
     ]; //30 is for spacing
 }
 
@@ -106,8 +114,8 @@ export function rotateRightFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
     return [
-        (screen[0] + CENTROID_HEIGHT).toFixed(),
-        (screen[1] - CENTROID_HEIGHT + 30).toFixed()
+        parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
+        parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
     ];
 }
 
@@ -123,7 +131,7 @@ export function rotateTopFromCentroid(cx, cy, height, width) {
     let screen = cartesianToScreen(cx, cy, height, width);
 
     return [
-        screen[0].toFixed(),
-        (screen[1] + CENTROID_HEIGHT + 30).toFixed()
+        parseInt(screen[0].toFixed()),
+        parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())
     ];
 }

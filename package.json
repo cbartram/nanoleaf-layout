@@ -13,8 +13,8 @@
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
@@ -22,10 +22,16 @@
     "prop-types": "latest",
     "react": "^15.6.1",
     "react-color": "^2.13.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-test-renderer": "^15.6.1",
+    "save-dev": "^2.0.0"
   },
   "devDependencies": {
-    "nwb": "0.18.x"
+    "enzyme": "^2.9.1",
+    "jest": "^20.0.4",
+    "nwb": "0.18.x",
+    "react-addons-test-utils": "^15.6.0"
   },
   "keywords": [
     "react",
@@ -46,5 +52,5 @@
     "url": "https://github.com/cbartram/nanoleaf-layout/issues"
   },
   "author": "Christian Bartram",
-  "license": "MIT",
+  "license": "MIT"
 }
