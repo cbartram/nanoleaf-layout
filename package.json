@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "material-ui": "^0.18.6",
-    "prop-types": "latest",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-color": "^2.13.1",
     "react-dom": "^15.6.1",
