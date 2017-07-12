@@ -1,4 +1,4 @@
-const Utils = require('../src/components/Utils/Utils');
+const Utils = require('../demo/src/components/Utils/Utils');
 
 
 test('do rotate returns true', () => {

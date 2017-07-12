@@ -7,6 +7,7 @@ exports[`component matches snapshot 1`] = `
     style={
       Object {
         "borderRadius": "50%",
+        "opacity": 1,
         "width": "100%",
       }
     }
