@@ -1,6 +1,6 @@
 {
   "name": "nanoleaf-layout",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
   "keyword": [
     "nanoleaf",
@@ -42,6 +42,11 @@
     "javascript",
     "babel",
     "webpack"
+  ],
+  "files": [
+    "lib",
+    "es",
+    "umd"
   ],
   "homepage": "https://github.com/cbartram/nanoleaf-layout",
   "repository": {
