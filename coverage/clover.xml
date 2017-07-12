@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1499863993172" clover="3.2.0">
+  <project timestamp="1499863993173" name="All files">
+    <metrics statements="18" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="6" elements="27" coveredelements="18" complexity="0" loc="18" ncloc="18" packages="1" files="1" classes="1">
+      <file name="Utils.js" path="/Users/g6vc/WebstormProjects/nanoleaf-layout/src/components/Utils/Utils.js">
+        <metrics statements="18" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="6"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="26" count="8" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="65" count="2" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="133" count="0" type="stmt"/>
+      </file>
+    </metrics>
+  </project>
+</coverage>

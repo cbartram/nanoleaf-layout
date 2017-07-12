@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches snapshot 1`] = `
+<div>
+  <svg
+    height={1000}
+    style={
+      Object {
+        "borderRadius": "50%",
+        "width": "100%",
+      }
+    }
+    transform="rotate(0)"
+    width={1000}
+  />
+</div>
+`;
