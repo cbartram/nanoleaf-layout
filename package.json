@@ -43,6 +43,9 @@
     "babel",
     "webpack"
   ],
+  "babel": {
+    "presets": ["es2015", "react"]
+  },
   "files": [
     "lib",
     "es",
