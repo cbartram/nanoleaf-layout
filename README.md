@@ -10,9 +10,14 @@ Introducing Nanoleaf Layout! The **only** package on NPM which takes your physic
 it in **any** 2D application. Nanoleaf Layout will take in the confusing `X,Y` coordinates and Orientation that comes from Nanoleaf's 
 OpenAPI and converts it into a useful 2D graphic visual which you can place in your application! 
 
+Nanoleaf is a revolutionary smart lighting product which is fun and easy to use! Their development documentation can be fairly confusing 
+for developers when it comes to how their layout data is organized so I created this Library to make it easy for developers to mimic the
+ Nanoleaf's physical layout on a screen. Ultimately this helps open up new doors that allow users to intuitively interact with their nanoleaf
+ on a computer, phone, or tablet!
+
 With this API you can visualize colors, position, orientation and even hook into hover and click events for the Nanoleaf layout!
 
-Lets dive in and see how it works!
+Check out our Demo & Examples section to see the layout in action.
 
 ## Demo & Examples
 
@@ -30,7 +35,7 @@ npm start
 Then open [`localhost:8000`](http://localhost:8000) in a browser.
 
 You will see a simple 6 panel layout and how Nanoleaf Layout correctly renders it on screen!
-To edit the web application look in the `/example` directory and modify the `example.js` file. 
+To edit the web application look in the `/demo/src/` directory and modify the `App.js` file. 
 
 
 ## Installation
@@ -50,7 +55,7 @@ npm install nanoleaf-layout --save
 
 ## Usage
 
-Nanoleaf is super easy to use in any React project!
+Nanoleaf is super easy to use in any React **or non React** project!
 
 After installing `nanoleaf-layout` from NPM be sure to include it in your React Component by doing `import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'`
 
@@ -93,6 +98,18 @@ The best way to ensure that your `data` prop is formatted correctly is to make a
 from it. From here you can easily pass the data right into the React Component
 
 To make a REST call to your nanoleaf send a GET request to `http://YOUR_NANOLEAF_IP/api/v1/YOUR_AUTH_TOKEN/`
+
+### Non React Projects
+
+Not using React? No worries, Nanoleaf-Layout provides you with a simple API (only one method)
+to allow you to implement the layout in **any** project! 
+
+Simply import the API `import * as Nanoleaf from './es/api/layout.js';` (Note that we must import * all method(s) in the API because it is **not** a React Component)
+from here you can call `Nanoleaf.draw(x, y, orientation, color, id, height, width)` and it will return an SVG object (see documentation on SVG Object below) with all
+the data you need to draw the panel correctly on screen. 
+
+Happy Coding!
+
 
 ### Changing Panel Colors
 

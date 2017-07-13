@@ -1,7 +1,7 @@
 import './App.css'
 
 import React, {Component} from 'react'
-import NanoleafLayout from '../../es/index';
+import NanoleafLayout from '../es/index';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
