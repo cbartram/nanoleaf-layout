@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/cbartram/nanoleaf-layout/blob/development/logo.png" />
+</p>
+
 # Nanoleaf Layout
 
 [![Build Status](https://travis-ci.org/cbartram/nanoleaf-layout.svg?branch=master)](https://travis-ci.org/cbartram/nanoleaf-layout)
