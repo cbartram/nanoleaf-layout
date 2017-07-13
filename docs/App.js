@@ -10,7 +10,6 @@ import TextField from 'material-ui/TextField';
 import { ChromePicker } from 'react-color';
 import Toggle from 'material-ui/Toggle';
 import Slider from 'material-ui/Slider';
-import NanoleafAPI from '../../es/api/layout';
 
 
 let data = {
