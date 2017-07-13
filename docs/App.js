@@ -1,7 +1,7 @@
 import './App.css'
 
 import React, {Component} from 'react'
-import NanoleafLayout from '../../es/index';
+import NanoleafLayout from '../es/index';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -10,7 +10,6 @@ import TextField from 'material-ui/TextField';
 import { ChromePicker } from 'react-color';
 import Toggle from 'material-ui/Toggle';
 import Slider from 'material-ui/Slider';
-import * as API from '../../es/api/layout';
 
 
 let data = {
