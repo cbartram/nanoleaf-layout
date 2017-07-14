@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/utils.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">lib</a> utils.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>28/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>28/28</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+exports.__esModule = true;
+exports.getCentroidHeight = getCentroidHeight;
+exports.cartesianToScreen = cartesianToScreen;
+exports.doRotate = doRotate;
+exports.getTopFromCentroid = getTopFromCentroid;
+exports.getLeftFromCentroid = getLeftFromCentroid;
+exports.getRightFromCentroid = getRightFromCentroid;
+exports.rotateLeftFromCentroid = rotateLeftFromCentroid;
+exports.rotateRightFromCentroid = rotateRightFromCentroid;
+exports.rotateTopFromCentroid = rotateTopFromCentroid;
+/**
+ * Created by Christian Bartram
+ * Github @cbartram
+ */
+var CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
+&nbsp;
+/**
+ * Returns the Constant centroid height for Unit tests
+ * @returns {number}
+ */
+function getCentroidHeight() {
+  return CENTROID_HEIGHT;
+}
+&nbsp;
+/**
+ * Maps a cartesian point to a 2D HTML Canvas point
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
+ */
+function cartesianToScreen(cx, cy, height, width) {
+  var screenX = cx + width / 2;
+  var screenY = height / 2 - cy;
+&nbsp;
+  return [screenX, screenY];
+}
+&nbsp;
+/**
+ * Determines if the given triangle should be rotated
+ * @param rotation integer rotation in degrees
+ * @returns {boolean} true if the rotation should occur false otherwise
+ */
+function doRotate(rotation) {
+  return rotation / 60 % 2 !== 0;
+}
+&nbsp;
+/**
+ * Calculates the top most point of the equilateral triangle given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function getTopFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt(screen[0].toFixed()), parseInt((screen[1] - CENTROID_HEIGHT).toFixed())];
+}
+&nbsp;
+/**
+ * Calculates the left most point of the equilateral triangle given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function getLeftFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
+}
+&nbsp;
+/**
+ * Calculates the right most point of the equilateral triangle given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function getRightFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
+}
+&nbsp;
+/**
+ * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function rotateLeftFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())]; //30 is for spacing
+}
+&nbsp;
+/**
+ * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function rotateRightFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())];
+}
+&nbsp;
+/**
+ * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
+ * @param cx integer Cartesian X coordinate
+ * @param cy integer Cartesian Y coordinate
+ * @param height integer the height of the SVG
+ * @param width integer the width of the SVG
+ * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
+ */
+function rotateTopFromCentroid(cx, cy, height, width) {
+  var screen = cartesianToScreen(cx, cy, height, width);
+&nbsp;
+  return [parseInt(screen[0].toFixed()), parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())];
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 14 2017 08:23:25 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
