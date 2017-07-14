@@ -9,7 +9,7 @@ var CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
  * @returns {number}
  */
 export function getCentroidHeight() {
-    return CENTROID_HEIGHT;
+  return CENTROID_HEIGHT;
 }
 
 /**
@@ -21,10 +21,10 @@ export function getCentroidHeight() {
  * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
  */
 export function cartesianToScreen(cx, cy, height, width) {
-    var screenX = cx + width / 2;
-    var screenY = height / 2 - cy;
+  var screenX = cx + width / 2;
+  var screenY = height / 2 - cy;
 
-    return [screenX, screenY];
+  return [screenX, screenY];
 }
 
 /**
@@ -33,7 +33,7 @@ export function cartesianToScreen(cx, cy, height, width) {
  * @returns {boolean} true if the rotation should occur false otherwise
  */
 export function doRotate(rotation) {
-    return rotation / 60 % 2 !== 0;
+  return rotation / 60 % 2 !== 0;
 }
 
 /**
@@ -45,9 +45,9 @@ export function doRotate(rotation) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function getTopFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt(screen[0].toFixed()), parseInt((screen[1] - CENTROID_HEIGHT).toFixed())];
+  return [parseInt(screen[0].toFixed()), parseInt((screen[1] - CENTROID_HEIGHT).toFixed())];
 }
 
 /**
@@ -59,9 +59,9 @@ export function getTopFromCentroid(cx, cy, height, width) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function getLeftFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
+  return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
 }
 
 /**
@@ -73,9 +73,9 @@ export function getLeftFromCentroid(cx, cy, height, width) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function getRightFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
+  return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
 }
 
 /**
@@ -87,9 +87,9 @@ export function getRightFromCentroid(cx, cy, height, width) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function rotateLeftFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())]; //30 is for spacing
+  return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())]; //30 is for spacing
 }
 
 /**
@@ -101,9 +101,9 @@ export function rotateLeftFromCentroid(cx, cy, height, width) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function rotateRightFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())];
+  return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())];
 }
 
 /**
@@ -115,7 +115,7 @@ export function rotateRightFromCentroid(cx, cy, height, width) {
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
 export function rotateTopFromCentroid(cx, cy, height, width) {
-    var screen = cartesianToScreen(cx, cy, height, width);
+  var screen = cartesianToScreen(cx, cy, height, width);
 
-    return [parseInt(screen[0].toFixed()), parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())];
+  return [parseInt(screen[0].toFixed()), parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())];
 }
