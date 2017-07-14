@@ -5,7 +5,7 @@ node_js:
   - 6
 
 before_install:
-  - npm install jest babel-cli babel-preset-es2015 babel-preset-react react react-test-renderer
+  - npm install jest babel-cli babel-preset-es2015 babel-preset-react react react-test-renderer prop-types
   - npm install codecov.io coveralls
   - npm run test
 
