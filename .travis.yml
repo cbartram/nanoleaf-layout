@@ -5,13 +5,20 @@ node_js:
   - 6
 
 before_install:
-  - npm install jest babel-cli babel-preset-es2015 babel-preset-react
+  - npm install jest babel-cli babel-preset-es2015 babel-preset-react react react-test-renderer
   - npm install codecov.io coveralls
   - npm run test
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: bXUzMpmJaxFiFifPRcrZ
+  on:
+    branch: master
 
 branches:
   only:
