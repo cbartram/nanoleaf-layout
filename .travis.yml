@@ -12,7 +12,7 @@ before_install:
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - cd demo/src && now -t AJuj1RkAeWcBhxTGASIE9gv3 --force
+  - cd demo/src && now -t AJuj1RkAeWcBhxTGASIE9gv3 --public
 
 deploy:
   provider: pages
