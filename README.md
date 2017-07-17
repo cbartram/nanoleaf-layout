@@ -10,12 +10,12 @@
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
 
 
-Introducing Nanoleaf Layout! The **only** package on NPM which takes your physical Nanoleaf layout and displays
+Nanoleaf Layout is the **premier** package on NPM which takes your physical Nanoleaf layout and displays
 it in **any** 2D application. Nanoleaf Layout will take in the confusing `X,Y` coordinates and Orientation that comes from Nanoleaf's 
 OpenAPI and converts it into a useful 2D graphic visual which you can place in your application! 
 
-Nanoleaf is a revolutionary smart lighting product which is fun and easy to use! Their development documentation can be fairly confusing 
-for developers when it comes to how their layout data is organized so I created this Library to make it easy for developers to mimic the
+Nanoleaf is a revolutionary smart lighting product which is fun and easy to use! It can be connected into different patterns with varying effects and colors.
+ Their development documentation can be fairly confusing for developers when it comes to how their layout data is organized so I created this Library to make it easy for developers to mimic the
  Nanoleaf's physical layout on a screen. Ultimately this helps open up new doors that allow users to intuitively interact with their nanoleaf
  on a computer, phone, or tablet!
 
