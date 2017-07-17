@@ -48,7 +48,7 @@ The easiest way to use nanoleaf-layout is to install it from NPM and include it 
 
 You can also use the standalone **commonJS build** by including `lib/index.js` in your page (e.g. `import NanoleafLayout from 'lib/index'`). 
 
-However, if you would rather use the ES6 Build you can include it by importing from the `es/` directory. (e.g. `import NanoleafLayout from 'es/index`)
+However, if you would rather use the ES6 Build you can include it by importing from the `es/` directory. (e.g. `import NanoleafLayout from 'es/index'`)
 
 If you use this, make sure you have already included React, and it is available as a global variable as Nanoleaf Layout is therefore a React component and React is a dependency.
 

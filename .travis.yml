@@ -6,12 +6,14 @@ node_js:
 
 before_install:
   - npm install jest babel-cli babel-preset-es2015 babel-preset-react react react-test-renderer prop-types
+  - npm install -g now now-cli
   - npm install codecov.io coveralls
   - npm run test
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cd demo/src && now
 
 deploy:
   provider: pages
