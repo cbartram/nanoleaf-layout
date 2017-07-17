@@ -14,13 +14,6 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
   - cd demo/src && now -t AJuj1RkAeWcBhxTGASIE9gv3 --public
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: bXUzMpmJaxFiFifPRcrZ
-  on:
-    branch: development
-
 branches:
   only:
     - master
