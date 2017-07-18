@@ -115,7 +115,7 @@ the data you need to draw the panel correctly on screen.
 Happy Coding!
 
 
-### Changing Panel Colors
+### Changing Panel and Stroke Colors
 
 Its simple to control the stroke width and color of the Nanoleaf with the `strokeWidth` and `strokeColor` but sometimes you
 may want to control the actual color of the panels themselves.
@@ -140,7 +140,8 @@ By default the Nanoleaf OpenAPI returns the nanoleaf layout data **without** a c
 };
 ```
 
-By adding a Hexadecimal color code property into the position data it will tell nanoleaf-layout to change the color of that particular panel
+By adding a Hexadecimal color code property into the position data it will tell nanoleaf-layout to change the color of that particular panel.
+You can do the same thing with the `strokeColor` property to control the stroke color of the panel instance. **strokeColor** is no longer a valid or supported prop as of version `2.1.2`
 
 The new positionData will look something like this
 
@@ -155,6 +156,7 @@ The new positionData will look something like this
       y: 100,
       o: 180,
       color: '#00ff00',
+      strokeColor: '#B2EEF0'
     },
     {
       panelId: 2,
@@ -162,12 +164,13 @@ The new positionData will look something like this
       y: -50,
       o: 180,
       color: '#ffd033',
+      strokeColor: '#B2EEF0'
     },
   ],
 };
 ```
 
-This allows one to explicitly set and update the color of each panel quickly and easily!
+This allows one to explicitly set and update the color of each panel quickly and easily! 
 
 Please see the next section titled Properties below for information about all the nanoleaf-layout properties, their default values, and their descriptions.
 
@@ -177,7 +180,6 @@ Please see the next section titled Properties below for information about all th
 |-------------------|:-----------------:|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `data`            | Object            | None this property is **required** for nanoleaf-layout to function | The panel data received from the Nanoleaf OpenAPI GET request made to `/api/v1/YOUR_API_KEY/` Its comprised of a `panelData` key and an array of panel objects see the example in the next column                                                                     | ```  {  layoutData: [       {         panelId: 1,         x: 100,        y: 100,        o: 180,        color: '#00FF00'        }       ........   ]  }  ``` |
 | `panelSpacing`    | Integer           | 1.37                                                               | Defines how much space is between each panel. A greater value will put **less** space in between panels. 1.37 is the recommended and default value.                                                                                                                   | `<NanoleafLayout panelSpacing={1.37} />`                                                                                                                    |
-| `strokeColor`     | String            | #FFFFFF                                                            | Hexadecimal color code defining what color the stroke should be on the panels. This must include the `#` sign                                                                                                                                                         | `<NanoleafLayout strokeColor={'#00FF00'} />`                                                                                                                 |
 | `onDraw`          | Function          | Callback function with an empty body. `(data) => { }`              | Callback function which occurs **each time** a new panel is drawn. It will return an array of data representing physical points where each corner of the equilateral triangle is location. e.g `[100.792, 200.11, -380.90]`                                           | `<NanoleafLayout onDraw={(data) => { console.log(data) }}`                                                                                                  |
 | `xOffset`         | Integer           | 0                                                                  | Integer value to offset on the X axis. A higher xOffset value will shift the entire graphic to the left (in the positive X direction) This property is required, however, if you dont need any x offset then a value of 0 can be specified                            | `<NanoleafLayout xOffset={120} />`                                                                                                                          |
 | `yOffset`         | Integer           | 0                                                                  | Integer value to offset on the Y axis. A higher yOffset value will shift the entire graphic down (in the positive Y direction because of the HTML canvas's grid) This property is required, however, if you dont need any Y offset then a value of 0 can be specified | `<NanoleafLayout yOffset={120} />`                                                                                                                          |
