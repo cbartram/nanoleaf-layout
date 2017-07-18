@@ -140,7 +140,6 @@ class NanoleafLayout extends Component {
         });
 
         return data.map((value, key) => {
-            console.log(value);
             if(this.props.showId) {
                 return (
                     <g key={key}>

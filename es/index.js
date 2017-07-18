@@ -132,7 +132,6 @@ var NanoleafLayout = function (_Component) {
         });
 
         return data.map(function (value, key) {
-            console.log(value);
             if (_this3.props.showId) {
                 return React.createElement(
                     'g',
