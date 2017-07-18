@@ -15,6 +15,7 @@ test("layout returns an object", () => {
     centroid: [600, 400],
     rotated: true,
     color: "#FFFFFF",
+    strokeColor: "#FFFFFF",
     path: "M600 473 L557 387 L643 387 L600 473 Z",
     id: 1,
     panelID: {
@@ -24,5 +25,5 @@ test("layout returns an object", () => {
     }
   };
 
-  expect(layout.draw(100, 100, 60, "#FFFFFF", 1, 1000, 1000)).toMatchObject(object);
+  expect(layout.draw(100, 100, 60, "#FFFFFF", "#FFFFFF", 1, 1000, 1000)).toMatchObject(object);
 });

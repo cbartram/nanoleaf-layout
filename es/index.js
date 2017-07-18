@@ -40,7 +40,7 @@ var NanoleafLayout = function (_Component) {
         }
 
         this.props.data.positionData.map(function (value) {
-            var draw = _this2.calculate(value.x / _this2.props.panelSpacing + _this2.props.xOffset, value.y / _this2.props.panelSpacing + _this2.props.yOffset, value.o, value.color, value.panelId, _this2.props.height, _this2.props.width);
+            var draw = _this2.calculate(value.x / _this2.props.panelSpacing + _this2.props.xOffset, value.y / _this2.props.panelSpacing + _this2.props.yOffset, value.o, value.color, value.strokeColor, value.panelId, _this2.props.height, _this2.props.width);
 
             _this2.props.onDraw(draw);
             data.push(draw);
@@ -55,11 +55,12 @@ var NanoleafLayout = function (_Component) {
      * @param y integer Cartesian Y coordinate
      * @param o integer Orientation in degrees
      * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+     * @param strokeColor hexadecimal color code for the Triangles stroke i.e #DDFF90
      * @param height integer height of the SVG
      * @param width integer width of the SVG
      * @param id integer the panel identifier
      */
-    NanoleafLayout.prototype.calculate = function calculate(x, y, o, color, id, height, width) {
+    NanoleafLayout.prototype.calculate = function calculate(x, y, o, color, strokeColor, id, height, width) {
         var centroid = Utils.cartesianToScreen(x, y, height, width);
 
         //The Id that is drawn on top of the SVG when the showIds prop is true
@@ -83,6 +84,7 @@ var NanoleafLayout = function (_Component) {
                 centroid: centroid,
                 rotated: true,
                 color: color,
+                strokeColor: strokeColor,
                 path: path,
                 id: id,
                 panelID: panelID
@@ -101,6 +103,7 @@ var NanoleafLayout = function (_Component) {
                 centroid: centroid,
                 rotated: false,
                 color: color,
+                strokeColor: strokeColor,
                 path: _path,
                 id: id,
                 panelID: panelID
@@ -122,13 +125,14 @@ var NanoleafLayout = function (_Component) {
         }
 
         this.props.data.positionData.map(function (value) {
-            var draw = _this3.calculate(value.x / _this3.props.panelSpacing + _this3.props.xOffset, value.y / _this3.props.panelSpacing + _this3.props.yOffset, value.o, value.color, value.panelId, _this3.props.height, _this3.props.width);
+            var draw = _this3.calculate(value.x / _this3.props.panelSpacing + _this3.props.xOffset, value.y / _this3.props.panelSpacing + _this3.props.yOffset, value.o, value.color, value.strokeColor, value.panelId, _this3.props.height, _this3.props.width);
 
             _this3.props.onDraw(draw);
             data.push(draw);
         });
 
         return data.map(function (value, key) {
+            console.log(value);
             if (_this3.props.showId) {
                 return React.createElement(
                     'g',
@@ -147,7 +151,7 @@ var NanoleafLayout = function (_Component) {
                             _this3.props.onClick(value);
                         },
                         fill: value.color,
-                        stroke: _this3.props.strokeColor
+                        stroke: value.strokeColor
                     }),
                     React.createElement(
                         'text',
@@ -175,7 +179,7 @@ var NanoleafLayout = function (_Component) {
                         _this3.props.onClick(value);
                     },
                     fill: value.color,
-                    stroke: _this3.props.strokeColor
+                    stroke: value.strokeColor
                 });
             }
         });
@@ -202,7 +206,6 @@ NanoleafLayout.propTypes = process.env.NODE_ENV !== "production" ? {
     data: PropTypes.object.isRequired, //should be array
     onDraw: PropTypes.func,
     panelSpacing: PropTypes.number,
-    strokeColor: PropTypes.string,
     xOffset: PropTypes.number,
     yOffset: PropTypes.number,
     showId: PropTypes.bool,
@@ -220,7 +223,6 @@ NanoleafLayout.defaultProps = {
     panelSpacing: 1.25,
     width: 1000,
     height: 1000,
-    strokeColor: '#FFFFFF',
     onDraw: function onDraw(data) {
         return data;
     },

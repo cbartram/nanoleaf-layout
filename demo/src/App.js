@@ -21,37 +21,48 @@ let data = {
         'x': 100,
         'y': 100,
         'o': 0,
-        'color': "#00ff00"
+        'color': "#00ff00",
+        'strokeColor': "#2a91fa"
     }, {
         'panelId': 2,
         'x': 25,
         'y': -29,
         'o': 240,
-        'color': "#2a91fa"
+        'color': "#2a91fa",
+        'strokeColor': "#00ff00"
+
     }, {
         'panelId': 3,
         'x': 174,
         'y': -29,
         'o': 120,
-        'color': "#ff199f"
+        'color': "#ff199f",
+        'strokeColor': "#defa42"
+
     }, {
         'panelId': 4,
         'x': 99,
         'y': 13,
         'o': 180,
-        'color': "#ff8522"
+        'color': "#ff8522",
+        'strokeColor': "#3be8fa"
+
     }, {
         'panelId': 5,
         'x': 99,
         'y': -159,
         'o': 0,
-        'color': "#4bffd5"
+        'color': "#4bffd5",
+        'strokeColor': "#fa2817"
+
     }, {
         'panelId': 6,
         'x': 25,
         'y': -116,
         'o': 60,
-        'color': "#000000"
+        'color': "#000000",
+        'strokeColor': "#fa18f5"
+
     }]
 };
 
@@ -64,7 +75,6 @@ export default class App extends Component {
             yOffset: 0,
             onDraw: 0,
             panelSpacing: 1.37,
-            strokeColor: '#FFFFFF',
             width: 1000,
             height: 1000,
             showIds: true,
@@ -116,12 +126,6 @@ export default class App extends Component {
         if(value !== null && value !== '') {
             this.setState({panelSpacing: parseFloat(value)});
         }
-    };
-
-    handleColorChange = (color) => {
-        this.setState({strokeColor: color.hex}, () => {
-
-        });
     };
 
     handleStrokeWidth = (value) => {
@@ -195,11 +199,6 @@ export default class App extends Component {
                                   value={this.state.opacity}
                                   onChange={(e, value) => this.handleSliderOpacity(value)}
                               />
-                            <ChromePicker
-                                color={this.state.strokeColor}
-                                disableAlpha
-                                onChangeComplete={(color) => { this.handleColorChange(color); }}
-                            />
                           </CardActions>
                         </Card>
                       </div>
@@ -229,7 +228,6 @@ export default class App extends Component {
                   height={this.state.height}
                   width={this.state.width}
                   panelSpacing={this.state.panelSpacing}
-                  strokeColor={this.state.strokeColor}
                   showId={this.state.showIds}
                   strokeWidth={this.state.strokeWidth}
                   rotation={this.state.rotation}
