@@ -158,7 +158,10 @@ var NanoleafLayout = function (_Component) {
                             key: key + '_text',
                             x: value.panelID.x,
                             y: value.panelID.y,
-                            fill: '#FFFFFF'
+                            fill: '#FFFFFF',
+                            onMouseDown: function onMouseDown(e) {
+                                _this3.props.onClick(value);
+                            }
                         },
                         value.id
                     )

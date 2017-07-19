@@ -164,6 +164,9 @@ class NanoleafLayout extends Component {
                             x={value.panelID.x}
                             y={value.panelID.y}
                             fill="#FFFFFF"
+                            onMouseDown={e => {
+                                this.props.onClick(value)
+                            }}
                         >
                             {value.id}
                         </text>
