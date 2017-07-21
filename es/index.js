@@ -63,10 +63,26 @@ var NanoleafLayout = function (_Component) {
     NanoleafLayout.prototype.calculate = function calculate(x, y, o, color, strokeColor, id, height, width) {
         var centroid = Utils.cartesianToScreen(x, y, height, width);
 
+        //Default for a single digit ID
+        var textXOffset = -3;
+        var textYOffset = 18;
+
+        //Determine the Text offset
+        if (id > 9 && id <= 99) {
+            textXOffset = -10;
+            textYOffset = 20;
+        }
+
+        if (id >= 100 && id < 999) {
+            //Text is > 3 digit ID
+            textXOffset = -13;
+            textYOffset = 25;
+        }
+
         //The Id that is drawn on top of the SVG when the showIds prop is true
         var panelID = {
-            x: centroid[0] - 3,
-            y: centroid[1] + 15,
+            x: centroid[0] + textXOffset,
+            y: centroid[1] + textYOffset,
             id: id
         };
 
@@ -83,6 +99,7 @@ var NanoleafLayout = function (_Component) {
                 rightPoint: rightRotatedPoint,
                 centroid: centroid,
                 rotated: true,
+                selected: false,
                 color: color,
                 strokeColor: strokeColor,
                 path: path,
@@ -102,6 +119,7 @@ var NanoleafLayout = function (_Component) {
                 rightPoint: rightPoint,
                 centroid: centroid,
                 rotated: false,
+                selected: false,
                 color: color,
                 strokeColor: strokeColor,
                 path: _path,

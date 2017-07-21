@@ -207,7 +207,11 @@ The properties include:
 - `leftPoint` The x and y coordinate of the left point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
 - `rightPoint` The x and y coordinate of the right point the of the panel as an array. The x coordinate is the 0th position and the y coordinate is the 1st position
 - `rotated` Boolean true if the panel was rotate (if its upside down) and false if it is upright.
-- `color` Hexadecimal color code of the panel
+- `color` Hexadecimal color code of the panel's body
+- `selected` This property is a simple boolean value which can be used in an application to state whether or not the panel is currently selected by the user. This can easily be used to determine if the panel should be "acted upon"
+by a users actions. For instance: If `selected` is false for the panel with the ID `5` and the user changes the color of the Nanoleaf then you can choose to change the color of every other panel except for `5` using 
+the `selected` property.
+- `strokeColor` Hexadecimal color code for the panels currently set stroke
 - `path` The SVG path of the panel used to draw on the DOM
 - `id` The panel's unique identifier plain and simple
 - `panelID` **Object** (not just the panel id) containing the id of the panel, as well as the x and y coordinates of the `panelID` which is drawn onto the actual panel. This contains the data which is used in the `showId` prop and determines

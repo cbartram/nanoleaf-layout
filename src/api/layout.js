@@ -19,12 +19,28 @@ const Utils = require("../utils");
 export function draw(x, y, o, color, strokeColor, id, height, width) {
   let centroid = Utils.cartesianToScreen(x, y, height, width);
 
-  //The Id that is drawn on top of the SVG when the showIds prop is true
-  let panelID = {
-    x: centroid[0] - 3,
-    y: centroid[1] + 15,
-    id: id
-  };
+    //Default for a single digit ID
+    let textXOffset = -3;
+    let textYOffset = 18;
+
+    //Determine the Text offset
+    if(id > 9 && id <= 99) {
+        textXOffset = -10;
+        textYOffset = 20;
+    }
+
+    if(id >= 100 && id < 999) {
+        //Text is > 3 digit ID
+        textXOffset = -13;
+        textYOffset = 25;
+    }
+
+    //The Id that is drawn on top of the SVG when the showIds prop is true
+    let panelID = {
+        x: centroid[0] + (textXOffset),
+        y: centroid[1] + (textYOffset),
+        id: id
+    };
 
   if (Utils.doRotate(o)) {
     let topRotatedPoint = Utils.rotateTopFromCentroid(x, y, height, width);
