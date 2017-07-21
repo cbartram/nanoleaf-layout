@@ -1,6 +1,6 @@
 {
   "name": "nanoleaf-layout",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
   "keyword": [
     "nanoleaf",
