@@ -6,6 +6,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as Utils from './utils';
 
+const style = {
+    path: {
+        strokeDasharray: 20,
+        animation: "dash 5s linear"
+    },
+
+    dash: {
+        to: {
+            strokeDashoffset: 1000,
+        }
+    },
+}
+
+
 class NanoleafLayout extends Component {
     constructor(props) {
         super(props);
@@ -193,6 +207,7 @@ class NanoleafLayout extends Component {
             } else {
                 return (
                     <path
+                        className="path"
                         key={key + '_path'}
                         d={value.path}
                         strokeWidth={this.props.strokeWidth}
@@ -228,6 +243,7 @@ NanoleafLayout.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
     data: PropTypes.object.isRequired, //should be array
+    style: PropTypes.object,
     onDraw: PropTypes.func,
     panelSpacing: PropTypes.number,
     xOffset: PropTypes.number,
@@ -248,6 +264,7 @@ NanoleafLayout.defaultProps = {
     width: 1000,
     height: 1000,
     onDraw: data => data,
+    style: {},
     showId: false,
     opacity: 1,
     strokeWidth: 2,
@@ -258,3 +275,4 @@ NanoleafLayout.defaultProps = {
 };
 
 export default NanoleafLayout;
+

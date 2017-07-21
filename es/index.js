@@ -12,6 +12,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as Utils from './utils';
 
+var style = {
+    path: {
+        strokeDasharray: 20,
+        animation: "dash 5s linear"
+    },
+
+    dash: {
+        to: {
+            strokeDashoffset: 1000
+        }
+    }
+};
+
 var NanoleafLayout = function (_Component) {
     _inherits(NanoleafLayout, _Component);
 
@@ -186,6 +199,7 @@ var NanoleafLayout = function (_Component) {
                 );
             } else {
                 return React.createElement('path', {
+                    className: 'path',
                     key: key + '_path',
                     d: value.path,
                     strokeWidth: _this3.props.strokeWidth,
@@ -224,6 +238,7 @@ NanoleafLayout.propTypes = process.env.NODE_ENV !== "production" ? {
     height: PropTypes.number,
     width: PropTypes.number,
     data: PropTypes.object.isRequired, //should be array
+    style: PropTypes.object,
     onDraw: PropTypes.func,
     panelSpacing: PropTypes.number,
     xOffset: PropTypes.number,
@@ -246,6 +261,7 @@ NanoleafLayout.defaultProps = {
     onDraw: function onDraw(data) {
         return data;
     },
+    style: {},
     showId: false,
     opacity: 1,
     strokeWidth: 2,
