@@ -24,7 +24,7 @@ let data = {
         'color': "#00ff00",
         'strokeColor': "#2a91fa"
     }, {
-        'panelId': 2,
+        'panelId': 200,
         'x': 25,
         'y': -29,
         'o': 240,
@@ -32,7 +32,7 @@ let data = {
         'strokeColor': "#00ff00"
 
     }, {
-        'panelId': 3,
+        'panelId': 30,
         'x': 174,
         'y': -29,
         'o': 120,
@@ -48,7 +48,7 @@ let data = {
         'strokeColor': "#3be8fa"
 
     }, {
-        'panelId': 5,
+        'panelId': 50,
         'x': 99,
         'y': -159,
         'o': 0,
@@ -56,7 +56,7 @@ let data = {
         'strokeColor': "#fa2817"
 
     }, {
-        'panelId': 6,
+        'panelId': 600,
         'x': 25,
         'y': -116,
         'o': 60,
