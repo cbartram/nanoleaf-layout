@@ -69,7 +69,7 @@ export default class PageContent extends Component {
           takes your physical Nanoleaf layout and displays it in
           <strong>any</strong> 2D application. Nanoleaf Layout will take in the
           confusing <code>X,Y</code> coordinates and Orientation that comes from
-          Nanoleaf's OpenAPI and converts it into a useful 2D graphic visual
+          Nanoleafs OpenAPI and converts it into a useful 2D graphic visual
           which you can place in your application!
         </p>
         <p>
