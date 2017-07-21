@@ -78,7 +78,7 @@ export default class PageContent extends Component {
           effects and colors. Their development documentation can be fairly
           confusing for developers when it comes to how their layout data is
           organized so I created this Library to make it easy for developers to
-          mimic the Nanoleaf's physical layout on a screen. Ultimately this
+          mimic the Nanoleafs physical layout on a screen. Ultimately this
           helps open up new doors that allow users to intuitively interact with
           their nanoleaf on a computer, phone, or tablet!
         </p>
@@ -158,7 +158,7 @@ export default class PageContent extends Component {
 
         <p>
           The data prop originates from the Nanoleaf OpenAPI which comes from the Aurora company themselves not this library. Please see the Nanoleaf Aurora Developer Documentation for more information on
-          the nanoleaf's layout JSON data. To summarize the JSON structure of a single layout element looks like this coming directly from the Nanoleaf OpenAPI
+          the nanoleafs layout JSON data. To summarize the JSON structure of a single layout element looks like this coming directly from the Nanoleaf OpenAPI
         </p>
 
         <p>
@@ -239,7 +239,7 @@ export default class PageContent extends Component {
 
           <li>
             <p>
-              <code>color</code> Hexadecimal color code of the panel's body
+              <code>color</code> Hexadecimal color code of the panels body
             </p>
           </li>
 
@@ -273,7 +273,7 @@ export default class PageContent extends Component {
 
           <li>
             <p>
-              <code>id</code> The panel's unique identifier plain and simple
+              <code>id</code> The panels unique identifier plain and simple
             </p>
           </li>
 
@@ -327,16 +327,16 @@ export default class PageContent extends Component {
         <h2 id="whatsnew">Whats New</h2>
         <p>
           As of version <code>2.0.0</code> Nanoleaf layout has been completely
-          rewritten in an SVG format instead of using HTML 5's Canvas. This
+          rewritten in an SVG format instead of using HTML 5s Canvas. This
           means its much more flexible from a development perspective and it
           brings new features like event hooks!
         </p>
         <p>
           You can now hook into <code>onClick</code> <code>onExit</code> and
-          `onHover' Mouse events for each and every panel. Panels in the
+          onHover Mouse events for each and every panel. Panels in the
           nanoleaf layout have been synchronized and each provides a unique SVG
           object in a callback function which includes all the information about
-          the panel that's being interacted with! See the SVG Object above!
+          the panel thats being interacted with! See the SVG Object above!
         </p>
         <p>
           Let me know what you think about nanoleaf layout by submitting issues
