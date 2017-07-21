@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 
 export default class PageContent extends Component {
+
   render() {
     return (
       <section className="main-content">
@@ -66,8 +67,7 @@ export default class PageContent extends Component {
         <h1>Usage & Documentation</h1>
         <p>
           Nanoleaf Layout is the <strong>premier</strong> package on NPM which
-          takes your physical Nanoleaf layout and displays it in
-          <strong>any</strong> 2D application. Nanoleaf Layout will take in the
+          takes your physical Nanoleaf layout and displays it in any 2D application. Nanoleaf Layout will take in the
           confusing <code>X,Y</code> coordinates and Orientation that comes from
           Nanoleafs OpenAPI and converts it into a useful 2D graphic visual
           which you can place in your application!
@@ -157,36 +157,78 @@ export default class PageContent extends Component {
         </p>
 
         <p>
-          The data prop originates from the Nanoleaf OpenAPI which comes from the Aurora company themselves not this library. Please see the Nanoleaf Aurora Developer Documentation for more information on
-          the nanoleafs layout JSON data. To summarize the JSON structure of a single layout element looks like this coming directly from the Nanoleaf OpenAPI
+            The data prop originates from the Nanoleaf OpenAPI which comes from the Aurora company themselves not this library. Please see the <a href="https://forum.nanoleaf.me/docs/openapi">Nanoleaf Aurora Developer Documentation</a> for more information on
+          the nanoleafs layout JSON data.
         </p>
 
-        <p>
-          Its simple to control the stroke width and color of the Nanoleaf with
-          the <code>strokeWidth</code> and <code>strokeColor</code> but
-          sometimes you may want to control the actual color of the panels
-          themselves.
-        </p>
-        <p>
-          Nanoleaf layout achieves this through a color property in each of the
-          elements in the <code>positionData</code> array.
-        </p>
-        <p>
-          By default the Nanoleaf OpenAPI returns the nanoleaf layout data
-          <strong>without</strong> a color property so it looks something like
-          this
-        </p>
-        CODE GOES HERE
-        <p>
-          By adding a Hexadecimal color code property into the position data it
-          will tell nanoleaf-layout to change the color of that particular
-          panel. You can do the same thing with the <code>strokeColor</code>
-          property to control the stroke color of the panel instance.
-          <strong>strokeColor</strong> is no longer a valid or supported prop as
-          of version <code>2.1.2</code>
-        </p>
-        <p>The new positionData will look something like this</p>
-        CODE GOES HERE
+          <p> To summarize this is what the JSON structure of a single layout element looks like  coming directly from the Nanoleaf OpenAPI</p>
+
+          <div className="language-js highlighter-rouge">
+              <pre className="highlight">
+                  <code>
+                      {
+                          `
+                 {
+                    numPanels: 10,
+                    sideLength: 150,
+                    positionData: [
+                       {
+                          panelId: 1,
+                          x: 100,
+                          y: 100,
+                          o: 0,
+                       },
+                     ]
+                 }
+                `
+                      }
+                  </code>
+              </pre>
+          </div>
+
+
+
+          <p>The Nanoleaf Layout package iterates over each element in the positionData array to determine where and how
+              to draw each triangle its essential that the <code>x, y and o</code> properties are never modified as it will
+              distort the structure of your Nanoleaf layout.
+
+          </p>
+
+          <p>The layout can accept two additional properties within the <code>positionData</code> array they are:</p>
+
+          <ul>
+              <li><code>color: '#FFFFFF'</code></li>
+              <li><code>strokeColor: '#00FF00'</code></li>
+          </ul>
+
+          <p>When these two properties are applied the color or the strokeColor of the individual nanoleaf-layout panel will be changed. See the below example</p>
+
+          <div className="language-js highlighter-rouge">
+              <pre className="highlight">
+                  <code>
+                      {
+                          `
+                 {
+                    numPanels: 10,
+                    sideLength: 150,
+                    positionData: [
+                       {
+                          panelId: 1,
+                          x: 100,
+                          y: 100,
+                          o: 0,
+                          color: '#FFFFFF',
+                          strokeColor: '#00FF00',
+                       },
+                     ]
+                 }
+                `
+                      }
+                  </code>
+              </pre>
+          </div>
+
+          <p>In the above example the panel with the ID of <code>1</code> would have a white fill and a lime green stroke color</p>
         <p>
           This allows one to explicitly set and update the color of each panel
           quickly and easily!
@@ -197,6 +239,82 @@ export default class PageContent extends Component {
           their descriptions.
         </p>
         <h3 id="properties">Properties</h3>
+          <p>This section defines all the React props the nanoleaf-layout package accepts; It describes their name, type, and their details</p>
+
+          <table>
+              <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Property Type</th>
+                    <th>Default Property Value</th>
+                    <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td><code>data</code></td>
+                    <td>Object</td>
+                    <td>None this property is required for nanoleaf-layout to function</td>
+                    <td>The panel data received from the Nanoleaf OpenAPI GET request made to /api/v1/YOUR_API_KEY/ Its comprised of a panelData key and an array of panel objects see the example in the next column</td>
+                </tr>
+                <tr>
+                    <td><code>panelSpacing</code></td>
+                    <td>Double</td>
+                    <td>2.00</td>
+                    <td>Defines how much space is between each panel. This property is inversely proportional and as such a greater value will put less space in between panels. 2.00 is the recommended and default value.</td>
+                </tr>
+                <tr>
+                    <td><code>xOffset</code></td>
+                    <td>Integer</td>
+                    <td>0</td>
+                    <td>Integer value to offset on the X axis. A higher xOffset value will shift the entire graphic to the left (in the positive X direction)</td>
+                </tr>
+                <tr>
+                    <td><code>yOffset</code></td>
+                    <td>Integer</td>
+                    <td>0</td>
+                    <td>Integer value to offset on the Y axis. A higher yOffset value will shift the entire graphic down (in the positive Y direction)</td>
+                </tr>
+                <tr>
+                    <td><code>width</code></td>
+                    <td>Integer</td>
+                    <td>1000</td>
+                    <td>Integer value to define the maximum width of the HTML SVG element onto which the graphic will be displayed. This property is a required value greater than 0</td>
+                </tr>
+                <tr>
+                    <td><code>height</code></td>
+                    <td>Integer</td>
+                    <td>1000</td>
+                    <td>Integer value to define the maximum height of the HTML SVG element onto which the graphic will be displayed. This property is a required value greater than 0</td>
+                </tr>
+                <tr>
+                    <td><code>showId</code></td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Boolean value that when true tells the Nanoleaf-layout to display the respective panelIds as text on top of the panel's layout which identifies each panel uniquely</td>
+                </tr>
+                  <tr>
+                     <td><code>strokeWidth</code></td>
+                      <td>Integer</td>
+                      <td>2</td>
+                      <td>Integer value that defines how wide the stroke is on the outside of each panel. The larger the number the wider the stroke.</td>
+                  </tr>
+                <tr>
+                    <td><code>rotation</code></td>
+                    <td>Integer</td>
+                    <td>0</td>
+                    <td>Integer value that defines how the canvas should rotate to display the layout. This must be an integer value between 0 and 360. The entire layout will rotate clockwise as the value increases</td>
+                </tr>
+                <tr>
+                    <td><code>opacity</code></td>
+                    <td>Double</td>
+                    <td>1</td>
+                    <td>Integer value between .1 and 1.0 which defines how opaque the entire layout becomes. .1 will make the layout barely visible whereas 1.0 will make it completely opaque.</td>
+                </tr>
+              </tbody>
+          </table>
+
+
         <h3 id="svgobject">SVG Object</h3>
         <p>
           The SVG object makes it extremely easy to understand what data the
@@ -304,8 +422,7 @@ export default class PageContent extends Component {
           nanoleaf for its layout information.
         </p>
         <p>
-          You can do this simply in the
-          <a href="https://www.getpostman.com/">Postman App</a>. Find the IP
+          You can do this simply in the <a href="https://www.getpostman.com/">Postman App</a>. Find the IP
           address of your nanoleaf and make a GET request to its IP for example.
           <code>http://172.17.193.17:16021/api/v1/YOUR_API_TOKEN/</code>
         </p>
