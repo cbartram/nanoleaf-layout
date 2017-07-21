@@ -34,6 +34,7 @@ class NanoleafLayout extends Component {
                 value.y / this.props.panelSpacing + this.props.yOffset,
                 value.o,
                 value.color,
+                value.strokeColor,
                 value.panelId,
                 this.props.height,
                 this.props.width,
@@ -52,11 +53,12 @@ class NanoleafLayout extends Component {
      * @param y integer Cartesian Y coordinate
      * @param o integer Orientation in degrees
      * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+     * @param strokeColor hexadecimal color code for the Triangles stroke i.e #DDFF90
      * @param height integer height of the SVG
      * @param width integer width of the SVG
      * @param id integer the panel identifier
      */
-    calculate(x, y, o, color, id, height, width) {
+    calculate(x, y, o, color, strokeColor, id, height, width) {
         let centroid = Utils.cartesianToScreen(x, y, height, width);
 
         //The Id that is drawn on top of the SVG when the showIds prop is true
@@ -80,6 +82,7 @@ class NanoleafLayout extends Component {
                 centroid: centroid,
                 rotated: true,
                 color,
+                strokeColor,
                 path,
                 id,
                 panelID
@@ -98,6 +101,7 @@ class NanoleafLayout extends Component {
                 centroid: centroid,
                 rotated: false,
                 color,
+                strokeColor,
                 path,
                 id,
                 panelID
@@ -125,6 +129,7 @@ class NanoleafLayout extends Component {
                 value.y / this.props.panelSpacing + this.props.yOffset,
                 value.o,
                 value.color,
+                value.strokeColor,
                 value.panelId,
                 this.props.height,
                 this.props.width,
@@ -152,13 +157,16 @@ class NanoleafLayout extends Component {
                                 this.props.onClick(value);
                             }}
                             fill={value.color}
-                            stroke={this.props.strokeColor}
+                            stroke={value.strokeColor}
                         />
                         <text
                             key={key + '_text'}
                             x={value.panelID.x}
                             y={value.panelID.y}
                             fill="#FFFFFF"
+                            onMouseDown={e => {
+                                this.props.onClick(value)
+                            }}
                         >
                             {value.id}
                         </text>
@@ -180,7 +188,7 @@ class NanoleafLayout extends Component {
                             this.props.onClick(value);
                         }}
                         fill={value.color}
-                        stroke={this.props.strokeColor}
+                        stroke={value.strokeColor}
                     />
                 )
             }
@@ -204,7 +212,6 @@ NanoleafLayout.propTypes = {
     data: PropTypes.object.isRequired, //should be array
     onDraw: PropTypes.func,
     panelSpacing: PropTypes.number,
-    strokeColor: PropTypes.string,
     xOffset: PropTypes.number,
     yOffset: PropTypes.number,
     showId: PropTypes.bool,
@@ -222,7 +229,6 @@ NanoleafLayout.defaultProps = {
     panelSpacing: 1.25,
     width: 1000,
     height: 1000,
-    strokeColor: '#FFFFFF',
     onDraw: data => data,
     showId: false,
     opacity: 1,

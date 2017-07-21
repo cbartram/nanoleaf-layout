@@ -11,11 +11,12 @@ const Utils = require("../utils");
  * @param y integer Cartesian Y coordinate
  * @param o integer Orientation in degrees
  * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+ * @param strokeColor hexadecimal color code for the Triangles stroke i.e. #00FF00
  * @param height integer height of the SVG
  * @param width integer width of the SVG
  * @param id integer the panel identifier
  */
-export function draw(x, y, o, color, id, height, width) {
+export function draw(x, y, o, color, strokeColor, id, height, width) {
   let centroid = Utils.cartesianToScreen(x, y, height, width);
 
   //The Id that is drawn on top of the SVG when the showIds prop is true
@@ -39,6 +40,7 @@ export function draw(x, y, o, color, id, height, width) {
       centroid: centroid,
       rotated: true,
       color,
+      strokeColor,
       path,
       id,
       panelID
@@ -57,6 +59,7 @@ export function draw(x, y, o, color, id, height, width) {
       centroid: centroid,
       rotated: false,
       color,
+      strokeColor,
       path,
       id,
       panelID
