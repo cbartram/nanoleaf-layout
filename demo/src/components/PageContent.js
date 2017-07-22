@@ -2,6 +2,7 @@
  * Created by g6vc on 7/21/17.
  */
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 export default class PageContent extends Component {
 
@@ -21,7 +22,7 @@ export default class PageContent extends Component {
           <h3>Bare Bones Basic Example</h3>
           <li>
             <p>
-              <a href="#barebones">This example</a> includes the most basic
+              <Link to="/basic">This example</Link> includes the most basic
               version of the nanoleaf layout in action
             </p>
           </li>
@@ -311,6 +312,45 @@ export default class PageContent extends Component {
                     <td>1</td>
                     <td>Integer value between .1 and 1.0 which defines how opaque the entire layout becomes. .1 will make the layout barely visible whereas 1.0 will make it completely opaque.</td>
                 </tr>
+              </tbody>
+          </table>
+
+          <p>The following table describes the callback functions which developers can hook into to add additional interactivity to their nanoleaf layouts!</p>
+
+          <table>
+              <thead>
+              <tr>
+                  <th>Property Name</th>
+                  <th>Property Type</th>
+                  <th>Default Property Value</th>
+                  <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td><code>onDraw</code></td>
+                  <td>Function</td>
+                  <td>Callback function with an empty body. (data) => { }</td>
+                  <td>Callback function which occurs each time a new panel is drawn. It will return an array of data representing physical points where each corner of the equilateral triangle is location. e.g [100.792, 200.11, -380.90]</td>
+              </tr>
+              <tr>
+                  <td><code>onHover</code></td>
+                  <td>Function</td>
+                  <td>Callback function with an empty body. (data) => { }</td>
+                  <td>Callback function which occurs when any of the panels are hovered over. The callback returns a SVG Object see the SVG object section for more details</td>
+              </tr>
+              <tr>
+                  <td><code>onClick</code></td>
+                  <td>Function</td>
+                  <td>Callback function with an empty body. (data) => { }</td>
+                  <td>Callback function which occurs when any of the panels are clicked. The callback returns a SVG Object see the SVG object section for more details</td>
+              </tr>
+              <tr>
+                  <td><code>onExit</code></td>
+                  <td>Function</td>
+                  <td>Callback function with an empty body. (data) => { }</td>
+                  <td>Callback function which occurs when a mouse exits a panels area. The callback returns a SVG Object see the SVG object section for more details</td>
+              </tr>
               </tbody>
           </table>
 
