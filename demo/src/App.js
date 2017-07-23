@@ -1,10 +1,12 @@
 import "./App.css";
 
 import React, { Component } from "react";
+import {Route} from 'react-router-dom';
 
 //Components
 import Header from "./components/Header";
 import PageContent from "./components/PageContent";
+import Basic from "./components/Basic";
 
 let data = {
   numPanels: 10,
@@ -68,10 +70,16 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <PageContent />
-      </div>
+        <div>
+          <Route exact path="/" component={Header}>
+              <Header />
+          </Route>
+
+          <Route path="/basic" component={Basic} >
+            <Basic/>
+          </Route>
+
+        </div>
     );
   }
 }
