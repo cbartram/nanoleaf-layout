@@ -5,7 +5,6 @@ import {Route} from 'react-router-dom';
 
 //Components
 import Header from "./components/Header";
-import PageContent from "./components/PageContent";
 import Basic from "./components/Basic";
 
 let data = {
@@ -70,7 +69,7 @@ export default class App extends Component {
 
   render() {
     return (
-        <div>
+        <div className="container-fluid">
           <Route exact path="/" component={Header}>
               <Header />
           </Route>

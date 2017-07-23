@@ -9,9 +9,7 @@ export default class PageContent extends Component {
   render() {
     return (
       <section className="main-content">
-        <h1 id="header-1">
-          <a href="#header-1" />Page Guide
-        </h1>
+        <h2>Page Guide</h2>
         <p>
           This page is the central hub to hold all the documentation as well as
           live examples of the Nanoleaf Layout in action. Check out the links to
@@ -19,7 +17,7 @@ export default class PageContent extends Component {
         </p>
         <h2>Examples</h2>
         <ul>
-          <h3>Bare Bones Basic Example</h3>
+          <h4>Bare Bones Basic Example</h4>
           <li>
             <p>
               <Link to="/basic">This example</Link> includes the most basic
@@ -27,7 +25,7 @@ export default class PageContent extends Component {
             </p>
           </li>
 
-          <h3>Nanoleaf React Props</h3>
+          <h4>Nanoleaf React Props</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> shows of how to use the
@@ -36,7 +34,7 @@ export default class PageContent extends Component {
             </p>
           </li>
 
-          <h3>Using onClick and onHover events</h3>
+          <h4>Using onClick and onHover events</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> includes onClick and onHover
@@ -46,7 +44,7 @@ export default class PageContent extends Component {
             </p>
           </li>
 
-          <h3>Dynamically Updating your Nanoleaf using NodeJS & Express</h3>
+          <h4>Dynamically Updating your Nanoleaf using NodeJS & Express</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> shows you how to utilize a
@@ -56,7 +54,7 @@ export default class PageContent extends Component {
             </p>
           </li>
 
-          <h3>Nanoleaf Tile Grouping</h3>
+          <h4>Nanoleaf Tile Grouping</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> makes it extremely easy to
@@ -116,7 +114,7 @@ export default class PageContent extends Component {
           Nanoleaf is a piece of cake to include and use in any React, Angular, Vue, or plain ole javascript project! Nanoleaf-Layout provides you with a simple API (only one method) to allow you to implement the layout in
           quickly and efficiently
         </p>
-        <h3>React Projects</h3>
+        <h4>React Projects</h4>
         <blockquote>
           <p>
             After installing <code>nanoleaf-layout</code> from NPM be sure to
@@ -131,7 +129,7 @@ export default class PageContent extends Component {
           </p>
         </blockquote>
 
-        <h3 id="nonreactprojects">Non React Projects</h3>
+        <h4 id="nonreactprojects">Non React Projects</h4>
         <blockquote>
           <p>
            First import the API <code>import * as Nanoleaf from './es/api/layout.js'</code>
@@ -149,9 +147,9 @@ export default class PageContent extends Component {
           <p>Happy Coding!</p>
         </blockquote>
 
-        <h3 id="data-prop">
+        <h4 id="data-prop">
           The Data Prop
-        </h3>
+        </h4>
         <p>
           By Default the Nanoleaf-Layout React Component only requires 1 prop to function. As you might have guessed this
           is the <code>data</code> prop.
@@ -239,7 +237,7 @@ export default class PageContent extends Component {
           about all the nanoleaf-layout properties, their default values, and
           their descriptions.
         </p>
-        <h3 id="properties">Properties</h3>
+        <h4 id="properties">Properties</h4>
           <p>This section defines all the React props the nanoleaf-layout package accepts; It describes their name, type, and their details</p>
 
           <table>
@@ -355,7 +353,7 @@ export default class PageContent extends Component {
           </table>
 
 
-        <h3 id="svgobject">SVG Object</h3>
+        <h4 id="svgobject">SVG Object</h4>
         <p>
           The SVG object makes it extremely easy to understand what data the
           nanoleaf layout is referring too. It acts as a container for all the
@@ -452,7 +450,7 @@ export default class PageContent extends Component {
             </p>
           </li>
         </ul>
-        <h3 id="notes">Notes</h3>
+        <h4 id="notes">Notes</h4>
         <p>Please ensure that your data property is formatted correctly, </p>
         <p>
           Nanoleaf Layout will automatically search for the
