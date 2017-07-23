@@ -76,6 +76,7 @@ export default class PropExample extends Component {
                                data={data}
                                xOffset={-150}
                                yOffset={130}
+                               rotation={180}
 
                            />
                        </div>
@@ -133,7 +134,12 @@ export default class PropExample extends Component {
         render() {
             return (
                 <div>
-                    <NanoleafLayout data={data}/>
+                    <NanoleafLayout
+                        data={data}
+                        xOffset={-150}
+                        yOffset={130}
+                        rotation={180}
+                     />
                 </div>
             );
         }
