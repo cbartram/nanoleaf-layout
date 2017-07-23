@@ -1,3 +1,9 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.draw = draw;
 /**
  * Created by christianbartram on 7/12/17.
  * Github @cbartram
@@ -16,7 +22,7 @@ var Utils = require("../utils");
  * @param width integer width of the SVG
  * @param id integer the panel identifier
  */
-export function draw(x, y, o, color, strokeColor, id, height, width) {
+function draw(x, y, o, color, strokeColor, id, height, width) {
   var centroid = Utils.cartesianToScreen(x, y, height, width);
 
   //Default for a single digit ID
