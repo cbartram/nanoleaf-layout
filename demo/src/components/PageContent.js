@@ -20,7 +20,7 @@ export default class PageContent extends Component {
           <h4>Bare Bones Basic Example</h4>
           <li>
             <p>
-              <Link to="/basic">This example</Link> includes the most basic
+              <Link to="/example/basic">This example</Link> includes the most basic
               version of the nanoleaf layout in action
             </p>
           </li>
@@ -28,7 +28,7 @@ export default class PageContent extends Component {
           <h4>Nanoleaf React Props</h4>
           <li>
             <p>
-              <a href="#stroke">This example</a> shows of how to use the
+              <a href="/example/props">This example</a> shows of how to use the
               nanoleaf props to position, style, and track the status of your
               nanoleaf accordingly.
             </p>

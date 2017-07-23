@@ -5,7 +5,8 @@ import {Route} from 'react-router-dom';
 
 //Components
 import Header from "./components/Header";
-import Basic from "./components/Basic";
+import Basic from "./components/BasicExample";
+import PropExample from "./components/PropExample";
 
 let data = {
   numPanels: 10,
@@ -74,7 +75,11 @@ export default class App extends Component {
               <Header />
           </Route>
 
-          <Route path="/basic" component={Basic} >
+          <Route path="/example/basic" component={Basic} >
+            <Basic/>
+          </Route>
+
+          <Route path="/example/props" component={PropExample} >
             <Basic/>
           </Route>
 

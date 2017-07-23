@@ -3,7 +3,7 @@
 html { font-family: sans-serif; /* 1 */ -ms-text-size-adjust: 100%; /* 2 */ -webkit-text-size-adjust: 100%; /* 2 */ }
 
 /** Remove default margin. */
-body { margin: 0; }
+body { margin: 0; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 /* HTML5 display definitions ========================================================================== */
 /** Correct `block` display not defined for any HTML5 element in IE 8/9. Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox. Correct `block` display not defined for `main` in IE 11. */
@@ -18,7 +18,7 @@ audio:not([controls]) { display: none; height: 0; }
 /** Address `[hidden]` styling not present in IE 8/9/10. Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22. */
 [hidden], template { display: none; }
 
-p { font-size: 1.5rem; }
+p { font-size: 1.5rem; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 /* Links ========================================================================== */
 /** Remove the gray background color from active links in IE 10. */

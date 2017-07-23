@@ -1,6 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.css'
-import './index.css';
-import './theme.css';
+import 'bootstrap/dist/css/bootstrap.css' //Bootstrap
+import './index.css'; //NWB Styles
+import './theme.css'; //Cayman Theme
+import '../../node_modules/highlight.js/styles/tomorrow-night.css'
 
 
 import React from 'react';
