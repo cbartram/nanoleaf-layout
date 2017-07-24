@@ -12,6 +12,14 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: "5ae60f59-32a2-458c-8afd-0e1cf123bcb4"
+  run:
+      - "npm install"
+      - "npm start"
+
 branches:
   only:
     - master

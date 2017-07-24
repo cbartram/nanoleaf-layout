@@ -37,8 +37,8 @@ export default class PageContent extends Component {
           <h4>Using onClick and onHover events</h4>
           <li>
             <p>
-              <a href="#stroke">This example</a> includes onClick and onHover
-              events so you can add more interactivity to your nanoleaf. This
+              <a href="/example/callback">This example</a> includes onClick and onHover
+              events so you can add more interactivity to your Nanoleaf. This
               example showcases how users can click directly onto the Nanoleaf
               to select and un-select tiles.
             </p>
