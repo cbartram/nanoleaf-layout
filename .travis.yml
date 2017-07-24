@@ -6,13 +6,19 @@ node_js:
 
 before_install:
   - npm install jest jest-util babel-cli babel-preset-es2015 babel-preset-react react react-test-renderer prop-types codecov.io coveralls
-  - npm install -g now now-cli
   - npm run test
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - cd demo/src && now -t AJuj1RkAeWcBhxTGASIE9gv3 --public
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "5ae60f59-32a2-458c-8afd-0e1cf123bcb4"
+  run:
+      - "npm install"
+      - "npm start"
 
 branches:
   only:

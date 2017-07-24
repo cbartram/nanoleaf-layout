@@ -6,20 +6,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as Utils from './utils';
 
-const style = {
-    path: {
-        strokeDasharray: 20,
-        animation: "dash 5s linear"
-    },
-
-    dash: {
-        to: {
-            strokeDashoffset: 1000,
-        }
-    },
-}
-
-
 class NanoleafLayout extends Component {
     constructor(props) {
         super(props);
@@ -207,7 +193,6 @@ class NanoleafLayout extends Component {
             } else {
                 return (
                     <path
-                        className="path"
                         key={key + '_path'}
                         d={value.path}
                         strokeWidth={this.props.strokeWidth}
@@ -231,7 +216,7 @@ class NanoleafLayout extends Component {
     render() {
         return (
             <div>
-                <svg height={this.props.width} width={this.props.height} style={{ width: '100%', borderRadius: '50%', opacity: this.props.opacity }} transform={`rotate(${this.props.rotation})`}>
+                <svg width={this.props.width} height={this.props.height} viewBox={`0 0 ${this.props.height} ${this.props.width}`} style={{ width: '100%', borderRadius: '50%', opacity: this.props.opacity }} transform={`rotate(${this.props.rotation})`}>
                     {this.update()}
                 </svg>
             </div>

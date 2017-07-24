@@ -12,6 +12,7 @@ exports[`component matches snapshot 1`] = `
       }
     }
     transform="rotate(0)"
+    viewBox="0 0 1000 1000"
     width={1000}
   />
 </div>

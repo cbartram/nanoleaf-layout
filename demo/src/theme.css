@@ -3,7 +3,7 @@
 html { font-family: sans-serif; /* 1 */ -ms-text-size-adjust: 100%; /* 2 */ -webkit-text-size-adjust: 100%; /* 2 */ }
 
 /** Remove default margin. */
-body { margin: 0; }
+body { margin: 0; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 /* HTML5 display definitions ========================================================================== */
 /** Correct `block` display not defined for any HTML5 element in IE 8/9. Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox. Correct `block` display not defined for `main` in IE 11. */
@@ -17,6 +17,8 @@ audio:not([controls]) { display: none; height: 0; }
 
 /** Address `[hidden]` styling not present in IE 8/9/10. Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22. */
 [hidden], template { display: none; }
+
+p { font-size: 1.5rem; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 /* Links ========================================================================== */
 /** Remove the gray background color from active links in IE 10. */
@@ -69,7 +71,9 @@ hr { box-sizing: content-box; height: 0; }
 pre { overflow: auto; }
 
 /** Address odd `em`-unit font size rendering in all browsers. */
-code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }
+code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; background-color: rgb(29, 31, 33); }
+
+.container-fluid { padding: 0px;}
 
 /* Forms ========================================================================== */
 /** Known limitation: by default, Chrome and Safari on OS X allow very limited styling of `select`, unless a `border` property is set. */
@@ -265,12 +269,12 @@ a:hover { text-decoration: underline; }
 @media screen and (max-width: 42em) { .btn { display: block; width: 100%; padding: 0.75rem; font-size: 0.9rem; }
     .btn + .btn { margin-top: 1rem; margin-left: 0; } }
 
-.page-header { color: #fff; text-align: center; background-color: #159957; background-image: linear-gradient(120deg, #155799, #159957); }
+.page-header { color: #fff; text-align: center; background-color: #159957; background-image: linear-gradient(120deg, #155799, #159957); margin:0px; }
 @media screen and (min-width: 64em) { .page-header { padding: 5rem 6rem; } }
 @media screen and (min-width: 42em) and (max-width: 64em) { .page-header { padding: 3rem 4rem; } }
 @media screen and (max-width: 42em) { .page-header { padding: 2rem 1rem; } }
 
-.project-name { margin-top: 0; margin-bottom: 0.1rem; }
+.project-name { margin-top: 0; margin-bottom: 0.1rem; font-size: 3.25rem; }
 @media screen and (min-width: 64em) { .project-name { font-size: 3.25rem; } }
 @media screen and (min-width: 42em) and (max-width: 64em) { .project-name { font-size: 2.25rem; } }
 @media screen and (max-width: 42em) { .project-name { font-size: 1.75rem; } }

@@ -9,44 +9,36 @@ export default class PageContent extends Component {
   render() {
     return (
       <section className="main-content">
-        <h1 id="header-1">
-          <a href="#header-1" />Page Guide
-        </h1>
-        <p>
-          This page is the central hub to hold all the documentation as well as
-          live examples of the Nanoleaf Layout in action. Check out the links to
-          some examples below
-        </p>
         <h2>Examples</h2>
         <ul>
-          <h3>Bare Bones Basic Example</h3>
+          <h4>Bare Bones Basic Example</h4>
           <li>
             <p>
-              <Link to="/basic">This example</Link> includes the most basic
+              <Link to="/example/basic">This example</Link> includes the most basic
               version of the nanoleaf layout in action
             </p>
           </li>
 
-          <h3>Nanoleaf React Props</h3>
+          <h4>Nanoleaf React Props</h4>
           <li>
             <p>
-              <a href="#stroke">This example</a> shows of how to use the
+              <a href="/example/props">This example</a> shows of how to use the
               nanoleaf props to position, style, and track the status of your
               nanoleaf accordingly.
             </p>
           </li>
 
-          <h3>Using onClick and onHover events</h3>
+          <h4>Using onClick and onHover events</h4>
           <li>
             <p>
-              <a href="#stroke">This example</a> includes onClick and onHover
-              events so you can add more interactivity to your nanoleaf. This
+              <a href="/example/callback">This example</a> includes onClick and onHover
+              events so you can add more interactivity to your Nanoleaf. This
               example showcases how users can click directly onto the Nanoleaf
               to select and un-select tiles.
             </p>
           </li>
 
-          <h3>Dynamically Updating your Nanoleaf using NodeJS & Express</h3>
+          <h4>Dynamically Updating your Nanoleaf using NodeJS & Express</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> shows you how to utilize a
@@ -56,7 +48,7 @@ export default class PageContent extends Component {
             </p>
           </li>
 
-          <h3>Nanoleaf Tile Grouping</h3>
+          <h4>Nanoleaf Tile Grouping</h4>
           <li>
             <p>
               <a href="#stroke">This example</a> makes it extremely easy to
@@ -65,23 +57,16 @@ export default class PageContent extends Component {
             </p>
           </li>
         </ul>
-        <h1>Usage & Documentation</h1>
+        <h2>Getting Started</h2>
+
+        <h3>What is Nanoleaf Layout</h3>
+
         <p>
           Nanoleaf Layout is the <strong>premier</strong> package on NPM which
-          takes your physical Nanoleaf layout and displays it in any 2D application. Nanoleaf Layout will take in the
+          takes your physical <a href="https://nanoleaf.me/en/">Nanoleaf layout</a> and displays it in any 2D application. Nanoleaf Layout will take in the
           confusing <code>X,Y</code> coordinates and Orientation that comes from
           Nanoleafs OpenAPI and converts it into a useful 2D graphic visual
           which you can place in your application!
-        </p>
-        <p>
-          Nanoleaf is a revolutionary smart lighting product which is fun and
-          easy to use! It can be connected into different patterns with varying
-          effects and colors. Their development documentation can be fairly
-          confusing for developers when it comes to how their layout data is
-          organized so I created this Library to make it easy for developers to
-          mimic the Nanoleafs physical layout on a screen. Ultimately this
-          helps open up new doors that allow users to intuitively interact with
-          their nanoleaf on a computer, phone, or tablet!
         </p>
         <p>
           With this API you can visualize colors, position, orientation and even
@@ -92,34 +77,31 @@ export default class PageContent extends Component {
         </p>
         <h2 id="demoexamples">Installation</h2>
         <p>
-          The easiest way to use nanoleaf-layout is to install it from NPM and
-          include it in your own React build process (using Browserify and Webpack)
+          You can install Nanoleaf-Layout from npm using:
         </p>
-        <p>
-          You can also use the standalone <strong>commonJS build</strong> by
-          including <code>lib/index.js</code> in your page (e.g.<code>import NanoleafLayout from 'lib/index'</code>).
-        </p>
-        <p>
-          However, if you would rather use the ES6 Build you can include it by
-          importing from the <code>es/</code> directory. (e.g.<code>import NanoleafLayout from 'es/index'</code>)
-        </p>
-        <p>
-          If you use this, make sure you have already included React, and it is
-          available as a global variable as Nanoleaf Layout is therefore a React
-          component and React is a dependency.
-        </p>
-        <pre>
+          <pre>
           <code>npm install nanoleaf-layout --save</code>
         </pre>
+        <p>
+          Include the standalone <strong>commonJS build</strong> by
+          including the nanoleaf-layout library in your react application.
+        </p>
+          <pre><code>import NanoleafLayout from 'nanoleaf-layout/lib/index'</code></pre>
+        <p>
+          If you would rather use the ES6 Build you can include it by
+          importing from the <code>es/</code> directory.
+        </p>
+          <pre><code>import NanoleafLayout from 'nanoleaf-layout/es/index'</code></pre>
+
         <h2 id="usage">Usage</h2>
         <p>
           Nanoleaf is a piece of cake to include and use in any React, Angular, Vue, or plain ole javascript project! Nanoleaf-Layout provides you with a simple API (only one method) to allow you to implement the layout in
           quickly and efficiently
         </p>
-        <h3>React Projects</h3>
+        <h4>React Projects</h4>
         <blockquote>
           <p>
-            After installing <code>nanoleaf-layout</code> from NPM be sure to
+            After installing <code>nanoleaf-layout</code> from npm be sure to
             include it in your React Component<code>import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'</code>
           </p>
           <p>
@@ -127,11 +109,11 @@ export default class PageContent extends Component {
           </p>
           <p>
             Now your all set to include the component in your
-            <code>render()</code> method. Check out the <a href="#">Bare Minumum Example</a> of Nanoleaf in action!
+            <code>render()</code> method. Check out the <Link to="/example/basic">Bare Minumum Example</Link> of Nanoleaf in action!
           </p>
         </blockquote>
 
-        <h3 id="nonreactprojects">Non React Projects</h3>
+        <h4 id="nonreactprojects">Non React Projects</h4>
         <blockquote>
           <p>
            First import the API <code>import * as Nanoleaf from './es/api/layout.js'</code>
@@ -146,12 +128,12 @@ export default class PageContent extends Component {
             below) with all the data you need to draw the panel correctly on
             screen.
           </p>
-          <p>Happy Coding!</p>
+          <p>You can use the path property in this svg object (see docs for the svg object below) and pass it directly into an SVG for it to be rendered on the page</p>
         </blockquote>
 
-        <h3 id="data-prop">
+        <h2 id="data-prop">
           The Data Prop
-        </h3>
+        </h2>
         <p>
           By Default the Nanoleaf-Layout React Component only requires 1 prop to function. As you might have guessed this
           is the <code>data</code> prop.
@@ -239,7 +221,7 @@ export default class PageContent extends Component {
           about all the nanoleaf-layout properties, their default values, and
           their descriptions.
         </p>
-        <h3 id="properties">Properties</h3>
+        <h4 id="properties">Properties</h4>
           <p>This section defines all the React props the nanoleaf-layout package accepts; It describes their name, type, and their details</p>
 
           <table>
@@ -355,7 +337,7 @@ export default class PageContent extends Component {
           </table>
 
 
-        <h3 id="svgobject">SVG Object</h3>
+        <h4 id="svgobject">SVG Object</h4>
         <p>
           The SVG object makes it extremely easy to understand what data the
           nanoleaf layout is referring too. It acts as a container for all the
@@ -452,7 +434,7 @@ export default class PageContent extends Component {
             </p>
           </li>
         </ul>
-        <h3 id="notes">Notes</h3>
+        <h4 id="notes">Notes</h4>
         <p>Please ensure that your data property is formatted correctly, </p>
         <p>
           Nanoleaf Layout will automatically search for the
