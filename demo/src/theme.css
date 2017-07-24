@@ -71,7 +71,7 @@ hr { box-sizing: content-box; height: 0; }
 pre { overflow: auto; }
 
 /** Address odd `em`-unit font size rendering in all browsers. */
-code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }
+code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; background-color: rgb(29, 31, 33); }
 
 .container-fluid { padding: 0px;}
 

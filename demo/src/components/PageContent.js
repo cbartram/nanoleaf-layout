@@ -63,7 +63,7 @@ export default class PageContent extends Component {
             </p>
           </li>
         </ul>
-        <h1>Usage & Documentation</h1>
+        <h1>Getting Started</h1>
         <p>
           Nanoleaf Layout is the <strong>premier</strong> package on NPM which
           takes your physical Nanoleaf layout and displays it in any 2D application. Nanoleaf Layout will take in the
