@@ -64,7 +64,7 @@ export default class BasicExample extends Component {
           />
           <div className="row">
             <div className="col-md-6">
-              <NanoleafLayout data={data} />
+              <NanoleafLayout data={data} useViewbox={true} />
             </div>
             <div className="col-md-6">
               <Highlight className="javascript">
