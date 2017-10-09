@@ -2,10 +2,9 @@
  * Created by g6vc on 7/21/17.
  */
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default class PageContent extends Component {
-
   render() {
     return (
       <section className="main-content">
@@ -14,8 +13,8 @@ export default class PageContent extends Component {
           <h4>Bare Bones Basic Example</h4>
           <li>
             <p>
-              <Link to="/example/basic">This example</Link> includes the most basic
-              version of the nanoleaf layout in action
+              <Link to="/example/basic">This example</Link> includes the most
+              basic version of the nanoleaf layout in action
             </p>
           </li>
 
@@ -31,10 +30,10 @@ export default class PageContent extends Component {
           <h4>Using onClick and onHover events</h4>
           <li>
             <p>
-              <a href="/example/callback">This example</a> includes onClick and onHover
-              events so you can add more interactivity to your Nanoleaf. This
-              example showcases how users can click directly onto the Nanoleaf
-              to select and un-select tiles.
+              <a href="/example/callback">This example</a> includes onClick and
+              onHover events so you can add more interactivity to your Nanoleaf.
+              This example showcases how users can click directly onto the
+              Nanoleaf to select and un-select tiles.
             </p>
           </li>
 
@@ -63,10 +62,12 @@ export default class PageContent extends Component {
 
         <p>
           Nanoleaf Layout is the <strong>premier</strong> package on NPM which
-          takes your physical <a href="https://nanoleaf.me/en/">Nanoleaf layout</a> and displays it in any 2D application. Nanoleaf Layout will take in the
-          confusing <code>X,Y</code> coordinates and Orientation that comes from
-          Nanoleafs OpenAPI and converts it into a useful 2D graphic visual
-          which you can place in your application!
+          takes your physical{" "}
+          <a href="https://nanoleaf.me/en/">Nanoleaf layout</a> and displays it
+          in any 2D application. Nanoleaf Layout will take in the confusing{" "}
+          <code>X,Y</code> coordinates and Orientation that comes from Nanoleafs
+          OpenAPI and converts it into a useful 2D graphic visual which you can
+          place in your application!
         </p>
         <p>
           With this API you can visualize colors, position, orientation and even
@@ -76,81 +77,104 @@ export default class PageContent extends Component {
           Check out our Demo &amp; Examples section to see the layout in action.
         </p>
         <h2 id="demoexamples">Installation</h2>
-        <p>
-          You can install Nanoleaf-Layout from npm using:
-        </p>
-          <pre>
+        <p>You can install Nanoleaf-Layout from npm using:</p>
+        <pre>
           <code>npm install nanoleaf-layout --save</code>
         </pre>
         <p>
-          Include the standalone <strong>commonJS build</strong> by
-          including the nanoleaf-layout library in your react application.
+          Include the standalone <strong>commonJS build</strong> by including
+          the nanoleaf-layout library in your react application.
         </p>
-          <pre><code>import NanoleafLayout from 'nanoleaf-layout/lib/index'</code></pre>
+        <pre>
+          <code>import NanoleafLayout from 'nanoleaf-layout/lib/index'</code>
+        </pre>
         <p>
-          If you would rather use the ES6 Build you can include it by
-          importing from the <code>es/</code> directory.
+          If you would rather use the ES6 Build you can include it by importing
+          from the <code>es/</code> directory.
         </p>
-          <pre><code>import NanoleafLayout from 'nanoleaf-layout/es/index'</code></pre>
+        <pre>
+          <code>import NanoleafLayout from 'nanoleaf-layout/es/index'</code>
+        </pre>
 
         <h2 id="usage">Usage</h2>
         <p>
-          Nanoleaf is a piece of cake to include and use in any React, Angular, Vue, or plain ole javascript project! Nanoleaf-Layout provides you with a simple API (only one method) to allow you to implement the layout in
-          quickly and efficiently
+          Nanoleaf is a piece of cake to include and use in any React, Angular,
+          Vue, or plain ole javascript project! Nanoleaf-Layout provides you
+          with a simple API (only one method) to allow you to implement the
+          layout in quickly and efficiently
         </p>
         <h4>React Projects</h4>
         <blockquote>
           <p>
             After installing <code>nanoleaf-layout</code> from npm be sure to
-            include it in your React Component<code>import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'</code>
+            include it in your React Component<code>
+              import NanoleafLayout from 'nanoleaf-layout/lib/nanoleaf-layout'
+            </code>
           </p>
           <p>
-            Ensure you import NanoleafLayout from the <code>/lib/nanoleaf-layout</code> directory as this includes the transpiled production ready source code.
+            Ensure you import NanoleafLayout from the{" "}
+            <code>/lib/nanoleaf-layout</code> directory as this includes the
+            transpiled production ready source code.
           </p>
           <p>
             Now your all set to include the component in your
-            <code>render()</code> method. Check out the <Link to="/example/basic">Bare Minumum Example</Link> of Nanoleaf in action!
+            <code>render()</code> method. Check out the{" "}
+            <Link to="/example/basic">Bare Minumum Example</Link> of Nanoleaf in
+            action!
           </p>
         </blockquote>
 
         <h4 id="nonreactprojects">Non React Projects</h4>
         <blockquote>
           <p>
-           First import the API <code>import * as Nanoleaf from './es/api/layout.js'</code>
+            First import the API{" "}
+            <code>import * as Nanoleaf from './es/api/layout.js'</code>
           </p>
           <p>
-            Not: We must import <code>*</code> all method(s) in the API because it is
-            not a React Component.
+            Not: We must import <code>*</code> all method(s) in the API because
+            it is not a React Component.
           </p>
           <p>
-            Call <code>Nanoleaf.draw(x, y, orientation, color, id, height, width)</code>
+            Call{" "}
+            <code>
+              Nanoleaf.draw(x, y, orientation, color, id, height, width)
+            </code>
             and it will return an SVG object (see documentation on SVG Objects
             below) with all the data you need to draw the panel correctly on
             screen.
           </p>
-          <p>You can use the path property in this svg object (see docs for the svg object below) and pass it directly into an SVG for it to be rendered on the page</p>
+          <p>
+            You can use the path property in this svg object (see docs for the
+            svg object below) and pass it directly into an SVG for it to be
+            rendered on the page
+          </p>
         </blockquote>
 
-        <h2 id="data-prop">
-          The Data Prop
-        </h2>
+        <h2 id="data-prop">The Data Prop</h2>
         <p>
-          By Default the Nanoleaf-Layout React Component only requires 1 prop to function. As you might have guessed this
-          is the <code>data</code> prop.
+          By Default the Nanoleaf-Layout React Component only requires 1 prop to
+          function. As you might have guessed this is the <code>data</code>{" "}
+          prop.
         </p>
 
         <p>
-            The data prop originates from the Nanoleaf OpenAPI which comes from the Aurora company themselves not this library. Please see the <a href="https://forum.nanoleaf.me/docs/openapi">Nanoleaf Aurora Developer Documentation</a> for more information on
-          the nanoleafs layout JSON data.
+          The data prop originates from the Nanoleaf OpenAPI which comes from
+          the Aurora company themselves not this library. Please see the{" "}
+          <a href="https://forum.nanoleaf.me/docs/openapi">
+            Nanoleaf Aurora Developer Documentation
+          </a>{" "}
+          for more information on the nanoleafs layout JSON data.
         </p>
 
-          <p> To summarize this is what the JSON structure of a single layout element looks like  coming directly from the Nanoleaf OpenAPI</p>
+        <p>
+          {" "}To summarize this is what the JSON structure of a single layout
+          element looks like coming directly from the Nanoleaf OpenAPI
+        </p>
 
-          <div className="language-js highlighter-rouge">
-              <pre className="highlight">
-                  <code>
-                      {
-                          `
+        <div className="language-js highlighter-rouge">
+          <pre className="highlight">
+            <code>
+              {`
                  {
                     numPanels: 10,
                     sideLength: 150,
@@ -163,34 +187,42 @@ export default class PageContent extends Component {
                        },
                      ]
                  }
-                `
-                      }
-                  </code>
-              </pre>
-          </div>
+                `}
+            </code>
+          </pre>
+        </div>
 
+        <p>
+          The Nanoleaf Layout package iterates over each element in the
+          positionData array to determine where and how to draw each triangle
+          its essential that the <code>x, y and o</code> properties are never
+          modified as it will distort the structure of your Nanoleaf layout.
+        </p>
 
+        <p>
+          The layout can accept two additional properties within the{" "}
+          <code>positionData</code> array they are:
+        </p>
 
-          <p>The Nanoleaf Layout package iterates over each element in the positionData array to determine where and how
-              to draw each triangle its essential that the <code>x, y and o</code> properties are never modified as it will
-              distort the structure of your Nanoleaf layout.
+        <ul>
+          <li>
+            <code>color: '#FFFFFF'</code>
+          </li>
+          <li>
+            <code>strokeColor: '#00FF00'</code>
+          </li>
+        </ul>
 
-          </p>
+        <p>
+          When these two properties are applied the color or the strokeColor of
+          the individual nanoleaf-layout panel will be changed. See the below
+          example
+        </p>
 
-          <p>The layout can accept two additional properties within the <code>positionData</code> array they are:</p>
-
-          <ul>
-              <li><code>color: '#FFFFFF'</code></li>
-              <li><code>strokeColor: '#00FF00'</code></li>
-          </ul>
-
-          <p>When these two properties are applied the color or the strokeColor of the individual nanoleaf-layout panel will be changed. See the below example</p>
-
-          <div className="language-js highlighter-rouge">
-              <pre className="highlight">
-                  <code>
-                      {
-                          `
+        <div className="language-js highlighter-rouge">
+          <pre className="highlight">
+            <code>
+              {`
                  {
                     numPanels: 10,
                     sideLength: 150,
@@ -205,13 +237,15 @@ export default class PageContent extends Component {
                        },
                      ]
                  }
-                `
-                      }
-                  </code>
-              </pre>
-          </div>
+                `}
+            </code>
+          </pre>
+        </div>
 
-          <p>In the above example the panel with the ID of <code>1</code> would have a white fill and a lime green stroke color</p>
+        <p>
+          In the above example the panel with the ID of <code>1</code> would
+          have a white fill and a lime green stroke color
+        </p>
         <p>
           This allows one to explicitly set and update the color of each panel
           quickly and easily!
@@ -222,120 +256,231 @@ export default class PageContent extends Component {
           their descriptions.
         </p>
         <h4 id="properties">Properties</h4>
-          <p>This section defines all the React props the nanoleaf-layout package accepts; It describes their name, type, and their details</p>
+        <p>
+          This section defines all the React props the nanoleaf-layout package
+          accepts; It describes their name, type, and their details
+        </p>
 
-          <table>
-              <thead>
-                <tr>
-                    <th>Property Name</th>
-                    <th>Property Type</th>
-                    <th>Default Property Value</th>
-                    <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                    <td><code>data</code></td>
-                    <td>Object</td>
-                    <td>None this property is required for nanoleaf-layout to function</td>
-                    <td>The panel data received from the Nanoleaf OpenAPI GET request made to /api/v1/YOUR_API_KEY/ Its comprised of a panelData key and an array of panel objects see the example in the next column</td>
-                </tr>
-                <tr>
-                    <td><code>panelSpacing</code></td>
-                    <td>Double</td>
-                    <td>2.00</td>
-                    <td>Defines how much space is between each panel. This property is inversely proportional and as such a greater value will put less space in between panels. 2.00 is the recommended and default value.</td>
-                </tr>
-                <tr>
-                    <td><code>xOffset</code></td>
-                    <td>Integer</td>
-                    <td>0</td>
-                    <td>Integer value to offset on the X axis. A higher xOffset value will shift the entire graphic to the left (in the positive X direction)</td>
-                </tr>
-                <tr>
-                    <td><code>yOffset</code></td>
-                    <td>Integer</td>
-                    <td>0</td>
-                    <td>Integer value to offset on the Y axis. A higher yOffset value will shift the entire graphic down (in the positive Y direction)</td>
-                </tr>
-                <tr>
-                    <td><code>width</code></td>
-                    <td>Integer</td>
-                    <td>1000</td>
-                    <td>Integer value to define the maximum width of the HTML SVG element onto which the graphic will be displayed. This property is a required value greater than 0</td>
-                </tr>
-                <tr>
-                    <td><code>height</code></td>
-                    <td>Integer</td>
-                    <td>1000</td>
-                    <td>Integer value to define the maximum height of the HTML SVG element onto which the graphic will be displayed. This property is a required value greater than 0</td>
-                </tr>
-                <tr>
-                    <td><code>showId</code></td>
-                    <td>Boolean</td>
-                    <td>false</td>
-                    <td>Boolean value that when true tells the Nanoleaf-layout to display the respective panelIds as text on top of the panel's layout which identifies each panel uniquely</td>
-                </tr>
-                  <tr>
-                     <td><code>strokeWidth</code></td>
-                      <td>Integer</td>
-                      <td>2</td>
-                      <td>Integer value that defines how wide the stroke is on the outside of each panel. The larger the number the wider the stroke.</td>
-                  </tr>
-                <tr>
-                    <td><code>rotation</code></td>
-                    <td>Integer</td>
-                    <td>0</td>
-                    <td>Integer value that defines how the canvas should rotate to display the layout. This must be an integer value between 0 and 360. The entire layout will rotate clockwise as the value increases</td>
-                </tr>
-                <tr>
-                    <td><code>opacity</code></td>
-                    <td>Double</td>
-                    <td>1</td>
-                    <td>Integer value between .1 and 1.0 which defines how opaque the entire layout becomes. .1 will make the layout barely visible whereas 1.0 will make it completely opaque.</td>
-                </tr>
-              </tbody>
-          </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Property Type</th>
+              <th>Default Property Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>data</code>
+              </td>
+              <td>Object</td>
+              <td>
+                None this property is required for nanoleaf-layout to function
+              </td>
+              <td>
+                The panel data received from the Nanoleaf OpenAPI GET request
+                made to /api/v1/YOUR_API_KEY/ Its comprised of a panelData key
+                and an array of panel objects see the example in the next column
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>panelSpacing</code>
+              </td>
+              <td>Double</td>
+              <td>2.00</td>
+              <td>
+                Defines how much space is between each panel. This property is
+                inversely proportional and as such a greater value will put less
+                space in between panels. 2.00 is the recommended and default
+                value.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>xOffset</code>
+              </td>
+              <td>Integer</td>
+              <td>0</td>
+              <td>
+                Integer value to offset on the X axis. A higher xOffset value
+                will shift the entire graphic to the left (in the positive X
+                direction)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>yOffset</code>
+              </td>
+              <td>Integer</td>
+              <td>0</td>
+              <td>
+                Integer value to offset on the Y axis. A higher yOffset value
+                will shift the entire graphic down (in the positive Y direction)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>width</code>
+              </td>
+              <td>Integer</td>
+              <td>1000</td>
+              <td>
+                Integer value to define the maximum width of the HTML SVG
+                element onto which the graphic will be displayed. This property
+                is a required value greater than 0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>height</code>
+              </td>
+              <td>Integer</td>
+              <td>1000</td>
+              <td>
+                Integer value to define the maximum height of the HTML SVG
+                element onto which the graphic will be displayed. This property
+                is a required value greater than 0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>showId</code>
+              </td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>
+                Boolean value that when true tells the Nanoleaf-layout to
+                display the respective panelIds as text on top of the panel's
+                layout which identifies each panel uniquely
+              </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>useViewbox</code>
+                </td>
+                <td>Boolean</td>
+                <td>true</td>
+                <td>
+                    Boolean value that when true uses the SVG viewbox property to scale the Layout to the current screen size
+                </td>
+            </tr>
+            <tr>
+              <td>
+                <code>strokeWidth</code>
+              </td>
+              <td>Integer</td>
+              <td>2</td>
+              <td>
+                Integer value that defines how wide the stroke is on the outside
+                of each panel. The larger the number the wider the stroke.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>rotation</code>
+              </td>
+              <td>Integer</td>
+              <td>0</td>
+              <td>
+                Integer value that defines how the canvas should rotate to
+                display the layout. This must be an integer value between 0 and
+                360. The entire layout will rotate clockwise as the value
+                increases
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>opacity</code>
+              </td>
+              <td>Double</td>
+              <td>1</td>
+              <td>
+                Integer value between .1 and 1.0 which defines how opaque the
+                entire layout becomes. .1 will make the layout barely visible
+                whereas 1.0 will make it completely opaque.
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <p>The following table describes the callback functions which developers can hook into to add additional interactivity to their nanoleaf layouts!</p>
+        <p>
+          The following table describes the callback functions which developers
+          can hook into to add additional interactivity to their nanoleaf
+          layouts!
+        </p>
 
-          <table>
-              <thead>
-              <tr>
-                  <th>Property Name</th>
-                  <th>Property Type</th>
-                  <th>Default Property Value</th>
-                  <th>Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                  <td><code>onDraw</code></td>
-                  <td>Function</td>
-                  <td>Callback function with an empty body. (data) => { }</td>
-                  <td>Callback function which occurs each time a new panel is drawn. It will return an array of data representing physical points where each corner of the equilateral triangle is location. e.g [100.792, 200.11, -380.90]</td>
-              </tr>
-              <tr>
-                  <td><code>onHover</code></td>
-                  <td>Function</td>
-                  <td>Callback function with an empty body. (data) => { }</td>
-                  <td>Callback function which occurs when any of the panels are hovered over. The callback returns a SVG Object see the SVG object section for more details</td>
-              </tr>
-              <tr>
-                  <td><code>onClick</code></td>
-                  <td>Function</td>
-                  <td>Callback function with an empty body. (data) => { }</td>
-                  <td>Callback function which occurs when any of the panels are clicked. The callback returns a SVG Object see the SVG object section for more details</td>
-              </tr>
-              <tr>
-                  <td><code>onExit</code></td>
-                  <td>Function</td>
-                  <td>Callback function with an empty body. (data) => { }</td>
-                  <td>Callback function which occurs when a mouse exits a panels area. The callback returns a SVG Object see the SVG object section for more details</td>
-              </tr>
-              </tbody>
-          </table>
-
+        <table>
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Property Type</th>
+              <th>Default Property Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>onDraw</code>
+              </td>
+              <td>Function</td>
+              <td>
+                Callback function with an empty body. (data) => {}
+              </td>
+              <td>
+                Callback function which occurs each time a new panel is drawn.
+                It will return an array of data representing physical points
+                where each corner of the equilateral triangle is location. e.g
+                [100.792, 200.11, -380.90]
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>onHover</code>
+              </td>
+              <td>Function</td>
+              <td>
+                Callback function with an empty body. (data) => {}
+              </td>
+              <td>
+                Callback function which occurs when any of the panels are
+                hovered over. The callback returns a SVG Object see the SVG
+                object section for more details
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>onClick</code>
+              </td>
+              <td>Function</td>
+              <td>
+                Callback function with an empty body. (data) => {}
+              </td>
+              <td>
+                Callback function which occurs when any of the panels are
+                clicked. The callback returns a SVG Object see the SVG object
+                section for more details
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>onExit</code>
+              </td>
+              <td>Function</td>
+              <td>
+                Callback function with an empty body. (data) => {}
+              </td>
+              <td>
+                Callback function which occurs when a mouse exits a panels area.
+                The callback returns a SVG Object see the SVG object section for
+                more details
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <h4 id="svgobject">SVG Object</h4>
         <p>
@@ -444,7 +589,8 @@ export default class PageContent extends Component {
           nanoleaf for its layout information.
         </p>
         <p>
-          You can do this simply in the <a href="https://www.getpostman.com/">Postman App</a>. Find the IP
+          You can do this simply in the{" "}
+          <a href="https://www.getpostman.com/">Postman App</a>. Find the IP
           address of your nanoleaf and make a GET request to its IP for example.
           <code>http://172.17.193.17:16021/api/v1/YOUR_API_TOKEN/</code>
         </p>
@@ -466,16 +612,16 @@ export default class PageContent extends Component {
         <h2 id="whatsnew">Whats New</h2>
         <p>
           As of version <code>2.0.0</code> Nanoleaf layout has been completely
-          rewritten in an SVG format instead of using HTML 5s Canvas. This
-          means its much more flexible from a development perspective and it
-          brings new features like event hooks!
+          rewritten in an SVG format instead of using HTML 5s Canvas. This means
+          its much more flexible from a development perspective and it brings
+          new features like event hooks!
         </p>
         <p>
           You can now hook into <code>onClick</code> <code>onExit</code> and
-          onHover Mouse events for each and every panel. Panels in the
-          nanoleaf layout have been synchronized and each provides a unique SVG
-          object in a callback function which includes all the information about
-          the panel thats being interacted with! See the SVG Object above!
+          onHover Mouse events for each and every panel. Panels in the nanoleaf
+          layout have been synchronized and each provides a unique SVG object in
+          a callback function which includes all the information about the panel
+          thats being interacted with! See the SVG Object above!
         </p>
         <p>
           Let me know what you think about nanoleaf layout by submitting issues

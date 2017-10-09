@@ -213,12 +213,32 @@ class NanoleafLayout extends Component {
         })
     };
 
+    renderViewbox() {
+        return (
+            <svg width={this.props.width} height={this.props.height}
+                 viewBox={`0 0 ${this.props.height} ${this.props.width}`}
+                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
+                 transform={`rotate(${this.props.rotation})`}>
+                {this.update()}
+            </svg>
+        )
+    }
+
+    renderNatural() {
+        return (
+            <svg width={this.props.width} height={this.props.height}
+                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
+                 transform={`rotate(${this.props.rotation})`}>
+                {this.update()}
+            </svg>
+        )
+    }
+
+
     render() {
         return (
             <div>
-                <svg width={this.props.width} height={this.props.height} viewBox={`0 0 ${this.props.height} ${this.props.width}`} style={{ width: '100%', borderRadius: '50%', opacity: this.props.opacity }} transform={`rotate(${this.props.rotation})`}>
-                    {this.update()}
-                </svg>
+                {this.props.useViewbox ? this.renderViewbox() : this.renderNatural()}
             </div>
         );
     }
@@ -237,6 +257,7 @@ NanoleafLayout.propTypes = {
     strokeWidth: PropTypes.number,
     opacity: PropTypes.number,
     rotation: PropTypes.number,
+    useViewbox: PropTypes.bool,
     onHover: PropTypes.func,
     onClick: PropTypes.func,
     onExit: PropTypes.func
@@ -254,6 +275,7 @@ NanoleafLayout.defaultProps = {
     opacity: 1,
     strokeWidth: 2,
     rotation: 0,
+    useViewbox: true,
     onHover: data => data,
     onClick: data => data,
     onExit: data => data,

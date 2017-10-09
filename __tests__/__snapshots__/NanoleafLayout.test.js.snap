@@ -6,6 +6,7 @@ exports[`component matches snapshot 1`] = `
     height={1000}
     style={
       Object {
+        "WebkitTransform": "rotate(0deg)",
         "borderRadius": "50%",
         "opacity": 1,
         "width": "100%",
