@@ -217,7 +217,7 @@ class NanoleafLayout extends Component {
         return (
             <svg width={this.props.width} height={this.props.height}
                  viewBox={`0 0 ${this.props.height} ${this.props.width}`}
-                 style={{width: '100%', borderRadius: '50%', opacity: this.props.opacity}}
+                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
                  transform={`rotate(${this.props.rotation})`}>
                 {this.update()}
             </svg>
@@ -227,7 +227,7 @@ class NanoleafLayout extends Component {
     renderNatural() {
         return (
             <svg width={this.props.width} height={this.props.height}
-                 style={{width: '100%', borderRadius: '50%', opacity: this.props.opacity}}
+                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
                  transform={`rotate(${this.props.rotation})`}>
                 {this.update()}
             </svg>
