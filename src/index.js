@@ -171,7 +171,7 @@ class NanoleafLayout extends Component {
                             onMouseOut={e => {
                                 this.props.onExit(value);
                             }}
-                            onMouseDown={e => {
+                            onClick={e => {
                                 this.props.onClick(value);
                             }}
                             fill={value.color}
@@ -182,7 +182,7 @@ class NanoleafLayout extends Component {
                             x={value.panelID.x}
                             y={value.panelID.y}
                             fill="#FFFFFF"
-                            onMouseDown={e => {
+                            onClick={e => {
                                 this.props.onClick(value)
                             }}
                         >
@@ -202,7 +202,7 @@ class NanoleafLayout extends Component {
                         onMouseOut={e => {
                             this.props.onExit(value);
                         }}
-                        onMouseDown={e => {
+                        onClick={e => {
                             this.props.onClick(value);
                         }}
                         fill={value.color}
