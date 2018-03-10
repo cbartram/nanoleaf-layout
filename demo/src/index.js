@@ -3,6 +3,9 @@ import "./index.css"; //NWB Styles
 import "./theme.css"; //Cayman Theme
 import "../../node_modules/highlight.js/styles/tomorrow-night.css";
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Browser } from "react-router-dom";
