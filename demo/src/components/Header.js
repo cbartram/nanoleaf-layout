@@ -19,7 +19,7 @@ export default class Header extends Component {
             View Project on GitHub
           </a>
 
-          <Link to="/basic" className="btn">
+          <Link to="/example/basic" className="btn">
             View Basic Examples
           </Link>
 

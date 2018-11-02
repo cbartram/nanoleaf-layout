@@ -4,49 +4,8 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as Utils from './utils';
 
 class NanoleafLayout extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            dataSVG: []
-        };
-    }
-
-    componentDidMount() {
-        this.draw();
-    }
-
-    draw() {
-        let data = []; //Data to mutate state
-
-        if (!this.props.data.hasOwnProperty('positionData')) {
-            throw new Error(
-                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
-            );
-        }
-
-        this.props.data.positionData.map(value => {
-            let draw = this.calculate(
-                value.x / this.props.panelSpacing + this.props.xOffset,
-                value.y / this.props.panelSpacing + this.props.yOffset,
-                value.o,
-                value.color,
-                value.strokeColor,
-                value.panelId,
-                this.props.height,
-                this.props.width,
-            );
-
-            this.props.onDraw(draw);
-            data.push(draw);
-        });
-
-        this.setState({ dataSVG: data });
-    };
-
     /**
      * Draws an Equilateral Triangle on the Canvas
      * @param x integer Cartesian X coordinate
@@ -54,228 +13,183 @@ class NanoleafLayout extends Component {
      * @param o integer Orientation in degrees
      * @param color hexadecimal color code Triangle Color i.e. #FF00FF
      * @param strokeColor hexadecimal color code for the Triangles stroke i.e #DDFF90
-     * @param height integer height of the SVG
-     * @param width integer width of the SVG
      * @param id integer the panel identifier
      */
-    calculate(x, y, o, color, strokeColor, id, height, width) {
-        let centroid = Utils.cartesianToScreen(x, y, height, width);
+    calculate({x, y, o, color, strokeColor, panelId}) {
+      const origin = [0, 0]; // Trangle will later be translated and rotated
+      let e = this.equilateral(this.props.data.sideLength, origin)
+      let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
 
-        //Default for a single digit ID
-        let textXOffset = -3;
-        let textYOffset = 18;
-
-        //Determine the Text offset
-        if(id > 9 && id <= 99) {
-            textXOffset = -10;
-            textYOffset = 20;
-        }
-
-        if(id >= 100 && id < 999) {
-            //Text is > 3 digit ID
-            textXOffset = -13;
-            textYOffset = 25;
-        }
-
-        //The Id that is drawn on top of the SVG when the showIds prop is true
-        let panelID = {
-            x: centroid[0] + (textXOffset),
-            y: centroid[1] + (textYOffset),
-            id: id
-        };
-
-        if (Utils.doRotate(o)) {
-            let topRotatedPoint = Utils.rotateTopFromCentroid(x, y, height, width);
-            let leftRotatedPoint = Utils.rotateLeftFromCentroid(x, y, height, width);
-            let rightRotatedPoint = Utils.rotateRightFromCentroid(x, y, height, width);
-
-            let path = `M${topRotatedPoint[0]} ${topRotatedPoint[1]} L${leftRotatedPoint[0]} ${leftRotatedPoint[1]} L${rightRotatedPoint[0]} ${rightRotatedPoint[1]} L${topRotatedPoint[0]} ${topRotatedPoint[1]} Z`;
-
-            return {
-                topPoint: topRotatedPoint,
-                leftPoint: leftRotatedPoint,
-                rightPoint: rightRotatedPoint,
-                centroid: centroid,
-                rotated: true,
-                selected: false,
-                color,
-                strokeColor,
-                path,
-                id,
-                panelID
-            };
-        } else {
-            let topPoint = Utils.getTopFromCentroid(x, y, height, width);
-            let leftPoint = Utils.getLeftFromCentroid(x, y, height, width);
-            let rightPoint = Utils.getRightFromCentroid(x, y, height, width);
-
-            let path = `M${topPoint[0]} ${topPoint[1]} L${leftPoint[0]} ${leftPoint[1]} L${rightPoint[0]} ${rightPoint[1]} L${topPoint[0]} ${topPoint[1]} Z`;
-
-            return {
-                topPoint: topPoint,
-                leftPoint: leftPoint,
-                rightPoint: rightPoint,
-                centroid: centroid,
-                rotated: false,
-                selected: false,
-                color,
-                strokeColor,
-                path,
-                id,
-                panelID
-            };
-        }
+      const triangle = { x, y, rotation: o, color, strokeColor, path, panelId };
+      this.props.onDraw(triangle);
+      return triangle
     };
+
+    // Based on https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
+		equilateral(sideLength, cen) {
+			const pi = 3.141592653589793238462643383
+			const halfSide = sideLength / 2
+
+      // Inner innerHypotenuse angle = 120, hyp = half side. Cos 120 * adjacent
+      const innerHypotenuse = halfSide * (1 / Math.cos(30 * pi / 180));
+
+      // SqRt(Hyp^2 - Adj^2) pythagoras
+      const innerOpposite = halfSide * (1 / Math.tan(60 * pi / 180));
+
+      var leftVertex = [];
+      var rightVertex = [];
+      var topVertex = [];
+
+      leftVertex[0] = cen[0] - halfSide;
+      leftVertex[1] = cen[1] + innerOpposite;
+
+      rightVertex[0] = cen[0] + halfSide;
+      rightVertex[1] = cen[1] + innerOpposite;
+
+      topVertex[0] = cen[0];
+      topVertex[1] = cen[1] - innerHypotenuse;
+
+      return { topVertex, rightVertex, leftVertex }
+		}
+
+    validate() {
+      const { data } = this.props
+        if (!data.hasOwnProperty('positionData')) {
+            throw new Error(
+                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
+            );
+        }
+
+        return data.positionData.map(this.calculate, this);
+    }
 
     /**
      * Handles recalculating values and updating when the layout changes
      * @returns {Array}
      */
     update() {
+      const showCenter = false //Development
+      const colorAsInt = (hexString) => {
+        if (!hexString) return 0 // cover nulls and undefined
+        return parseInt(hexString.slice(1), 0x10)
+      }
+      const { onHover, onClick, onExit } = this.props
+      const { strokeWidth, strokeColor, color, showId, rotation } = this.props
 
-        let data = []; //Data to mutate state
+      const panels = this.validate().sort((a, b) => {
+        //Sort panels so that strokeColor further from white are later in the array.  This prevents overlaping
+        //a non-white strokeColor with white.
+        return colorAsInt(b.strokeColor) - colorAsInt(a.strokeColor)
+      })
 
-        if (!this.props.data.hasOwnProperty('positionData')) {
-            throw new Error(
-                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
-            );
-        }
-
-        this.props.data.positionData.map(value => {
-            let draw = this.calculate(
-                value.x / this.props.panelSpacing + this.props.xOffset,
-                value.y / this.props.panelSpacing + this.props.yOffset,
-                value.o,
-                value.color,
-                value.strokeColor,
-                value.panelId,
-                this.props.height,
-                this.props.width,
-            );
-
-            this.props.onDraw(draw);
-            data.push(draw);
-        });
-
-        return data.map((value, key) => {
-            if(this.props.showId) {
-                return (
-                    <g key={key}>
-                        <path
-                            key={key + '_path'}
-                            d={value.path}
-                            strokeWidth={this.props.strokeWidth}
-                            onMouseOver={e => {
-                                this.props.onHover(value);
-                            }}
-                            onMouseOut={e => {
-                                this.props.onExit(value);
-                            }}
-                            onClick={e => {
-                                this.props.onClick(value);
-                            }}
-                            fill={value.color}
-                            stroke={value.strokeColor}
-                        />
-                        <text
-                            key={key + '_text'}
-                            x={value.panelID.x}
-                            y={value.panelID.y}
-                            fill="#FFFFFF"
-                            onClick={e => {
-                                this.props.onClick(value)
-                            }}
-                        >
-                            {value.id}
-                        </text>
-                    </g>
-                );
-            } else {
-                return (
-                    <path
-                        key={key + '_path'}
-                        d={value.path}
-                        strokeWidth={this.props.strokeWidth}
-                        onMouseOver={e => {
-                            this.props.onHover(value);
-                        }}
-                        onMouseOut={e => {
-                            this.props.onExit(value);
-                        }}
-                        onClick={e => {
-                            this.props.onClick(value);
-                        }}
-                        fill={value.color}
-                        stroke={value.strokeColor}
-                    />
-                )
-            }
-        })
+      return panels.map((value, key) => {
+        return (
+            <g key={key} transform={`translate(${value.x},${value.y}) rotate(${value.rotation + 60})`} >
+              <path
+                  key={key + '_path'}
+                  d={value.path}
+                  strokeWidth={strokeWidth}
+                  onMouseOver={() => onHover(value) }
+                  onMouseOut={() => onExit(value) }
+                  onClick={() => onClick(value) }
+                  fill={value.color || color}
+                  stroke={value.strokeColor || strokeColor}
+              />
+              {showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>}
+              {showId &&
+                <text key={key + '_text'}
+                  fill="#FFFFFF"
+                  textAnchor="middle"
+                  transform={`scale(-1, 1) rotate(${value.rotation - 120 - rotation})`}
+                  onClick={e => onClick(value)}>
+                    {value.id}
+                </text>
+              }
+            </g>
+        )
+      })
     };
 
-    renderViewbox() {
-        return (
-            <svg width={this.props.width} height={this.props.height}
-                 viewBox={`0 0 ${this.props.height} ${this.props.width}`}
-                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
-                 transform={`rotate(${this.props.rotation})`}>
-                {this.update()}
-            </svg>
-        )
-    }
-
-    renderNatural() {
-        return (
-            <svg width={this.props.width} height={this.props.height}
-                 style={{width: '100%', borderRadius: '50%', WebkitTransform: `rotate(${this.props.rotation}deg)`, opacity: this.props.opacity}}
-                 transform={`rotate(${this.props.rotation})`}>
-                {this.update()}
-            </svg>
-        )
-    }
-
-
     render() {
+        const { data } = this.props
+        let minX = 0
+        let maxX = 0
+        let minY = 0
+        let maxY = 0
+
+        data.positionData.forEach(panel => {
+          if (panel.x > maxX) {
+            maxX = panel.x
+          }
+          if (panel.x < minX) {
+            minX = panel.x
+          }
+          if (panel.y > maxY) {
+            maxY = panel.y
+          }
+          if (panel.y < minY) {
+            minY = panel.y
+          }
+        })
+
+        // the min/max are now based on the center of the triangles, so we want to add a sideLength so we're
+        // working with the triangle bounding boxes
+        maxX += data.sideLength
+        minX -= data.sideLength
+        maxY += data.sideLength
+        minY -= data.sideLength
+
+        const width = (maxX - minX)
+        const height = (maxY - minY)
+        const midX = minX + width/2
+        const midY = minY + height/2
+
+
+        // For development
+        const showTrueZero = false
+        const showTransZero = false
+        const showCenter = false
+
+        //Translate out, scale and rotate, translate back.  Makes it 'feel' like the scale and rotation are happening around the center and not around 0,0
+        const transform = `translate(${midX},${midY}) scale(-1,1) rotate(${this.props.rotation + 180}) translate(${-midX},${-midY})`
+
+        // Use calculated to give a tight view of the panels
+        const viewBox = `${minX} ${minY} ${width} ${height}`
+
         return (
-            <div>
-                {this.props.useViewbox ? this.renderViewbox() : this.renderNatural()}
-            </div>
-        );
+            <svg viewBox={viewBox} preserveAspectRatio={'xMidYMid meet'} >
+              {showTrueZero && <circle cx={0} cy={0} r={5} fill={'blue'} />}
+              <g transform={transform}>
+                {this.update()}
+                {showTransZero && <circle cx={0} cy={0} r={5} fill={'lightblue'} />}
+              </g>
+              {showCenter && <circle cx={midX} cy={midY} r={5} fill={'red'} />}
+            </svg>
+        )
     }
 }
 
 NanoleafLayout.propTypes = {
-    height: PropTypes.number,
-    width: PropTypes.number,
     data: PropTypes.object.isRequired, //should be array
-    style: PropTypes.object,
     onDraw: PropTypes.func,
-    panelSpacing: PropTypes.number,
-    xOffset: PropTypes.number,
-    yOffset: PropTypes.number,
     showId: PropTypes.bool,
     strokeWidth: PropTypes.number,
     opacity: PropTypes.number,
+    color: PropTypes.string,
     rotation: PropTypes.number,
-    useViewbox: PropTypes.bool,
     onHover: PropTypes.func,
     onClick: PropTypes.func,
     onExit: PropTypes.func
 };
 
 NanoleafLayout.defaultProps = {
-    xOffset: 0,
-    yOffset: 0,
-    panelSpacing: 1.25,
-    width: 1000,
-    height: 1000,
     onDraw: data => data,
-    style: {},
     showId: false,
     opacity: 1,
     strokeWidth: 2,
     rotation: 0,
-    useViewbox: true,
+    color: '#333333',
+    strokeColor: '#ffffff',
     onHover: data => data,
     onClick: data => data,
     onExit: data => data,

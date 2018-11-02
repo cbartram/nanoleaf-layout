@@ -17,21 +17,13 @@ export default class App extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Route exact path="/" component={Header}>
-          <Header />
-        </Route>
+        <Route exact path="/" component={Header} />
 
-        <Route path="/example/basic" component={Basic}>
-          <Basic />
-        </Route>
+        <Route path="/example/basic" component={Basic} />
 
-        <Route path="/example/props" component={PropExample}>
-          <Basic />
-        </Route>
+        <Route path="/example/props" component={PropExample} />
 
-        <Route path="/example/callback" component={CallbackExample}>
-          <CallbackExample />
-        </Route>
+        <Route path="/example/callback" component={CallbackExample} />
       </div>
     );
   }
