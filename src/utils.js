@@ -2,15 +2,7 @@
  * Created by Christian Bartram
  * Github @cbartram
  */
-const CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
-
-/**
- * Returns the Constant centroid height for Unit tests
- * @returns {number}
- */
-export function getCentroidHeight() {
-  return CENTROID_HEIGHT;
-}
+const { CENTROID_HEIGHT } = require('./constants');
 
 /**
  * Maps a cartesian point to a 2D HTML Canvas point
@@ -20,21 +12,21 @@ export function getCentroidHeight() {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
  */
-export function cartesianToScreen(cx, cy, height, width) {
+const cartesianToScreen = (cx, cy, height, width) => {
   let screenX = cx + width / 2;
   let screenY = height / 2 - cy;
 
   return [screenX, screenY];
-}
+};
 
 /**
  * Determines if the given triangle should be rotated
  * @param rotation integer rotation in degrees
  * @returns {boolean} true if the rotation should occur false otherwise
  */
-export function doRotate(rotation) {
+const doRotate = (rotation) => {
   return rotation / 60 % 2 !== 0;
-}
+};
 
 /**
  * Calculates the top most point of the equilateral triangle given the centroid
@@ -44,14 +36,14 @@ export function doRotate(rotation) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getTopFromCentroid(cx, cy, height, width) {
+const getTopFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt(screen[0].toFixed()),
     parseInt((screen[1] - CENTROID_HEIGHT).toFixed())
   ];
-}
+};
 
 /**
  * Calculates the left most point of the equilateral triangle given the centroid
@@ -61,14 +53,14 @@ export function getTopFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getLeftFromCentroid(cx, cy, height, width) {
+const getLeftFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
     parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
   ];
-}
+};
 
 /**
  * Calculates the right most point of the equilateral triangle given the centroid
@@ -78,14 +70,14 @@ export function getLeftFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getRightFromCentroid(cx, cy, height, width) {
+const getRightFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
     parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
   ];
-}
+};
 
 /**
  * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -95,14 +87,14 @@ export function getRightFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateLeftFromCentroid(cx, cy, height, width) {
+const rotateLeftFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
-    parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
-  ]; //30 is for spacing
-}
+    parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed()) // +30 adds spacing
+  ];
+};
 
 /**
  * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -112,14 +104,14 @@ export function rotateLeftFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateRightFromCentroid(cx, cy, height, width) {
+const rotateRightFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
     parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
   ];
-}
+};
 
 /**
  * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
@@ -129,11 +121,22 @@ export function rotateRightFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateTopFromCentroid(cx, cy, height, width) {
+const rotateTopFromCentroid = (cx, cy, height, width) => {
   let screen = cartesianToScreen(cx, cy, height, width);
 
   return [
     parseInt(screen[0].toFixed()),
     parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())
   ];
-}
+};
+
+module.exports = {
+  rotateLeftFromCentroid,
+  rotateTopFromCentroid,
+  rotateRightFromCentroid,
+  getLeftFromCentroid,
+  getTopFromCentroid,
+  getRightFromCentroid,
+  doRotate,
+  cartesianToScreen,
+};

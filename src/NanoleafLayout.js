@@ -4,6 +4,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { PI } from './constants'
 
 class NanoleafLayout extends Component {
 
@@ -17,8 +18,7 @@ class NanoleafLayout extends Component {
      * @param id integer the panel identifier
      */
     calculate({x, y, o, color, strokeColor, panelId}) {
-      const origin = [0, 0]; // Trangle will later be translated and rotated
-      let e = this.equilateral(this.props.data.sideLength, origin);
+      let e = NanoleafLayout.equilateral(this.props.data.sideLength);
       let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
 
       const triangle = { x, y, rotation: o, color, strokeColor, path, panelId };
@@ -26,20 +26,25 @@ class NanoleafLayout extends Component {
       return triangle
     };
 
-        // Based on https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
-		equilateral(sideLength, cen) {
-			const pi = 3.141592653589793238462643383;
-			const halfSide = sideLength / 2;
+    /**
+     * Calculates an Equilateral Triangle given the sidelength and center based on the following gist
+     * https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
+     * @param sideLength Integer the length of the triangles side
+     * @param cen Array Defaults to [0, 0]
+     * @returns {{topVertex: Array, rightVertex: Array, leftVertex: Array}}
+     */
+	static equilateral(sideLength, cen = [0, 0]) {
+	  const halfSide = sideLength / 2;
 
       // Inner innerHypotenuse angle = 120, hyp = half side. Cos 120 * adjacent
-      const innerHypotenuse = halfSide * (1 / Math.cos(30 * pi / 180));
+      const innerHypotenuse = halfSide * (1 / Math.cos(30 * PI / 180));
 
       // SqRt(Hyp^2 - Adj^2) pythagoras
-      const innerOpposite = halfSide * (1 / Math.tan(60 * pi / 180));
+      const innerOpposite = halfSide * (1 / Math.tan(60 * PI / 180));
 
-      var leftVertex = [];
-      var rightVertex = [];
-      var topVertex = [];
+      let leftVertex = [];
+      let rightVertex = [];
+      let topVertex = [];
 
       leftVertex[0] = cen[0] - halfSide;
       leftVertex[1] = cen[1] + innerOpposite;
@@ -51,7 +56,7 @@ class NanoleafLayout extends Component {
       topVertex[1] = cen[1] - innerHypotenuse;
 
       return { topVertex, rightVertex, leftVertex }
-		}
+	}
 
     validate() {
       const { data } = this.props;
@@ -69,11 +74,11 @@ class NanoleafLayout extends Component {
      * @returns {Array}
      */
     update() {
-      const showCenter = false //Development
+      const showCenter = false; //Development
       const colorAsInt = (hexString) => {
-        if (!hexString) return 0 // cover nulls and undefined
+        if (!hexString) return 0; // cover nulls and undefined
         return parseInt(hexString.slice(1), 0x10)
-      }
+      };
       const { onHover, onClick, onExit } = this.props
       const { strokeWidth, strokeColor, color, showId, rotation } = this.props
 
@@ -81,7 +86,7 @@ class NanoleafLayout extends Component {
         //Sort panels so that strokeColor further from white are later in the array.  This prevents overlaping
         //a non-white strokeColor with white.
         return colorAsInt(b.strokeColor) - colorAsInt(a.strokeColor)
-      })
+      });
 
       return panels.map((value, key) => {
         return (

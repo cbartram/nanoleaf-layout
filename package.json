@@ -10,8 +10,8 @@
     "component"
   ],
   "scripts": {
-    "build": "webpack --mode production",
-    "test": "jest",
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "test": "./node_modules/.bin/mocha ./test/* --timeout 4000 --exit",
     "test:coverage": "jest --coverage && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
   },
   "dependencies": {
@@ -29,21 +29,27 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.3",
     "babel-jest": "^20.0.3",
     "babel-loader": "^8.0.4",
-    "babel-preset-react": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^20.0.4",
+    "mocha": "^5.2.0",
     "react": "^15.6.2",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.2",
     "regenerator-runtime": "^0.10.5",
-    "webpack": "^3.11.0"
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   },
   "keywords": [
     "react",
