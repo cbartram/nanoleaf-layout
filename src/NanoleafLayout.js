@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { PI } from './constants'
 
-class NanoleafLayout extends Component {
+export default class NanoleafLayout extends Component {
 
     /**
      * Draws an Equilateral Triangle on the Canvas
@@ -58,6 +58,11 @@ class NanoleafLayout extends Component {
       return { topVertex, rightVertex, leftVertex }
 	}
 
+    /**
+     * Throws an error if the positionData prop is not present within the props passed to this component.
+     * Without positionData it is impossible to draw the Nanoleaf display.
+     * @returns {*}
+     */
     validate() {
       const { data } = this.props;
         if (!data.hasOwnProperty('positionData')) {
@@ -79,8 +84,8 @@ class NanoleafLayout extends Component {
         if (!hexString) return 0; // cover nulls and undefined
         return parseInt(hexString.slice(1), 0x10)
       };
-      const { onHover, onClick, onExit } = this.props
-      const { strokeWidth, strokeColor, color, showId, rotation } = this.props
+      const { onHover, onClick, onExit } = this.props;
+      const { strokeWidth, strokeColor, color, showId, rotation } = this.props;
 
       const panels = this.validate().sort((a, b) => {
         //Sort panels so that strokeColor further from white are later in the array.  This prevents overlaping
@@ -117,11 +122,11 @@ class NanoleafLayout extends Component {
     };
 
     render() {
-        const { data } = this.props
-        let minX = 0
-        let maxX = 0
-        let minY = 0
-        let maxY = 0
+        const { data } = this.props;
+        let minX = 0;
+        let maxX = 0;
+        let minY = 0;
+        let maxY = 0;
 
         data.positionData.forEach(panel => {
           if (panel.x > maxX) {
@@ -136,31 +141,31 @@ class NanoleafLayout extends Component {
           if (panel.y < minY) {
             minY = panel.y
           }
-        })
+        });
 
         // the min/max are now based on the center of the triangles, so we want to add a sideLength so we're
         // working with the triangle bounding boxes
-        maxX += data.sideLength
-        minX -= data.sideLength
-        maxY += data.sideLength
-        minY -= data.sideLength
+        maxX += data.sideLength;
+        minX -= data.sideLength;
+        maxY += data.sideLength;
+        minY -= data.sideLength;
 
-        const width = (maxX - minX)
-        const height = (maxY - minY)
-        const midX = minX + width/2
-        const midY = minY + height/2
+        const width = (maxX - minX);
+        const height = (maxY - minY);
+        const midX = minX + width / 2;
+        const midY = minY + height / 2;
 
 
         // For development
-        const showTrueZero = false
-        const showTransZero = false
-        const showCenter = false
+        const showTrueZero = false;
+        const showTransZero = false;
+        const showCenter = false;
 
         //Translate out, scale and rotate, translate back.  Makes it 'feel' like the scale and rotation are happening around the center and not around 0,0
-        const transform = `translate(${midX},${midY}) scale(-1,1) rotate(${this.props.rotation + 180}) translate(${-midX},${-midY})`
+        const transform = `translate(${midX},${midY}) scale(-1,1) rotate(${this.props.rotation + 180}) translate(${-midX},${-midY})`;
 
         // Use calculated to give a tight view of the panels
-        const viewBox = `${minX} ${minY} ${width} ${height}`
+        const viewBox = `${minX} ${minY} ${width} ${height}`;
 
         return (
             <svg viewBox={viewBox} preserveAspectRatio={'xMidYMid meet'} >
@@ -200,6 +205,3 @@ NanoleafLayout.defaultProps = {
     onClick: data => data,
     onExit: data => data,
 };
-
-export default NanoleafLayout;
-

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/cbartram/nanoleaf-layout/blob/development/logo.png" />
+  <img src="./resources/images/logo.png" />
 </p>
 
 # Nanoleaf Layout
@@ -10,7 +10,7 @@
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
 
 
-Nanoleaf Layout is the **premier** package on NPM which takes your physical Nanoleaf layout and displays
+Nanoleaf Layout is the **only** package on NPM which takes your physical Nanoleaf layout and displays
 it in **any** 2D application. Nanoleaf Layout will take in the confusing `X,Y` coordinates and Orientation that comes from Nanoleaf's 
 OpenAPI and converts it into a useful 2D graphic visual which you can place in your application! 
 
