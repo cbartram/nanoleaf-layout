@@ -1,11 +1,12 @@
 /**
- * Created by Christian Bartram on 6/20/17.
+ * Created by Christian Bartram on 12/14/2018.
  * Github @cbartram
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class NanoleafLayout extends Component {
+
     /**
      * Draws an Equilateral Triangle on the Canvas
      * @param x integer Cartesian X coordinate
@@ -17,7 +18,7 @@ class NanoleafLayout extends Component {
      */
     calculate({x, y, o, color, strokeColor, panelId}) {
       const origin = [0, 0]; // Trangle will later be translated and rotated
-      let e = this.equilateral(this.props.data.sideLength, origin)
+      let e = this.equilateral(this.props.data.sideLength, origin);
       let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
 
       const triangle = { x, y, rotation: o, color, strokeColor, path, panelId };
@@ -25,10 +26,10 @@ class NanoleafLayout extends Component {
       return triangle
     };
 
-    // Based on https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
+        // Based on https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
 		equilateral(sideLength, cen) {
-			const pi = 3.141592653589793238462643383
-			const halfSide = sideLength / 2
+			const pi = 3.141592653589793238462643383;
+			const halfSide = sideLength / 2;
 
       // Inner innerHypotenuse angle = 120, hyp = half side. Cos 120 * adjacent
       const innerHypotenuse = halfSide * (1 / Math.cos(30 * pi / 180));
@@ -53,7 +54,7 @@ class NanoleafLayout extends Component {
 		}
 
     validate() {
-      const { data } = this.props
+      const { data } = this.props;
         if (!data.hasOwnProperty('positionData')) {
             throw new Error(
                 'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
