@@ -21,7 +21,7 @@ test("layout returns an object", () => {
     panelID: {
       id: 1,
       x: 597,
-      y: 415
+      y: 418
     }
   };
 

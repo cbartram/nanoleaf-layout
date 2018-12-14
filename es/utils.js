@@ -1,3 +1,17 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getCentroidHeight = getCentroidHeight;
+exports.cartesianToScreen = cartesianToScreen;
+exports.doRotate = doRotate;
+exports.getTopFromCentroid = getTopFromCentroid;
+exports.getLeftFromCentroid = getLeftFromCentroid;
+exports.getRightFromCentroid = getRightFromCentroid;
+exports.rotateLeftFromCentroid = rotateLeftFromCentroid;
+exports.rotateRightFromCentroid = rotateRightFromCentroid;
+exports.rotateTopFromCentroid = rotateTopFromCentroid;
 /**
  * Created by Christian Bartram
  * Github @cbartram
@@ -8,7 +22,7 @@ var CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
  * Returns the Constant centroid height for Unit tests
  * @returns {number}
  */
-export function getCentroidHeight() {
+function getCentroidHeight() {
   return CENTROID_HEIGHT;
 }
 
@@ -20,7 +34,7 @@ export function getCentroidHeight() {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
  */
-export function cartesianToScreen(cx, cy, height, width) {
+function cartesianToScreen(cx, cy, height, width) {
   var screenX = cx + width / 2;
   var screenY = height / 2 - cy;
 
@@ -32,7 +46,7 @@ export function cartesianToScreen(cx, cy, height, width) {
  * @param rotation integer rotation in degrees
  * @returns {boolean} true if the rotation should occur false otherwise
  */
-export function doRotate(rotation) {
+function doRotate(rotation) {
   return rotation / 60 % 2 !== 0;
 }
 
@@ -44,7 +58,7 @@ export function doRotate(rotation) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getTopFromCentroid(cx, cy, height, width) {
+function getTopFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt(screen[0].toFixed()), parseInt((screen[1] - CENTROID_HEIGHT).toFixed())];
@@ -58,7 +72,7 @@ export function getTopFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getLeftFromCentroid(cx, cy, height, width) {
+function getLeftFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
@@ -72,7 +86,7 @@ export function getLeftFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function getRightFromCentroid(cx, cy, height, width) {
+function getRightFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] + CENTROID_HEIGHT).toFixed())];
@@ -86,7 +100,7 @@ export function getRightFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateLeftFromCentroid(cx, cy, height, width) {
+function rotateLeftFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt((screen[0] - CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())]; //30 is for spacing
@@ -100,7 +114,7 @@ export function rotateLeftFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateRightFromCentroid(cx, cy, height, width) {
+function rotateRightFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt((screen[0] + CENTROID_HEIGHT).toFixed()), parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())];
@@ -114,7 +128,7 @@ export function rotateRightFromCentroid(cx, cy, height, width) {
  * @param width integer the width of the SVG
  * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
  */
-export function rotateTopFromCentroid(cx, cy, height, width) {
+function rotateTopFromCentroid(cx, cy, height, width) {
   var screen = cartesianToScreen(cx, cy, height, width);
 
   return [parseInt(screen[0].toFixed()), parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())];
