@@ -10,9 +10,9 @@
     "component"
   ],
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --mode production",
+    "build": "webpack --config ./webpack.config.js --mode development",
     "test": "./node_modules/.bin/mocha ./test/* --timeout 4000 --exit --require @babel/register",
-    "test:coverage": "jest --coverage && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
+    "test:coverage": "npm run test && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
   },
   "dependencies": {
     "prop-types": "^15.5.10"
@@ -37,7 +37,6 @@
     "mocha": "^5.2.0",
     "prettier": "^1.15.3",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3",
     "regenerator-runtime": "^0.10.5",
     "sinon": "^7.2.2",
     "webpack": "^4.27.1",

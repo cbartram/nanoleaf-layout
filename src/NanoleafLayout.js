@@ -7,25 +7,6 @@ import PropTypes from 'prop-types';
 import { PI } from './constants'
 
 export default class NanoleafLayout extends Component {
-
-    /**
-     * Draws an Equilateral Triangle on the Canvas
-     * @param x integer Cartesian X coordinate
-     * @param y integer Cartesian Y coordinate
-     * @param o integer Orientation in degrees
-     * @param color hexadecimal color code Triangle Color i.e. #FF00FF
-     * @param strokeColor hexadecimal color code for the Triangles stroke i.e #DDFF90
-     * @param id integer the panel identifier
-     */
-    calculate({x, y, o, color, strokeColor, panelId}) {
-      let e = NanoleafLayout.equilateral(this.props.data.sideLength);
-      let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
-
-      const triangle = { x, y, rotation: o, color, strokeColor, path, panelId };
-      this.props.onDraw(triangle);
-      return triangle
-    };
-
     /**
      * Calculates an Equilateral Triangle given the sidelength and center based on the following gist
      * https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
@@ -55,43 +36,69 @@ export default class NanoleafLayout extends Component {
       topVertex[0] = cen[0];
       topVertex[1] = cen[1] - innerHypotenuse;
 
-      return { topVertex, rightVertex, leftVertex }
+      return {
+          topVertex,
+          rightVertex,
+          leftVertex
+      }
 	}
 
     /**
-     * Throws an error if the positionData prop is not present within the props passed to this component.
-     * Without positionData it is impossible to draw the Nanoleaf display.
-     * @returns {*}
+     * Draws an Equilateral Triangle on the Canvas and validates the data from this.props contains the correct key.
+     * The following parameters are used for the calculation of the equilateral triangles.
+     * @param x integer Cartesian X coordinate
+     * @param y integer Cartesian Y coordinate
+     * @param o integer Orientation in degrees
+     * @param color hexadecimal color code Triangle Color i.e. #FF00FF
+     * @param strokeColor hexadecimal color code for the Triangles stroke i.e #DDFF90
+     * @param id integer the panel identifier
      */
     validate() {
-      const { data } = this.props;
-        if (!data.hasOwnProperty('positionData')) {
-            throw new Error(
-                'Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value'
-            );
-        }
+      const { positionData, sideLength } = this.props.data;
+        if (typeof positionData === 'undefined')
+            throw new Error('Could not find property: positionData in given prop. Ensure that your data includes a positionData key with an array value');
 
-        return data.positionData.map(this.calculate, this);
+        // Calculate the coords for an equilateral triangle
+        return positionData.map(({ x, y, o, color, strokeColor, panelId }) => {
+            let e = NanoleafLayout.equilateral(sideLength);
+            let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
+
+            const triangle = {
+                x,
+                y,
+                rotation: o,
+                color,
+                strokeColor,
+                path,
+                panelId
+            };
+
+            this.props.onDraw(triangle);
+            return triangle
+        });
     }
+
+    /**
+     * Returns the integer value of a hexidecimal color code
+     * @param hexString String Hexidecimal color code
+     * @returns {number}
+     */
+     static colorAsInt(hexString) {
+        if (!hexString) return 0; // cover nulls and undefined
+        return parseInt(hexString.slice(1), 0x10)
+      };
 
     /**
      * Handles recalculating values and updating when the layout changes
      * @returns {Array}
      */
     update() {
-      const showCenter = false; //Development
-      const colorAsInt = (hexString) => {
-        if (!hexString) return 0; // cover nulls and undefined
-        return parseInt(hexString.slice(1), 0x10)
-      };
-      const { onHover, onClick, onExit } = this.props;
-      const { strokeWidth, strokeColor, color, showId, rotation } = this.props;
+      const showCenter = false; // Used for development
 
-      const panels = this.validate().sort((a, b) => {
-        //Sort panels so that strokeColor further from white are later in the array.  This prevents overlaping
-        //a non-white strokeColor with white.
-        return colorAsInt(b.strokeColor) - colorAsInt(a.strokeColor)
-      });
+      const { strokeWidth, strokeColor, color, showId, rotation, onHover, onClick, onExit } = this.props;
+
+      //Sort panels so that strokeColor further from white are later in the array.  This prevents overlapping a non-white strokeColor with white.
+      const panels = this.validate().sort((a, b) => NanoleafLayout.colorAsInt(b.strokeColor) - NanoleafLayout.colorAsInt(a.strokeColor));
 
       return panels.map((value, key) => {
         return (
@@ -106,13 +113,16 @@ export default class NanoleafLayout extends Component {
                   fill={value.color || color}
                   stroke={value.strokeColor || strokeColor}
               />
-              {showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>}
-              {showId &&
+              {
+                  showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>
+              }
+              {
+                showId &&
                 <text key={key + '_text'}
                   fill="#FFFFFF"
                   textAnchor="middle"
                   transform={`scale(-1, 1) rotate(${value.rotation - 120 - rotation})`}
-                  onClick={e => onClick(value)}>
+                  onClick={() => onClick(value)}>
                     {value.id}
                 </text>
               }
@@ -122,13 +132,13 @@ export default class NanoleafLayout extends Component {
     };
 
     render() {
-        const { data } = this.props;
+        const { positionData, sideLength } = this.props.data;
         let minX = 0;
         let maxX = 0;
         let minY = 0;
         let maxY = 0;
 
-        data.positionData.forEach(panel => {
+        positionData.forEach(panel => {
           if (panel.x > maxX) {
             maxX = panel.x
           }
@@ -145,10 +155,10 @@ export default class NanoleafLayout extends Component {
 
         // the min/max are now based on the center of the triangles, so we want to add a sideLength so we're
         // working with the triangle bounding boxes
-        maxX += data.sideLength;
-        minX -= data.sideLength;
-        maxY += data.sideLength;
-        minY -= data.sideLength;
+        maxX += sideLength;
+        minX -= sideLength;
+        maxY += sideLength;
+        minY -= sideLength;
 
         const width = (maxX - minX);
         const height = (maxY - minY);
@@ -168,13 +178,13 @@ export default class NanoleafLayout extends Component {
         const viewBox = `${minX} ${minY} ${width} ${height}`;
 
         return (
-            <svg viewBox={viewBox} preserveAspectRatio={'xMidYMid meet'} >
-              {showTrueZero && <circle cx={0} cy={0} r={5} fill={'blue'} />}
+            <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" >
+              {showTrueZero && <circle cx={0} cy={0} r={5} fill="blue" />}
               <g transform={transform}>
                 {this.update()}
-                {showTransZero && <circle cx={0} cy={0} r={5} fill={'lightblue'} />}
+                {showTransZero && <circle cx={0} cy={0} r={5} fill="lightblue" />}
               </g>
-              {showCenter && <circle cx={midX} cy={midY} r={5} fill={'red'} />}
+              {showCenter && <circle cx={midX} cy={midY} r={5} fill="red" />}
             </svg>
         )
     }
