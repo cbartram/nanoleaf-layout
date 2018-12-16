@@ -1,13 +1,12 @@
-sudo: false
-
 language: node_js
 node_js:
   - 8
+cache: npm
 
 before_install:
-  - npm install react prop-types codecov.io coveralls
+  - npm i -g npm@latest
+  - npm install coveralls mocha chai react-dom enzyme-adapter-react-16 enzyme
   - npm run test
 
 after_success:
-  - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
