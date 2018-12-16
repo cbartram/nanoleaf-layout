@@ -38,8 +38,14 @@ Thumbs.db
 
 # Node #
 ###############
+node_modules/
 
-node_modules/*
+# Builds #
+##############
+out/
+lib/
+dist/
+build/
 
 # Other #
 ###############

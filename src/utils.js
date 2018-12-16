@@ -1,139 +1,177 @@
-/**
- * Created by Christian Bartram
- * Github @cbartram
- */
-const CENTROID_HEIGHT = Math.sqrt(3) / 6 * 150;
+import React from 'react';
+import { PI } from './constants';
 
 /**
- * Returns the Constant centroid height for Unit tests
+ * Calculates an Equilateral Triangle given the side length and center based on the following gist
+ * https://gist.github.com/julienetie/92b2e87269f7f9f0bee0
+ * @param sideLength Integer the length of the triangles side
+ * @param cen Array Defaults to [0, 0]
+ * @returns {{topVertex: Array, rightVertex: Array, leftVertex: Array}}
+ */
+export const equilateral = (sideLength, cen = [0, 0]) => {
+    const halfSide = sideLength / 2;
+
+    // Inner innerHypotenuse angle = 120, hyp = half side. Cos 120 * adjacent
+    const innerHypotenuse = halfSide * (1 / Math.cos(30 * PI / 180));
+
+    // SqRt(Hyp^2 - Adj^2) pythagoras
+    const innerOpposite = halfSide * (1 / Math.tan(60 * PI / 180));
+
+    let leftVertex = [];
+    let rightVertex = [];
+    let topVertex = [];
+
+    leftVertex[0] = cen[0] - halfSide;
+    leftVertex[1] = cen[1] + innerOpposite;
+
+    rightVertex[0] = cen[0] + halfSide;
+    rightVertex[1] = cen[1] + innerOpposite;
+
+    topVertex[0] = cen[0];
+    topVertex[1] = cen[1] - innerHypotenuse;
+
+    return {
+        topVertex,
+        rightVertex,
+        leftVertex
+    }
+};
+
+/**
+ * Draws an Equilateral Triangle on the Canvas and validates the data from this.props contains the correct key.
+ * The following parameters are used for the calculation of the equilateral triangles.
+ * @param positionData Array Object array representing the data for each Nanoleaf.
+ * @param sideLength Integer the length of each triangle's side given from the Nanoleaf API
+ * @param onDraw Function callback function which is called when the triangle draw (or re-draw) takes places
+ */
+export const draw = (positionData, sideLength, onDraw = () => {}) => {
+    // Calculate the coords for an equilateral triangle
+    return positionData.map(({ x, y, o, color, strokeColor, panelId }) => {
+        let e = equilateral(sideLength);
+        let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
+
+        const triangle = {
+            x,
+            y,
+            rotation: o,
+            color,
+            strokeColor,
+            path,
+            panelId
+        };
+
+        onDraw(triangle);
+        return triangle
+    });
+};
+
+/**
+ * Returns the integer value of a hexidecimal color code
+ * @param hexString String Hexidecimal color code
  * @returns {number}
  */
-export function getCentroidHeight() {
-  return CENTROID_HEIGHT;
-}
+export const colorAsInt = (hexString) => {
+    if (!hexString) return 0; // cover nulls and undefined
+    return parseInt(hexString.slice(1), 0x10)
+};
 
 /**
- * Maps a cartesian point to a 2D HTML Canvas point
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array where the Screen point x is in position 0 and the screen point Y is in position 1
+ * Handles recalculating values and updating when the layout changes
+ * @returns {Array}
  */
-export function cartesianToScreen(cx, cy, height, width) {
-  let screenX = cx + width / 2;
-  let screenY = height / 2 - cy;
+export const update = (props) => {
+    const showCenter = props.development; // Used for development
 
-  return [screenX, screenY];
-}
+    const {
+        strokeWidth,
+        strokeColor,
+        color,
+        showId,
+        rotation,
+        onHover,
+        onClick,
+        onExit
+    } = props;
+
+    //Sort panels so that strokeColor further from white are later in the array.  This prevents overlapping a non-white strokeColor with white.
+    const panels = draw(props.data.positionData, props.data.sideLength).sort((a, b) => colorAsInt(b.strokeColor) - colorAsInt(a.strokeColor));
+
+    return panels.map((value, key) => {
+        return (
+            <g key={key} transform={`translate(${value.x},${value.y}) rotate(${value.rotation + 60})`} >
+                <path
+                    key={key + '_path'}
+                    d={value.path}
+                    strokeWidth={strokeWidth}
+                    onMouseOver={() => onHover(value) }
+                    onMouseOut={() => onExit(value) }
+                    onClick={() => onClick(value) }
+                    fill={value.color || color}
+                    stroke={value.strokeColor || strokeColor}
+                />
+                {
+                    showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>
+                }
+                {
+                    showId &&
+                    <text key={key + '_text'}
+                          fill="#FFFFFF"
+                          textAnchor="middle"
+                          transform={`scale(-1, 1) rotate(${value.rotation - 120 - rotation})`}
+                          onClick={() => onClick(value)}>
+                        {value.id}
+                    </text>
+                }
+            </g>
+        )
+    })
+};
 
 /**
- * Determines if the given triangle should be rotated
- * @param rotation integer rotation in degrees
- * @returns {boolean} true if the rotation should occur false otherwise
+ * Computes the properties of the equilateral triangle to be drawn as an SVG.
+ * @param props Object React props including the positionData and sideLength properties on the object
+ * @returns {{midX: number, midY: number, minX: number, minY: number, maxX: number, maxY: number, width: number, height: number}}
  */
-export function doRotate(rotation) {
-  return rotation / 60 % 2 !== 0;
-}
+export const compute = (props) => {
+    const { positionData, sideLength } = props.data;
+    let minX = 0;
+    let maxX = 0;
+    let minY = 0;
+    let maxY = 0;
 
-/**
- * Calculates the top most point of the equilateral triangle given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function getTopFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
+    positionData.forEach(panel => {
+        if (panel.x > maxX) {
+            maxX = panel.x
+        }
+        if (panel.x < minX) {
+            minX = panel.x
+        }
+        if (panel.y > maxY) {
+            maxY = panel.y
+        }
+        if (panel.y < minY) {
+            minY = panel.y
+        }
+    });
 
-  return [
-    parseInt(screen[0].toFixed()),
-    parseInt((screen[1] - CENTROID_HEIGHT).toFixed())
-  ];
-}
+    // the min/max are now based on the center of the triangles, so we want to add a sideLength so we're
+    // working with the triangle bounding boxes
+    maxX += sideLength;
+    minX -= sideLength;
+    maxY += sideLength;
+    minY -= sideLength;
 
-/**
- * Calculates the left most point of the equilateral triangle given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function getLeftFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
+    const width = (maxX - minX);
+    const height = (maxY - minY);
 
-  return [
-    parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
-    parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
-  ];
-}
-
-/**
- * Calculates the right most point of the equilateral triangle given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function getRightFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
-
-  return [
-    parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
-    parseInt((screen[1] + CENTROID_HEIGHT).toFixed())
-  ];
-}
-
-/**
- * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function rotateLeftFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
-
-  return [
-    parseInt((screen[0] - CENTROID_HEIGHT).toFixed()),
-    parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
-  ]; //30 is for spacing
-}
-
-/**
- * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function rotateRightFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
-
-  return [
-    parseInt((screen[0] + CENTROID_HEIGHT).toFixed()),
-    parseInt((screen[1] - CENTROID_HEIGHT + 30).toFixed())
-  ];
-}
-
-/**
- * Calculates the left most point of the equilateral triangle that is rotated 180 degrees given the centroid
- * @param cx integer Cartesian X coordinate
- * @param cy integer Cartesian Y coordinate
- * @param height integer the height of the SVG
- * @param width integer the width of the SVG
- * @returns {[*,*]} Array with the x coordinate in the 0 position and the Y coordinate in the 1st position
- */
-export function rotateTopFromCentroid(cx, cy, height, width) {
-  let screen = cartesianToScreen(cx, cy, height, width);
-
-  return [
-    parseInt(screen[0].toFixed()),
-    parseInt((screen[1] + CENTROID_HEIGHT + 30).toFixed())
-  ];
-}
+    return {
+        midX: minX + width / 2,
+        midY:  minY + height / 2,
+        minX,
+        minY,
+        maxX,
+        maxY,
+        width,
+        height
+    }
+};
