@@ -28,9 +28,9 @@ export default class NanoleafLayout extends Component {
         const viewBox = `${minX} ${minY} ${width} ${height}`;
 
         return (
-            <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" >
+            <svg viewBox={viewBox} style={this.props.svgStyle || {}} preserveAspectRatio="xMidYMid meet" >
               {showTrueZero && <circle cx={0} cy={0} r={5} fill="blue" />}
-              <g transform={transform}>
+              <g transform={transform} style={this.props.gStyle || {}}>
                 {Utils.update(this.props)}
                 {showTransZero && <circle cx={0} cy={0} r={5} fill="green" />}
               </g>

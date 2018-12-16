@@ -6,7 +6,6 @@ cache: npm
 before_install:
   - npm i -g npm@latest
   - npm install coveralls mocha chai react-dom enzyme-adapter-react-16 enzyme
-  - npm run test
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
