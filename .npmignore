@@ -1,0 +1,7 @@
+src
+demo
+docs
+__tests__
+.babelrc
+test
+webpack.config.js
