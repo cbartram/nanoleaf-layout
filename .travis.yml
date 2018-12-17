@@ -9,3 +9,8 @@ before_install:
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  -
+deploy:
+  provider: npm
+  email: "cbartram3@gmail.com"
+  api_key: NPM_TOKEN
