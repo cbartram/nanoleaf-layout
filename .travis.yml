@@ -14,3 +14,6 @@ deploy:
   provider: npm
   email: "cbartram3@gmail.com"
   api_key: NPM_TOKEN
+  branches:
+    only:
+      - master

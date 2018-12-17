@@ -1,6 +1,6 @@
 {
     "name": "nanoleaf-layout",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "Uses a React Component to easily take your physical NanoLeaf Layout and display in on a 2D Screen",
     "keyword": [
         "nanoleaf",
@@ -10,7 +10,7 @@
         "component"
     ],
     "scripts": {
-        "deploy": "VERSION_NAME=bugfix PUSH=false sh ./scripts/build.sh",
+        "deploy": "VERSION_NAME=bugfix sh ./scripts/build.sh",
         "build": "webpack --config ./webpack.config.js --mode development",
         "test": "./node_modules/.bin/mocha ./test/* --timeout 4000 --exit --require @babel/register",
         "test:coverage": "npm run test && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
