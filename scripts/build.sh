@@ -7,17 +7,22 @@ NC='\033[0m'
 echo "${GREEN}==================${NC}"
 echo "${GREEN}Starting Build... ${NC}"
 echo "${GREEN}==================${NC}"
+
+# Print Software Versions
 node -v
 npm -v
 git --version
+pwd
 
 # Bundle assets and code with Webpack
 echo "${GREEN}Bundling assets & Running Babel...${NC}"
 webpack --config ./webpack.config.js --mode development
 
 echo "${GREEN}Running Unit Tests...${NC}"
+# Run any unit tests
 npm test
 
+# If Unit tests fail exit
 if [[ $? -eq 1 ]]; then
     echo "${RED}Unit Tests Failed to Pass Fix them and try again.${NC}"
     exit 1;
