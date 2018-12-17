@@ -28,6 +28,8 @@ if [[ $? -eq 1 ]]; then
     exit 1;
 else
     echo "${GREEN}Unit Tests Passed!${NC}"
+    # Also copy the built code to the root so it can be imported like "import foo from 'bar';"
+    cp ./lib/NanoleafLayout.js ./index.js
 fi
 
 echo "${GREEN}Incrementing 'package.json' version${NC}"
@@ -37,20 +39,18 @@ node ./scripts/incrementVersion.js
 
 if [[ $? -eq 0 ]]; then
     echo "${GREEN}Successfully Incremented Package version!${NC}"
-    # Commit and Push with user's authorization
-    git add .
-
-    echo "${GREEN}What is your desired commit message?${NC}"
-    read COMMIT_MESSAGE
-    git commit -m "${COMMIT_MESSAGE}"
-
+    # Push to NPM with user's authorization
     # If PUSH env variable is true then actually perform the deploy
     if [[ PUSH -eq "true" ]]; then
         echo "${GREEN}Pushing and Deploying to NPM${NC}"
-        git push
+        npm login
+        npm publish
+
+        # Remove index.js file from root after everything is published
+        rm ./index.js
         exit 0;
     else
-        echo "${GREEN}Run 'git push' if you would like to push to GitHub and Deploy to NPM${NC}"
+        echo "${GREEN}Run 'npm publish' if you would like to Deploy to NPM${NC}"
         exit 0;
     fi
 else
