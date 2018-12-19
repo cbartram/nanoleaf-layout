@@ -1,76 +1,81 @@
 {
-  "name": "nanoleaf-layout",
-  "version": "2.1.9",
-  "description": "Uses a React Component to easily take your physical Nanoleaf layout and display in on a 2D Screen",
-  "keyword": [
-    "nanoleaf",
-    "layout",
-    "canvas",
-    "react",
-    "component"
-  ],
-  "scripts": {
-    "build": "webpack --config ./webpack.config.js --mode development",
-    "test": "./node_modules/.bin/mocha ./test/* --timeout 4000 --exit --require @babel/register",
-    "test:coverage": "npm run test && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
-  },
-  "dependencies": {
-    "prop-types": "^15.5.10"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "babel-loader": "^8.0.4",
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.7.1",
-    "eslint": "^5.10.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^2.7.0",
-    "eslint-plugin-react": "^7.11.1",
-    "jsdom": "13.0.0",
-    "jsdom-global": "3.0.2",
-    "mocha": "^5.2.0",
-    "mocha-lcov-reporter": "^1.3.0",
-    "prettier": "^1.15.3",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "regenerator-runtime": "^0.10.5",
-    "sinon": "^7.2.2",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
-  },
-  "keywords": [
-    "react",
-    "react-component",
-    "nanoleaf",
-    "layout",
-    "cartesian",
-    "javascript",
-    "babel",
-    "webpack"
-  ],
-  "eslintConfig": {
-    "extends": "airbnb"
-  },
-  "files": [
-    "lib",
-    "es",
-    "umd"
-  ],
-  "homepage": "https://github.com/cbartram/nanoleaf-layout",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cbartram/nanoleaf-layout.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cbartram/nanoleaf-layout/issues"
-  },
-  "author": "Christian Bartram",
-  "license": "MIT"
+    "name": "nanoleaf-layout",
+    "version": "3.0.2",
+    "description": "Uses a React Component to easily take your physical NanoLeaf Layout and display in on a 2D Screen",
+    "keyword": [
+        "nanoleaf",
+        "layout",
+        "canvas",
+        "react",
+        "component"
+    ],
+    "scripts": {
+        "deploy": "VERSION_NAME=bugfix sh ./scripts/build.sh",
+        "build": "webpack --config ./webpack.config.js --mode development",
+        "test": "./node_modules/.bin/mocha ./test/* --timeout 4000 --exit --require @babel/register",
+        "test:coverage": "npm run test && codecov -t 4489cd0c-0404-431a-bb3e-13d09ad89245"
+    },
+    "dependencies": {
+        "prop-types": "^15.5.10"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.2.0",
+        "@babel/preset-env": "^7.2.0",
+        "@babel/preset-react": "^7.0.0",
+        "@babel/register": "^7.0.0",
+        "babel-loader": "^8.0.4",
+        "chai": "^4.2.0",
+        "chalk": "^2.4.1",
+        "coveralls": "^3.0.2",
+        "enzyme": "^3.8.0",
+        "enzyme-adapter-react-16": "^1.7.1",
+        "eslint": "^5.10.0",
+        "eslint-config-airbnb": "^17.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-jsx-a11y": "^6.1.2",
+        "eslint-plugin-prettier": "^2.7.0",
+        "eslint-plugin-react": "^7.11.1",
+        "jsdom": "13.0.0",
+        "jsdom-global": "3.0.2",
+        "mocha": "^5.2.0",
+        "mocha-lcov-reporter": "^1.3.0",
+        "prettier": "^1.15.3",
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3",
+        "regenerator-runtime": "^0.10.5",
+        "sinon": "^7.2.2",
+        "webpack": "^4.27.1",
+        "webpack-cli": "^3.1.2"
+    },
+    "keywords": [
+        "react",
+        "react-component",
+        "nanoleaf",
+        "layout",
+        "cartesian",
+        "javascript",
+        "babel",
+        "webpack"
+    ],
+    "eslintConfig": {
+        "extends": "airbnb"
+    },
+    "files": [
+        "lib",
+        "es",
+        "umd"
+    ],
+    "homepage": "https://cbartram.github.io/nanoleaf-layout-demo",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cbartram/nanoleaf-layout.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cbartram/nanoleaf-layout/issues"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "author": "Christian Bartram",
+    "license": "MIT"
 }

@@ -42,15 +42,13 @@ export const equilateral = (sideLength, cen = [0, 0]) => {
  * The following parameters are used for the calculation of the equilateral triangles.
  * @param positionData Array Object array representing the data for each Nanoleaf.
  * @param sideLength Integer the length of each triangle's side given from the Nanoleaf API
- * @param onDraw Function callback function which is called when the triangle draw (or re-draw) takes places
  */
-export const draw = (positionData, sideLength, onDraw = () => {}) => {
+export const draw = (positionData, sideLength) => {
     // Calculate the coords for an equilateral triangle
     return positionData.map(({ x, y, o, color, strokeColor, panelId }) => {
         let e = equilateral(sideLength);
         let path = `M${e.topVertex[0]} ${e.topVertex[1]} L${e.leftVertex[0]} ${e.leftVertex[1]} L${e.rightVertex[0]} ${e.rightVertex[1]} L${e.topVertex[0]} ${e.topVertex[1]} Z`;
-
-        const triangle = {
+        return {
             x,
             y,
             rotation: o,
@@ -59,9 +57,6 @@ export const draw = (positionData, sideLength, onDraw = () => {}) => {
             path,
             panelId
         };
-
-        onDraw(triangle);
-        return triangle
     });
 };
 
@@ -95,7 +90,6 @@ export const update = (props) => {
 
     //Sort panels so that strokeColor further from white are later in the array.  This prevents overlapping a non-white strokeColor with white.
     const panels = draw(props.data.positionData, props.data.sideLength).sort((a, b) => colorAsInt(b.strokeColor) - colorAsInt(a.strokeColor));
-
     return panels.map((value, key) => {
         return (
             <g key={key} transform={`translate(${value.x},${value.y}) rotate(${value.rotation + 60})`} >
@@ -103,9 +97,9 @@ export const update = (props) => {
                     key={key + '_path'}
                     d={value.path}
                     strokeWidth={strokeWidth}
-                    onMouseOver={() => onHover(value) }
-                    onMouseOut={() => onExit(value) }
-                    onClick={() => onClick(value) }
+                    onMouseOver={() => onHover(value)}
+                    onMouseOut={() => onExit(value)}
+                    onClick={() => onClick(value)}
                     fill={value.color || color}
                     stroke={value.strokeColor || strokeColor}
                 />
