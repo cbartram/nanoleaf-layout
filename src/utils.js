@@ -109,6 +109,7 @@ export const update = (props) => {
         strokeColor,
         color,
         showId,
+        removeEndCaps,
         rotation,
         onHover,
         onClick,
@@ -130,7 +131,9 @@ export const update = (props) => {
                     fill={value.color || color}
                     stroke={value.strokeColor || strokeColor}
                 />
-                {endCaps(value, props.data.sideLength)}
+                {
+                    removeEndCaps && endCaps(value, props.data.sideLength)
+                }
                 {
                     showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>
                 }
