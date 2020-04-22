@@ -71,6 +71,33 @@ export const colorAsInt = (hexString) => {
 };
 
 /**
+ * Returns a <g> with three smaller 'endCap' triangles
+ * @param props
+ * @returns <g>
+ */
+export const endCaps = (panel, sideLength) => {
+  const fill = '#ffffff'
+  const capSize = sideLength * 0.15
+  const points = equilateral(sideLength - capSize)
+  const {path} = draw([panel], capSize).pop()
+
+  return (
+    <g>
+      <g key='top_cap' transform={`translate(${points.topVertex[0]},${points.topVertex[1]})`} >
+        <path d={path} fill={fill} stroke={fill} strokeWidth={2} />
+      </g>
+      <g key='left_cap' transform={`translate(${points.leftVertex[0]},${points.leftVertex[1]})`} >
+        <path d={path} fill={fill} stroke={fill} strokeWidth={2} />
+      </g>
+      <g key='right_cap' transform={`translate(${points.rightVertex[0]},${points.rightVertex[1]})`} >
+        <path d={path} fill={fill} stroke={fill} strokeWidth={2} />
+      </g>
+    </g>
+  )
+}
+
+
+/**
  * Handles recalculating values and updating when the layout changes
  * @returns {Array}
  */
@@ -82,6 +109,7 @@ export const update = (props) => {
         strokeColor,
         color,
         showId,
+        removeEndCaps,
         rotation,
         onHover,
         onClick,
@@ -103,6 +131,9 @@ export const update = (props) => {
                     fill={value.color || color}
                     stroke={value.strokeColor || strokeColor}
                 />
+                {
+                    removeEndCaps && endCaps(value, props.data.sideLength)
+                }
                 {
                     showCenter && <circle key={key + '_circle'} cx={0} cy={0} r={5} fill={'pink'}/>
                 }
